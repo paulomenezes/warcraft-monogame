@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>Windows</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/Cursor.png</File>
+    <File>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/Peasant_walking.png</File>
+    <File>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/Summer Tiles.png</File>
+  </SourceFiles>
+</SourceFileCollection>

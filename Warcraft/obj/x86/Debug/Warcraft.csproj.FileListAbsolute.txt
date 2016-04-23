@@ -1,0 +1,27 @@
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Warcraft.exe
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Warcraft.pdb
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\MonoGame.Framework.dll
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\SharpDX.MediaFoundation.dll
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\SharpDX.dll
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\SharpDX.XAudio2.dll
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\SharpDX.DXGI.dll
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\SharpDX.Direct3D11.dll
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\SharpDX.Direct2D1.dll
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\SharpDX.XInput.dll
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\SharpDX.RawInput.dll
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\SharpDX.Direct3D9.dll
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\MonoGame.Framework.xml
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\SharpDX.MediaFoundation.xml
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\SharpDX.xml
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\SharpDX.XAudio2.xml
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\SharpDX.DXGI.xml
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\SharpDX.Direct3D11.xml
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\SharpDX.XInput.xml
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\SharpDX.RawInput.xml
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\obj\x86\Debug\Warcraft.exe
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\obj\x86\Debug\Warcraft.pdb
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\Cursor.xnb
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\Peasant_walking.xnb
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\Summer Tiles.xnb

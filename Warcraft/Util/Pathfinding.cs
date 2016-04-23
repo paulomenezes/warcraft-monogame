@@ -10,34 +10,10 @@ using System.Threading.Tasks;
 
 namespace Warcraft.Util
 {
-    class Point
-    {
-        public int x;
-        public int y;
-
-        public int F;
-        public int G;
-        public int H;
-
-        public Point parent;
-
-        public Point(int x, int y, int g, int h, Point parent)
-        {
-            this.x = x;
-            this.y = y;
-
-            this.F = g + h;
-            this.G = g;
-            this.H = h;
-
-            this.parent = parent;
-        }
-    }
-
     class Pathfinding
     {
-        List<Point> openList = new List<Point>();
-        List<Point> closeList = new List<Point>();
+        List<PathNode> openList = new List<PathNode>();
+        List<PathNode> closeList = new List<PathNode>();
 
         ManagerMap managerMap;
 
@@ -63,7 +39,7 @@ namespace Warcraft.Util
             this.goalX = goalX;
             this.goalY = goalY;
 
-            Point current = new Point(posX, posY, 0, 0, null);
+            PathNode current = new PathNode(posX, posY, 0, 0, null);
 
             openList.Clear();
             closeList.Clear();
@@ -76,7 +52,7 @@ namespace Warcraft.Util
             return false;
         }
 
-        public List<Point> DiscoverPath()
+        public List<PathNode> DiscoverPath()
         {
             while (openList.Count > 0)
             {
@@ -92,7 +68,7 @@ namespace Warcraft.Util
                 }
 
                 closeList.Add(openList[index]);
-                Point current = openList[index];
+                PathNode current = openList[index];
 
                 if (current.x == goalX && current.y == goalY)
                     break;
@@ -105,31 +81,27 @@ namespace Warcraft.Util
 
         public void FindNeighbourhood(int index)
         {
-            int count = openList.Count;
-            for (int j = 0; j < count; j++)
+            for (int i = 0; i < neighbourhood.Length; i++)
             {
-                for (int i = 0; i < neighbourhood.Length; i++)
+                int x = openList[index].x + neighbourhood[i][0];
+                int y = openList[index].y + neighbourhood[i][1];
+
+                if (!CheckWalls(x, y) && !CheckOpen(x, y))
                 {
-                    int x = openList[j].x + neighbourhood[i][0];
-                    int y = openList[j].y + neighbourhood[i][1];
+                    int h = Math.Abs(x - goalX) + Math.Abs(y - goalY) + openList[index].H;
 
-                    int h = Math.Abs(x - goalX) + Math.Abs(y - goalY);
-
-                    if (!CheckWalls(x, y) && !CheckOpen(x, y))
-                    {
-                        Point c = new Point(x, y, i > 3 ? 14 : 10, h, openList[j]);
-                        openList.Add(c);
-                    }
+                    PathNode c = new PathNode(x, y, i > 3 ? 14 : 10, h, openList[index]);
+                    openList.Add(c);
                 }
             }
 
             openList.RemoveAt(index);
         }
 
-        public List<Point> FindPath()
+        public List<PathNode> FindPath()
         {
-            List<Point> path = new List<Point>();
-            Point p = closeList.Last();
+            List<PathNode> path = new List<PathNode>();
+            PathNode p = closeList.Last();
             while (p.parent != null)
             {
                 path.Add(p);
@@ -143,17 +115,12 @@ namespace Warcraft.Util
 
         private bool CheckWalls(int pointX, int pointY)
         {
-            for (int i = 0; i < managerMap.walls.Count; i++)
-            {
-                if ((managerMap.walls[i].TileX == pointX && managerMap.walls[i].TileY == pointY) || pointX < 0 || pointY < 0 || 
-                    pointX + 1 > Warcraft.WINDOWS_WIDTH / Warcraft.TILE_SIZE || 
-                    pointY + 1 > Warcraft.WINDOWS_HEIGHT / Warcraft.TILE_SIZE)
-                {
-                    return true;
-                }
-            }
+            if (pointX < 0 || pointY < 0 ||
+                pointX + 1 > Warcraft.WINDOWS_WIDTH / Warcraft.TILE_SIZE ||
+                pointY + 1 > Warcraft.WINDOWS_HEIGHT / Warcraft.TILE_SIZE)
+                return true;
 
-            return false;
+            return managerMap.walls.Any(i => i.TileX == pointX && i.TileY == pointY);
         }
 
         private bool CheckOpen(int pointX, int pointY)

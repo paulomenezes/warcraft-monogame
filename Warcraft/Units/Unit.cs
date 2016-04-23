@@ -29,7 +29,7 @@ namespace Warcraft.Units
         protected int speed;
 
         Pathfinding pathfinding;
-        List<Util.Point> path;
+        List<Util.PathNode> path;
 
         public Unit(int tileX, int tileY, int width, int height, int speed, ManagerMouse managerMouse, ManagerMap managerMap)
         {
@@ -50,7 +50,9 @@ namespace Warcraft.Units
         private void ManagerMouse_MouseClickEventHandler(object sender, Events.MouseClickEventArgs e)
         {
             if (selected)
+            {
                 Move(e.XTile, e.YTile);
+            }
         }
 
         private void ManagerMouse_MouseEventHandler(object sender, Events.MouseEventArgs e)
@@ -69,65 +71,7 @@ namespace Warcraft.Units
             
             if (transition)
             {
-                if (position.X < goal.X && position.Y < goal.Y)
-                {
-                    position.X += speed;
-                    position.Y += speed;
-
-                    animations.Play("right");
-                }
-                else if (position.X < goal.X && position.Y > goal.Y)
-                {
-                    position.X += speed;
-                    position.Y -= speed;
-                    animations.Play("left");
-                }
-                else if (position.X > goal.X && position.Y < goal.Y)
-                {
-                    position.X -= speed;
-                    position.Y += speed;
-                    animations.Play("down");
-                }
-                else if (position.X > goal.X && position.Y > goal.Y)
-                {
-                    position.X -= speed;
-                    position.Y -= speed;
-                    animations.Play("up");
-                }
-                else if (position.X < goal.X)
-                {
-                    position.X += speed;
-                    animations.Play("right");
-                }
-                else if (position.X > goal.X)
-                {
-                    position.X -= speed;
-                    animations.Play("left");
-                }
-                else if (position.Y < goal.Y)
-                {
-                    position.Y += speed;
-                    animations.Play("down");
-                }
-                else if (position.Y > goal.Y)
-                {
-                    position.Y -= speed;
-                    animations.Play("up");
-                }
-
-                if (position.X == goal.X && position.Y == goal.Y)
-                {
-                    if (path.Count > 0)
-                    {
-                        goal = new Vector2(path.First().x * 32, path.First().y * 32);
-                        path.RemoveAt(0);
-                    }
-                    else
-                        transition = false;
-                }
-
-                rectangle.X = (int)position.X;
-                rectangle.Y = (int)position.Y;
+                UpdateTransition();
             }
             else
             {
@@ -137,7 +81,12 @@ namespace Warcraft.Units
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, animations.rectangle, Color.White);
+            if (animations.FlipX())
+                spriteBatch.Draw(texture, position, animations.rectangle, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
+            else if (animations.FlipY())
+                spriteBatch.Draw(texture, position, animations.rectangle, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipVertically, 0);
+            else
+                spriteBatch.Draw(texture, position, animations.rectangle, Color.White);
 
             if (selected)
                 SelectRectangle.Draw(spriteBatch, rectangle);
@@ -152,6 +101,68 @@ namespace Warcraft.Units
 
             goal = new Vector2(path.First().x * 32, path.First().y * 32);
             path.RemoveAt(0);
+        }
+
+        public void UpdateTransition()
+        {
+            if (position.X < goal.X && position.Y < goal.Y)
+            {
+                position.X += speed;
+                position.Y += speed;
+                animations.Play("downRight");
+            }
+            else if (position.X < goal.X && position.Y > goal.Y)
+            {
+                position.X += speed;
+                position.Y -= speed;
+                animations.Play("upRight");
+            }
+            else if (position.X > goal.X && position.Y < goal.Y)
+            {
+                position.X -= speed;
+                position.Y += speed;
+                animations.Play("downLeft");
+            }
+            else if (position.X > goal.X && position.Y > goal.Y)
+            {
+                position.X -= speed;
+                position.Y -= speed;
+                animations.Play("upLeft");
+            }
+            else if (position.X < goal.X)
+            {
+                position.X += speed;
+                animations.Play("right");
+            }
+            else if (position.X > goal.X)
+            {
+                position.X -= speed;
+                animations.Play("left");
+            }
+            else if (position.Y < goal.Y)
+            {
+                position.Y += speed;
+                animations.Play("down");
+            }
+            else if (position.Y > goal.Y)
+            {
+                position.Y -= speed;
+                animations.Play("up");
+            }
+
+            if (position.X == goal.X && position.Y == goal.Y)
+            {
+                if (path.Count > 0)
+                {
+                    goal = new Vector2(path.First().x * 32, path.First().y * 32);
+                    path.RemoveAt(0);
+                }
+                else
+                    transition = false;
+            }
+
+            rectangle.X = (int)position.X;
+            rectangle.Y = (int)position.Y;
         }
     }
 }

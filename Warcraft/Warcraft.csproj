@@ -40,6 +40,10 @@
   <ItemGroup>
     <Compile Include="Events\MouseClickEventArgs.cs" />
     <Compile Include="Events\MouseEventArgs.cs" />
+    <Compile Include="Managers\ManagerUnits.cs" />
+    <Compile Include="Util\Frame.cs" />
+    <Compile Include="Util\PathNode.cs" />
+    <Compile Include="Util\Sprite.cs" />
     <Compile Include="Warcraft.cs" />
     <Compile Include="Managers\ManagerMap.cs" />
     <Compile Include="Managers\ManagerMouse.cs" />

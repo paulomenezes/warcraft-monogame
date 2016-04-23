@@ -10,7 +10,7 @@ namespace Warcraft.Util
 {
     class Animation
     {
-        public Dictionary<string, int[]> animations = new Dictionary<string, int[]>();
+        public Dictionary<string, Frame> animations = new Dictionary<string, Frame>();
 
         private List<Sprite> sprites = new List<Sprite>();
         private bool play = false;
@@ -25,7 +25,7 @@ namespace Warcraft.Util
 
         private string current;
 
-        public Animation(List<Sprite> sprites, Dictionary<string, int[]> animations, string initial, int width, int height)
+        public Animation(List<Sprite> sprites, Dictionary<string, Frame> animations, string initial, int width, int height)
         {
             this.sprites = sprites;
             this.animations = animations;
@@ -37,13 +37,23 @@ namespace Warcraft.Util
 
         public void Play(string animation)
         {
-            this.current = animation;
-            this.play = true;
+            current = animation;
+            play = true;
         }
 
         public void Stop()
         {
-            this.play = false;
+            play = false;
+        }
+
+        public bool FlipX()
+        {
+            return animations[current].flipX;
+        }
+
+        public bool FlipY()
+        {
+            return animations[current].flipY;
         }
 
         public void Update()
@@ -65,8 +75,8 @@ namespace Warcraft.Util
                 index = 0;
             }
 
-            rectangle = new Rectangle(sprites[animations[current][index]].x - (width - sprites[animations[current][index]].width) / 2, 
-                                      sprites[animations[current][index]].y - (height - sprites[animations[current][index]].height) / 2, 
+            rectangle = new Rectangle(sprites[animations[current].sequence[index]].x - (width - sprites[animations[current].sequence[index]].width) / 2, 
+                                      sprites[animations[current].sequence[index]].y - (height - sprites[animations[current].sequence[index]].height) / 2, 
                                       width, height);
         }
     }

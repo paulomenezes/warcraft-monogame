@@ -3,11 +3,8 @@ using Warcraft.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Warcraft.Units
 {
@@ -50,9 +47,7 @@ namespace Warcraft.Units
         private void ManagerMouse_MouseClickEventHandler(object sender, Events.MouseClickEventArgs e)
         {
             if (selected)
-            {
                 Move(e.XTile, e.YTile);
-            }
         }
 
         private void ManagerMouse_MouseEventHandler(object sender, Events.MouseEventArgs e)
@@ -70,13 +65,9 @@ namespace Warcraft.Units
             animations.Update();
             
             if (transition)
-            {
                 UpdateTransition();
-            }
             else
-            {
                 animations.Stop();
-            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -94,13 +85,15 @@ namespace Warcraft.Units
 
         public void Move(int xTile, int yTile)
         {
-            transition = true;
+            if (pathfinding.SetGoal((int)position.X, (int)position.Y, xTile, yTile))
+            {
+                transition = true;
 
-            pathfinding.SetGoal((int)position.X, (int)position.Y, xTile * 32, yTile * 32);
-            path = pathfinding.DiscoverPath();
+                path = pathfinding.DiscoverPath();
 
-            goal = new Vector2(path.First().x * 32, path.First().y * 32);
-            path.RemoveAt(0);
+                goal = new Vector2(path.First().x * 32, path.First().y * 32);
+                path.RemoveAt(0);
+            }
         }
 
         public void UpdateTransition()

@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Diagnostics;
 using Warcraft.Managers;
-using Warcraft.Units.Humans;
 using Warcraft.Util;
 
 namespace Warcraft

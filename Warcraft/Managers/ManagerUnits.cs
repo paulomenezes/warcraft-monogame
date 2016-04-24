@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Warcraft.Units;
 using Warcraft.Units.Humans;
 
@@ -16,7 +12,7 @@ namespace Warcraft.Managers
 
         public ManagerUnits(ManagerMouse managerMouse, ManagerMap managerMap)
         {
-            for (int i = 3; i < 8; i++)
+            for (int i = 3; i < 15; i++)
             {
                 units.Add(new Peasant(3, i, managerMouse, managerMap));
             }

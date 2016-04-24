@@ -1,12 +1,7 @@
 ﻿using Warcraft.Managers;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Warcraft.Util
 {
@@ -33,12 +28,34 @@ namespace Warcraft.Util
             posX = posX / 32;
             posY = posY / 32;
 
-            goalX = goalX / 32;
-            goalY = goalY / 32;
-
             this.goalX = goalX;
             this.goalY = goalY;
 
+            if (posX == goalX && posY == goalY)
+                return false;
+
+            if (!CheckWalls(this.goalX, this.goalY))
+                return Reset(posX, posY);
+            else
+            {
+                for (int i = 0; i < neighbourhood.Length; i++)
+                {
+                    this.goalX = this.goalX + neighbourhood[i][0];
+                    this.goalY = this.goalY + neighbourhood[i][1];
+
+                    if (posX == this.goalX && posY == this.goalY)
+                        return false;
+
+                    if (!CheckWalls(this.goalX, this.goalY))
+                        return Reset(posX, posY);
+                }
+            }
+
+            return false;
+        }
+
+        private bool Reset(int posX, int posY)
+        {
             PathNode current = new PathNode(posX, posY, 0, 0, null);
 
             openList.Clear();
@@ -49,7 +66,7 @@ namespace Warcraft.Util
 
             FindNeighbourhood(0);
 
-            return false;
+            return true;
         }
 
         public List<PathNode> DiscoverPath()

@@ -8,15 +8,24 @@ using System.Linq;
 
 namespace Warcraft.Units
 {
+    enum WorkigState
+    {
+        NOTHING,
+        WAITING_PLACE,
+        GO_TO_WORK,
+        WORKING
+    }
+
     abstract class Unit
     {
         protected Texture2D texture;
         protected Animation animations;
 
-        private Vector2 position;
+        public Vector2 position;
         private Vector2 goal;
 
-        private bool selected;
+        public WorkigState workState = WorkigState.NOTHING;
+        public bool selected;
         private bool transition;
 
         private Rectangle rectangle;
@@ -25,10 +34,15 @@ namespace Warcraft.Units
         protected int height;
         protected int speed;
 
+        public UI.UI ui;
+        protected string textureName;
+
+        public InformationUnit information;
+
         Pathfinding pathfinding;
         List<Util.PathNode> path;
 
-        public Unit(int tileX, int tileY, int width, int height, int speed, ManagerMouse managerMouse, ManagerMap managerMap)
+        public Unit(int tileX, int tileY, int width, int height, int speed, ManagerMouse managerMouse, ManagerMap managerMap, ManagerBuildings managerBuildings)
         {
             this.width = width;
             this.height = height;
@@ -46,46 +60,78 @@ namespace Warcraft.Units
 
         private void ManagerMouse_MouseClickEventHandler(object sender, Events.MouseClickEventArgs e)
         {
-            if (selected)
+            if (selected && workState == WorkigState.NOTHING)
                 Move(e.XTile, e.YTile);
         }
 
         private void ManagerMouse_MouseEventHandler(object sender, Events.MouseEventArgs e)
         {
-            if (rectangle.Intersects(e.SelectRectangle))
-                selected = true;
-            else
-                selected = false;
+            if (!e.UI && workState == WorkigState.NOTHING)
+            {
+                if (rectangle.Intersects(e.SelectRectangle))
+                    selected = true;
+                else
+                    selected = false;
+            }
         }
 
-        public abstract void LoadContent(ContentManager content);
+        public virtual void LoadContent(ContentManager content)
+        {
+            texture = content.Load<Texture2D>(textureName);
+            ui.LoadContent(content);
+        }
 
-        public void Update()
+        public virtual void Update()
         {
             animations.Update();
-            
+            ui.Update();
+
             if (transition)
                 UpdateTransition();
             else
                 animations.Stop();
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
-            if (animations.FlipX())
-                spriteBatch.Draw(texture, position, animations.rectangle, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
-            else if (animations.FlipY())
-                spriteBatch.Draw(texture, position, animations.rectangle, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipVertically, 0);
-            else
-                spriteBatch.Draw(texture, position, animations.rectangle, Color.White);
+            if (workState != WorkigState.WORKING)
+            {
+                if (animations.FlipX())
+                    spriteBatch.Draw(texture, position, animations.rectangle, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
+                else if (animations.FlipY())
+                    spriteBatch.Draw(texture, position, animations.rectangle, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipVertically, 0);
+                else
+                    spriteBatch.Draw(texture, position, animations.rectangle, Color.White);
+            }
 
             if (selected)
+            {
                 SelectRectangle.Draw(spriteBatch, rectangle);
+                ui.Draw(spriteBatch);
+            }
         }
 
         public void Move(int xTile, int yTile)
         {
             if (pathfinding.SetGoal((int)position.X, (int)position.Y, xTile, yTile))
+            {
+                path = pathfinding.DiscoverPath();
+                if (path.Count > 0)
+                {
+                    transition = true;
+                    goal = new Vector2(path.First().x * 32, path.First().y * 32);
+                    path.RemoveAt(0);
+                } 
+                else
+                {
+                    position = new Vector2(xTile * 32, yTile * 32);
+                }
+            }
+        }
+
+        public void MoveTo(int xTile, int yTile)
+        {
+            if (pathfinding.SetGoal((int)position.X, (int)position.Y, (int)position.X / 32 + xTile, (int)position.Y / 32 + yTile))
             {
                 transition = true;
 
@@ -151,7 +197,14 @@ namespace Warcraft.Units
                     path.RemoveAt(0);
                 }
                 else
+                {
                     transition = false;
+                    if (workState == WorkigState.GO_TO_WORK)
+                    {
+                        workState = WorkigState.WORKING;
+                        selected = false;
+                    }
+                }
             }
 
             rectangle.X = (int)position.X;

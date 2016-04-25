@@ -38,12 +38,32 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Buildings\Building.cs" />
+    <Compile Include="Buildings\Humans\Barracks.cs" />
+    <Compile Include="Buildings\Humans\ChickenFarm.cs" />
+    <Compile Include="Buildings\Humans\TownHall.cs" />
+    <Compile Include="Buildings\InformationBuilding.cs" />
+    <Compile Include="Commands\Builder.cs" />
+    <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Events\MouseClickEventArgs.cs" />
     <Compile Include="Events\MouseEventArgs.cs" />
+    <Compile Include="Managers\ManagerBuildings.cs" />
+    <Compile Include="Managers\ManagerUI.cs" />
     <Compile Include="Managers\ManagerUnits.cs" />
+    <Compile Include="UI\Buildings\Barracks.cs" />
+    <Compile Include="UI\Buildings\ChickenFarm.cs" />
+    <Compile Include="UI\Buildings\TownHall.cs" />
+    <Compile Include="UI\Button.cs" />
+    <Compile Include="UI\Main.cs" />
+    <Compile Include="UI\UI.cs" />
+    <Compile Include="UI\Units\Peasant.cs" />
+    <Compile Include="Units\InformationUnit.cs" />
+    <Compile Include="Util\Information.cs" />
+    <Compile Include="Util\Buildings.cs" />
     <Compile Include="Util\Frame.cs" />
     <Compile Include="Util\PathNode.cs" />
     <Compile Include="Util\Sprite.cs" />
+    <Compile Include="Util\Units.cs" />
     <Compile Include="Warcraft.cs" />
     <Compile Include="Managers\ManagerMap.cs" />
     <Compile Include="Managers\ManagerMouse.cs" />

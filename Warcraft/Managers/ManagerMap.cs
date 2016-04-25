@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using System.Linq;
 
 namespace Warcraft.Managers
 {
@@ -49,6 +51,34 @@ namespace Warcraft.Managers
         {
             map.ForEach((item) => item.Draw(spriteBatch));
             walls.ForEach((item) => item.Draw(spriteBatch));
+        }
+
+        public void AddWalls(Vector2 position, int xQuantity, int yQuantity)
+        {
+            for (int i = 0; i < xQuantity; i++)
+                for (int j = 1; j < yQuantity; j++)
+                    walls.Add(new Map.Tile(((int)position.X / 32) + i, ((int)position.Y / 32) + j));
+        }
+
+        public bool CheckWalls(Vector2 position, int xQuantity, int yQuantity)
+        {
+            int pointX = (int)position.X / 32;
+            int pointY = (int)position.Y / 32;
+
+            if (pointX < 0 || pointY < 0 ||
+                pointX + 1 > Warcraft.WINDOWS_WIDTH / Warcraft.TILE_SIZE ||
+                pointY + 1 > Warcraft.WINDOWS_HEIGHT / Warcraft.TILE_SIZE)
+                return true;
+
+            for (int k = 0; k < walls.Count; k++)
+            {
+                for (int i = 0; i < xQuantity; i++)
+                    for (int j = 1; j < yQuantity; j++)
+                        if (walls[k].TileX == pointX + i && walls[k].TileY == pointY + j)
+                            return true;
+            }
+
+            return false;
         }
     }
 }

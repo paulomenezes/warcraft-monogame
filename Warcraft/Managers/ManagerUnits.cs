@@ -10,11 +10,11 @@ namespace Warcraft.Managers
     {
         List<Unit> units = new List<Unit>();
 
-        public ManagerUnits(ManagerMouse managerMouse, ManagerMap managerMap)
+        public ManagerUnits(ManagerMouse managerMouse, ManagerMap managerMap, ManagerBuildings managerBuildings)
         {
-            for (int i = 3; i < 15; i++)
+            for (int i = 3; i < 5; i++)
             {
-                units.Add(new Peasant(3, i, managerMouse, managerMap));
+                units.Add(new Peasant(3, i, managerMouse, managerMap, managerBuildings));
             }
         }
         
@@ -31,6 +31,18 @@ namespace Warcraft.Managers
         public void Draw(SpriteBatch spriteBatch)
         {
             units.ForEach((u) => u.Draw(spriteBatch));
+        }
+
+        public List<Unit> GetSelected()
+        {
+            List<Unit> selecteds = new List<Unit>(); ;
+            for (int i = 0; i < units.Count; i++)
+            {
+                if (units[i].selected)
+                    selecteds.Add(units[i]);
+            }
+
+            return selecteds;
         }
     }
 }

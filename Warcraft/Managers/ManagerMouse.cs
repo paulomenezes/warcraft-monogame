@@ -70,7 +70,7 @@ namespace Warcraft.Managers
             else
             {
                 if (oldState.LeftButton == ButtonState.Pressed)
-                    mouseEventHandler?.Invoke(this, new MouseEventArgs(selectRectangle));
+                    mouseEventHandler?.Invoke(this, new MouseEventArgs(mouse.X > Warcraft.WINDOWS_WIDTH ? true : false, selectRectangle));
 
                 mouseDown = false;
             }
@@ -81,9 +81,7 @@ namespace Warcraft.Managers
         public void Draw(SpriteBatch spriteBatch)
         {
             if (mouseDown)
-            {
                 SelectRectangle.Draw(spriteBatch, selectRectangle);
-            }
         }
     }
 }

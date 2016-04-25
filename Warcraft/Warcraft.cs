@@ -14,17 +14,19 @@ namespace Warcraft
         ManagerMap managerMap = new ManagerMap();
         ManagerMouse managerMouse = new ManagerMouse();
 
+        ManagerUI managerUI;
         ManagerUnits managerUnits;
+        ManagerBuildings managerBuildings;
 
-        public static int WINDOWS_WIDTH = 1216;
+        public static int WINDOWS_WIDTH = 960;
         public static int WINDOWS_HEIGHT = 608;
         public static int TILE_SIZE = 32;
         
         public Warcraft()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1216;
-            graphics.PreferredBackBufferHeight = 608;
+            graphics.PreferredBackBufferWidth = WINDOWS_WIDTH + 200;
+            graphics.PreferredBackBufferHeight = WINDOWS_HEIGHT;
 
             Content.RootDirectory = "Content";
 
@@ -33,7 +35,9 @@ namespace Warcraft
 
         protected override void Initialize()
         {
-            managerUnits = new ManagerUnits(managerMouse, managerMap);
+            managerBuildings = new ManagerBuildings(managerMouse, managerMap);
+            managerUnits = new ManagerUnits(managerMouse, managerMap, managerBuildings);
+            managerUI = new ManagerUI(managerMouse, managerBuildings , managerUnits);
 
             base.Initialize();
         }
@@ -44,6 +48,8 @@ namespace Warcraft
             
             managerMap.LoadContent(Content);
             managerUnits.LoadContent(Content);
+            managerBuildings.LoadContent(Content);
+            managerUI.LoadContent(Content);
             SelectRectangle.LoadContent(Content);
         }
 
@@ -54,6 +60,8 @@ namespace Warcraft
             
             managerMouse.Update();
             managerUnits.Update();
+            managerBuildings.Update();
+            managerUI.Update();
 
             base.Update(gameTime);
         }
@@ -66,6 +74,8 @@ namespace Warcraft
             managerMap.Draw(spriteBatch);
             managerMouse.Draw(spriteBatch);
             managerUnits.Draw(spriteBatch);
+            managerBuildings.Draw(spriteBatch);
+            managerUI.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

@@ -6,9 +6,11 @@ namespace Warcraft.Events
     class MouseEventArgs : EventArgs
     {
         public Rectangle SelectRectangle;
+        public bool UI;
 
-        public MouseEventArgs(Rectangle selectRectangle)
+        public MouseEventArgs(bool ui, Rectangle selectRectangle)
         {
+            UI = ui;
             SelectRectangle = selectRectangle;
         }
     }

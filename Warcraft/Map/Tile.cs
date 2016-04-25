@@ -5,25 +5,34 @@ namespace Warcraft.Map
 {
     class Tile
     {
-        private Texture2D texture;
+        public static Texture2D texture;
         private Rectangle rectangle;
         private Vector2 position;
 
         public int TileX;
         public int TileY;
 
-        public Tile(int tileX, int tileY, int textureX, int textureY)
+        public Tile(int tileX, int tileY)
         {
-            this.TileX = tileX;
-            this.TileY = tileY;
+            TileX = tileX;
+            TileY = tileY;
 
-            this.position = new Vector2(tileX * Warcraft.TILE_SIZE, tileY * Warcraft.TILE_SIZE);
-            this.rectangle = new Rectangle(textureX * (Warcraft.TILE_SIZE + 1), textureY * (Warcraft.TILE_SIZE + 1), Warcraft.TILE_SIZE, Warcraft.TILE_SIZE);
+            rectangle = new Rectangle(0, 0, -1, -1);
         }
 
-        public void LoadContent(Texture2D texture)
+        public Tile(int tileX, int tileY, int textureX, int textureY)
         {
-            this.texture = texture;
+            TileX = tileX;
+            TileY = tileY;
+
+            position = new Vector2(tileX * Warcraft.TILE_SIZE, tileY * Warcraft.TILE_SIZE);
+            rectangle = new Rectangle(textureX * (Warcraft.TILE_SIZE + 1), textureY * (Warcraft.TILE_SIZE + 1), Warcraft.TILE_SIZE, Warcraft.TILE_SIZE);
+        }
+
+        public void LoadContent(Texture2D _texture)
+        {
+            if (texture == null)
+                texture = _texture;
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -7,11 +7,12 @@ namespace Warcraft.Util
     {
         public Dictionary<string, Frame> animations = new Dictionary<string, Frame>();
 
-        private List<Sprite> sprites = new List<Sprite>();
+        public List<Sprite> sprites = new List<Sprite>();
         private bool play = false;
 
         public Rectangle rectangle;
 
+        private int speed = 5;
         private int elapsed;
         private int index;
 
@@ -19,6 +20,9 @@ namespace Warcraft.Util
         private int height;
 
         private string current;
+
+        private bool isLooping = true;
+        public bool completed = false;
 
         public Animation(List<Sprite> sprites, Dictionary<string, Frame> animations, string initial, int width, int height)
         {
@@ -28,6 +32,13 @@ namespace Warcraft.Util
 
             this.width = width;
             this.height = height;
+        }
+
+        public Animation(List<Sprite> sprites, Dictionary<string, Frame> animations, string initial, int width, int height, bool repeat, int speed)
+            : this(sprites, animations, initial, width, height)
+        {
+            isLooping = repeat;
+            this.speed = speed;
         }
 
         public void Play(string animation)
@@ -56,18 +67,28 @@ namespace Warcraft.Util
             if (play)
             {
                 elapsed++;
-                if (elapsed > 5)
+                if (elapsed > speed)
                 {
                     index++;
                     elapsed = 0;
 
-                    if (index > 4)
-                        index = 0;
+                    if (index >= animations[current].sequence.Length)
+                    {
+                        if (isLooping)
+                            index = 0;
+                        else
+                        {
+                            index--;
+                            play = false;
+                            completed = true;
+                        }
+                    }
                 }
             }
             else
             {
-                index = 0;
+                if (isLooping)
+                    index = 0;
             }
 
             rectangle = new Rectangle(sprites[animations[current].sequence[index]].x - (width - sprites[animations[current].sequence[index]].width) / 2, 

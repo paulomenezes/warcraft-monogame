@@ -82,13 +82,13 @@ namespace Warcraft.Units.Humans
 
             for (int i = 0; i < commands.Count; i++)
             {
-                if (workState == WorkigState.WORKING && !(commands[i] as Builder).building.isStartBuilding)
+                if (workState == WorkigState.WORKING && (commands[i] as Builder).building.isBuilding && (commands[i] as Builder).building.isPlaceSelected && !(commands[i] as Builder).building.isStartBuilding)
                     (commands[i] as Builder).building.StartBuilding();
 
-                if (workState == WorkigState.WAITING_PLACE && (commands[i] as Builder).building.isPlaceSelected && !(commands[i] as Builder).building.isStartBuilding)
+                if (workState == WorkigState.WAITING_PLACE && (commands[i] as Builder).building.isPlaceSelected) // && !(commands[i] as Builder).building.isStartBuilding)
                 {
-                    Move((int)(commands[i] as Builder).building.position.X / 32, (int)(commands[i] as Builder).building.position.Y / 32);
                     workState = WorkigState.GO_TO_WORK;
+                    Move((int)(commands[i] as Builder).building.position.X / 32, (int)(commands[i] as Builder).building.position.Y / 32);
                     selected = false;
                 }
 

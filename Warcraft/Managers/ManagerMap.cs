@@ -17,7 +17,7 @@ namespace Warcraft.Managers
         {
             for (int i = 0; i < Warcraft.WINDOWS_WIDTH / 32; i++)
             {
-                for (int j = 0; j < Warcraft.WINDOWS_WIDTH / 32; j++)
+                for (int j = 0; j < Warcraft.WINDOWS_HEIGHT / 32; j++)
                 {
                     map.Add(new Tile(i, j, 0, 14));
                 }

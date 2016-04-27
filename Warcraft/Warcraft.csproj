@@ -58,6 +58,7 @@
     <Compile Include="UI\UI.cs" />
     <Compile Include="UI\Units\Peasant.cs" />
     <Compile Include="Units\InformationUnit.cs" />
+    <Compile Include="Util\Camera.cs" />
     <Compile Include="Util\Information.cs" />
     <Compile Include="Util\Buildings.cs" />
     <Compile Include="Util\Frame.cs" />

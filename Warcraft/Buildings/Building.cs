@@ -59,7 +59,9 @@ namespace Warcraft.Buildings
             {
                 if (isBuilding && e.SelectRectangle.Width == 0 && e.SelectRectangle.Height == 0 &&
                     !managerMap.CheckWalls(position, width / 32, height / 32))
+                {
                     isPlaceSelected = true;
+                }
 
                 if (isWorking)
                 {

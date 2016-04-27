@@ -21,6 +21,8 @@ namespace Warcraft
         public static int WINDOWS_WIDTH = 960;
         public static int WINDOWS_HEIGHT = 608;
         public static int TILE_SIZE = 32;
+
+        Camera camera;
         
         public Warcraft()
         {
@@ -38,6 +40,8 @@ namespace Warcraft
             managerBuildings = new ManagerBuildings(managerMouse, managerMap);
             managerUnits = new ManagerUnits(managerMouse, managerMap, managerBuildings);
             managerUI = new ManagerUI(managerMouse, managerBuildings , managerUnits);
+
+            camera = new Camera(GraphicsDevice.Viewport);
 
             base.Initialize();
         }
@@ -63,6 +67,8 @@ namespace Warcraft
             managerBuildings.Update();
             managerUI.Update();
 
+            camera.Update(gameTime);
+
             base.Update(gameTime);
         }
 
@@ -70,11 +76,14 @@ namespace Warcraft
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.transform);
             managerMap.Draw(spriteBatch);
             managerMouse.Draw(spriteBatch);
             managerUnits.Draw(spriteBatch);
             managerBuildings.Draw(spriteBatch);
+            spriteBatch.End();
+
+            spriteBatch.Begin();
             managerUI.Draw(spriteBatch);
             spriteBatch.End();
 

@@ -53,15 +53,8 @@ namespace Warcraft.Units
             position = new Vector2(tileX * Warcraft.TILE_SIZE, tileY * Warcraft.TILE_SIZE);
 
             managerMouse.MouseEventHandler += ManagerMouse_MouseEventHandler;
-            managerMouse.MouseClickEventHandler += ManagerMouse_MouseClickEventHandler;
 
             rectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
-        }
-
-        private void ManagerMouse_MouseClickEventHandler(object sender, Events.MouseClickEventArgs e)
-        {
-            if (selected && workState == WorkigState.NOTHING)
-                Move(e.XTile, e.YTile);
         }
 
         private void ManagerMouse_MouseEventHandler(object sender, Events.MouseEventArgs e)

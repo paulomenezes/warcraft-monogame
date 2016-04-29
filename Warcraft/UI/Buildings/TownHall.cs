@@ -14,11 +14,14 @@ namespace Warcraft.UI.Buildings
     class TownHall : UI
     {
         TownHallBuilding townHall;
-        
+        List<Button> builder = new List<Button>();
+
         public TownHall(ManagerMouse managerMouse, TownHallBuilding townHall)
         {
             buttonPortrait = new Button(0, 4);
-            
+
+            builder.Add(new Button(0, 260, 0, 0));
+
             this.townHall = townHall;
 
             if (managerMouse != null)
@@ -49,6 +52,8 @@ namespace Warcraft.UI.Buildings
             if (DrawIndividual)
             {
                 buttonPortrait.Draw(spriteBatch);
+
+                builder.ForEach((b) => b.Draw(spriteBatch));
 
                 spriteBatch.DrawString(font, townHall.information.Name, new Vector2(minX + 50, 100), Color.Black);
                 spriteBatch.DrawString(font, "Gold: " + 0, new Vector2(minX, 150), Color.Black);

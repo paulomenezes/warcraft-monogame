@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using Warcraft.Units;
 using Warcraft.Units.Humans;
@@ -12,12 +13,29 @@ namespace Warcraft.Managers
 
         public ManagerUnits(ManagerMouse managerMouse, ManagerMap managerMap, ManagerBuildings managerBuildings)
         {
-            for (int i = 3; i < 5; i++)
-            {
+            managerMouse.MouseClickEventHandler += ManagerMouse_MouseClickEventHandler;
+
+            for (int i = 3; i < 15; i++)
                 units.Add(new Peasant(3, i, managerMouse, managerMap, managerBuildings));
+        }
+
+        private void ManagerMouse_MouseClickEventHandler(object sender, Events.MouseClickEventArgs e)
+        {
+            List<Unit> selecteds = GetSelected();
+
+            int x = 0, y = 0;
+            for (int i = 0; i < selecteds.Count; i++)
+            {
+                selecteds[i].Move(e.XTile + x, e.YTile + y);
+                x++;
+                if (x > Math.Sqrt(selecteds.Count))
+                {
+                    x = 0;
+                    y++;
+                }
             }
         }
-        
+
         public void LoadContent(ContentManager content)
         {
             units.ForEach((u) => u.LoadContent(content));

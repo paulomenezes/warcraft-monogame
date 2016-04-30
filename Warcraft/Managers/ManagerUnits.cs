@@ -23,14 +23,16 @@ namespace Warcraft.Managers
         {
             List<Unit> selecteds = GetSelected();
 
-            int x = 0, y = 0;
+            int threshold = (int)Math.Sqrt(selecteds.Count) / 2;
+            int x = -threshold;
+            int y = x;
             for (int i = 0; i < selecteds.Count; i++)
             {
                 selecteds[i].Move(e.XTile + x, e.YTile + y);
                 x++;
-                if (x > Math.Sqrt(selecteds.Count))
+                if (x > threshold)
                 {
-                    x = 0;
+                    x = -threshold;
                     y++;
                 }
             }

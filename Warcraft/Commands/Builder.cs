@@ -27,12 +27,7 @@ namespace Warcraft.Commands
             this.managerMouse = managerMouse;
             this.managerBuildings = managerBuildings;
 
-            if (building == Util.Buildings.TOWN_HALL)
-                this.building = new Buildings.Humans.TownHall(0, 0, managerMouse, managerBuildings.managerMap);
-            else if (building == Util.Buildings.BARRACKS)
-                this.building = new Buildings.Humans.Barracks(0, 0, managerMouse, managerBuildings.managerMap);
-            else if (building == Util.Buildings.CHICKEN_FARM)
-                this.building = new Buildings.Humans.ChickenFarm(0, 0, managerMouse, managerBuildings.managerMap);
+            this.building = Buildings.Building.Factory(building, managerMouse, managerBuildings.managerMap);
         }
 
         public void execute()
@@ -54,12 +49,7 @@ namespace Warcraft.Commands
             if (!building.isBuilding && building.isWorking)
             {
                 managerBuildings.AddBuilding(building);
-                if (building is Buildings.Humans.TownHall)
-                    building = new Buildings.Humans.TownHall(0, 0, managerMouse, managerBuildings.managerMap);
-                else if (building is Buildings.Humans.Barracks)
-                    building = new Buildings.Humans.Barracks(0, 0, managerMouse, managerBuildings.managerMap);
-                else if (building is Buildings.Humans.ChickenFarm)
-                    building = new Buildings.Humans.ChickenFarm(0, 0, managerMouse, managerBuildings.managerMap);
+                building = Buildings.Building.Factory((building.information as Buildings.InformationBuilding).Type, managerMouse, managerBuildings.managerMap);
 
                 builder.workState = WorkigState.NOTHING;
                 builder.position.Y += 32 * 2;

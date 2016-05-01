@@ -14,7 +14,7 @@ namespace Warcraft.Buildings.Humans
         public TownHall(int tileX, int tileY, ManagerMouse managerMouse, ManagerMap managerMap) : 
             base(tileX, tileY, 128, 128, managerMouse, managerMap)
         {
-            information = new InformationBuilding("Town Hall", 1200, 1200, 800, Util.Units.PEASANT, 300);
+            information = new InformationBuilding("Town Hall", 1200, 1200, 800, Util.Units.PEASANT, 300, Util.Buildings.TOWN_HALL);
 
             List<Sprite> sprites = new List<Sprite>();
             // BUILDING

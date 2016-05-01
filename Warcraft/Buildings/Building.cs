@@ -53,10 +53,27 @@ namespace Warcraft.Buildings
             rectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
         }
 
+        public static Building Factory(Util.Buildings type, ManagerMouse managerMouse, ManagerMap managerMap)
+        {
+            Building building = null;
+
+            if (type == Util.Buildings.TOWN_HALL)
+                building = new Humans.TownHall(0, 0, managerMouse, managerMap);
+            else if (type == Util.Buildings.BARRACKS)
+                building = new Humans.Barracks(0, 0, managerMouse, managerMap);
+            else if (type == Util.Buildings.CHICKEN_FARM)
+                building = new Humans.ChickenFarm(0, 0, managerMouse, managerMap);
+
+            return building;
+        }
+
         private void ManagerMouse_MouseEventHandler(object sender, MouseEventArgs e)
         {
             if (!e.UI)
             {
+                position.X = (float)Math.Floor(position.X / 32) * 32;
+                position.Y = (float)Math.Floor(position.Y / 32) * 32;
+
                 if (isBuilding && e.SelectRectangle.Width == 0 && e.SelectRectangle.Height == 0 &&
                     !managerMap.CheckWalls(position, width / 32, height / 32))
                 {

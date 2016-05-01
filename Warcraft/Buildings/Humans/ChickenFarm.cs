@@ -13,7 +13,7 @@ namespace Warcraft.Buildings.Humans
         public ChickenFarm(int tileX, int tileY, ManagerMouse managerMouse, ManagerMap managerMap) : 
             base(tileX, tileY, 64, 64, managerMouse, managerMap)
         {
-            information = new InformationBuilding("Chicken Farm", 800, 700, 450, Util.Units.PEASANT, 300);
+            information = new InformationBuilding("Chicken Farm", 800, 700, 450, Util.Units.PEASANT, 300, Util.Buildings.CHICKEN_FARM);
 
             List<Sprite> sprites = new List<Sprite>();
             // BUILDING

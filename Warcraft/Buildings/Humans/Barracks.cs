@@ -13,7 +13,7 @@ namespace Warcraft.Buildings.Humans
         public Barracks(int tileX, int tileY, ManagerMouse managerMouse, ManagerMap managerMap) : 
             base(tileX, tileY, 128, 128, managerMouse, managerMap)
         {
-            information = new InformationBuilding("Barracks", 800, 700, 450, Util.Units.PEASANT, 500);
+            information = new InformationBuilding("Barracks", 800, 700, 450, Util.Units.PEASANT, 500, Util.Buildings.BARRACKS);
 
             List<Sprite> sprites = new List<Sprite>();
             // BUILDING

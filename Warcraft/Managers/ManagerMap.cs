@@ -56,8 +56,8 @@ namespace Warcraft.Managers
         public void AddWalls(Vector2 position, int xQuantity, int yQuantity)
         {
             for (int i = 0; i < xQuantity; i++)
-                for (int j = 1; j < yQuantity; j++)
-                    walls.Add(new Map.Tile(((int)position.X / 32) + i, ((int)position.Y / 32) + j));
+                for (int j = 0; j < yQuantity; j++)
+                    walls.Add(new Tile(((int)position.X / 32) + i, ((int)position.Y / 32) + j));
         }
 
         public bool CheckWalls(Vector2 position, int xQuantity, int yQuantity)

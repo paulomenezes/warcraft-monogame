@@ -43,7 +43,8 @@
     <Compile Include="Buildings\Humans\ChickenFarm.cs" />
     <Compile Include="Buildings\Humans\TownHall.cs" />
     <Compile Include="Buildings\InformationBuilding.cs" />
-    <Compile Include="Commands\Builder.cs" />
+    <Compile Include="Commands\BuilderBuildings.cs" />
+    <Compile Include="Commands\BuilderUnits.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Events\MouseClickEventArgs.cs" />
     <Compile Include="Events\MouseEventArgs.cs" />

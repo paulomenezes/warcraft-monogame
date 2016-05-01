@@ -11,6 +11,7 @@ using Warcraft.Events;
 using Microsoft.Xna.Framework.Content;
 using Warcraft.Units;
 using Microsoft.Xna.Framework.Input;
+using Warcraft.Commands;
 
 namespace Warcraft.Buildings
 {
@@ -19,6 +20,7 @@ namespace Warcraft.Buildings
         public static Texture2D texture;
         public Animation animations;
 
+        protected Point target;
         public Vector2 position;
 
         public bool selected;
@@ -38,7 +40,9 @@ namespace Warcraft.Buildings
         public bool isWorking = false;
 
         ManagerMap managerMap;
-        
+
+        public List<ICommand> commands = new List<ICommand>();
+
         public Building(int tileX, int tileY, int width, int height, ManagerMouse managerMouse, ManagerMap managerMap)
         {
             this.width = width;
@@ -47,18 +51,20 @@ namespace Warcraft.Buildings
             this.managerMap = managerMap;
 
             position = new Vector2(tileX * Warcraft.TILE_SIZE, tileY * Warcraft.TILE_SIZE);
+            target = new Point(tileX + ((width / Warcraft.TILE_SIZE) / 2), tileY + ((height / Warcraft.TILE_SIZE) / 2));
 
             managerMouse.MouseEventHandler += ManagerMouse_MouseEventHandler;
+            managerMouse.MouseClickEventHandler += ManagerMouse_MouseClickEventHandler;
 
             rectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
         }
 
-        public static Building Factory(Util.Buildings type, ManagerMouse managerMouse, ManagerMap managerMap)
+        public static Building Factory(Util.Buildings type, ManagerMouse managerMouse, ManagerMap managerMap, ManagerUnits managerUnits)
         {
             Building building = null;
 
             if (type == Util.Buildings.TOWN_HALL)
-                building = new Humans.TownHall(0, 0, managerMouse, managerMap);
+                building = new Humans.TownHall(0, 0, managerMouse, managerMap, managerUnits);
             else if (type == Util.Buildings.BARRACKS)
                 building = new Humans.Barracks(0, 0, managerMouse, managerMap);
             else if (type == Util.Buildings.CHICKEN_FARM)
@@ -90,6 +96,12 @@ namespace Warcraft.Buildings
             }
         }
 
+        private void ManagerMouse_MouseClickEventHandler(object sender, MouseClickEventArgs e)
+        {
+            if (selected)
+                target = new Point(e.XTile, e.YTile);
+        }
+
         public void StartBuilding()
         {
             animations.Play("building");
@@ -97,10 +109,11 @@ namespace Warcraft.Buildings
 
             managerMap.AddWalls(position, width / 32, height / 32);
 
+            target = new Point(((int)position.X / 32) + ((width / Warcraft.TILE_SIZE) / 2), ((int)position.Y / 32) + ((height / Warcraft.TILE_SIZE)));
             rectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
         }
 
-        public void LoadContent(ContentManager content)
+        public virtual void LoadContent(ContentManager content)
         {
             if (texture == null)
                 texture = content.Load<Texture2D>(textureName);
@@ -108,7 +121,7 @@ namespace Warcraft.Buildings
             ui.LoadContent(content);
         }
 
-        public void Update()
+        public virtual void Update()
         {
             animations.Update();
             ui.Update();
@@ -139,6 +152,7 @@ namespace Warcraft.Buildings
             if (selected)
             {
                 SelectRectangle.Draw(spriteBatch, rectangle);
+                SelectRectangle.Draw(spriteBatch, new Rectangle(target.X * 32, target.Y * 32, 32, 32), Color.Blue);
                 ui.Draw(spriteBatch);
             }
         }

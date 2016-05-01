@@ -18,7 +18,7 @@ namespace Warcraft.Units
 
     abstract class Unit
     {
-        protected Texture2D texture;
+        protected static Texture2D texture;
         protected Animation animations;
 
         public Vector2 position;
@@ -51,7 +51,7 @@ namespace Warcraft.Units
             pathfinding = new Pathfinding(managerMap);
 
             position = new Vector2(tileX * Warcraft.TILE_SIZE, tileY * Warcraft.TILE_SIZE);
-
+            
             managerMouse.MouseEventHandler += ManagerMouse_MouseEventHandler;
 
             rectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
@@ -70,7 +70,9 @@ namespace Warcraft.Units
 
         public virtual void LoadContent(ContentManager content)
         {
-            texture = content.Load<Texture2D>(textureName);
+            if (texture == null)
+                texture = content.Load<Texture2D>(textureName);
+
             ui.LoadContent(content);
         }
 

@@ -41,5 +41,10 @@ namespace Warcraft.UI
         {
             spriteBatch.Draw(portraits, position, new Rectangle(TextureX, TextureY, 48, 36), Color.White);
         }
+
+        public void Draw(SpriteBatch spriteBatch, Vector2 newPosition)
+        {
+            spriteBatch.Draw(portraits, newPosition, new Rectangle(TextureX, TextureY, 48, 36), Color.White);
+        }
     }
 }

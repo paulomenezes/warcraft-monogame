@@ -11,23 +11,25 @@ using Warcraft.Util;
 
 namespace Warcraft.Commands
 {
-    class Builder : ICommand
+    class BuilderBuildings : ICommand
     {
         public Buildings.Building building;
 
         private ManagerBuildings managerBuildings;
         private ManagerMouse managerMouse;
+        ManagerUnits managerUnits;
 
         private Unit builder;
 
-        public Builder(Util.Buildings building, Unit builder, ManagerMouse managerMouse, ManagerBuildings managerBuildings)
+        public BuilderBuildings(Util.Buildings building, Unit builder, ManagerMouse managerMouse, ManagerBuildings managerBuildings, ManagerUnits managerUnits)
         {
             this.builder = builder;
 
             this.managerMouse = managerMouse;
+            this.managerUnits = managerUnits;
             this.managerBuildings = managerBuildings;
 
-            this.building = Buildings.Building.Factory(building, managerMouse, managerBuildings.managerMap);
+            this.building = Buildings.Building.Factory(building, managerMouse, managerBuildings.managerMap, managerUnits);
         }
 
         public void execute()
@@ -49,7 +51,7 @@ namespace Warcraft.Commands
             if (!building.isBuilding && building.isWorking)
             {
                 managerBuildings.AddBuilding(building);
-                building = Buildings.Building.Factory((building.information as Buildings.InformationBuilding).Type, managerMouse, managerBuildings.managerMap);
+                building = Buildings.Building.Factory((building.information as Buildings.InformationBuilding).Type, managerMouse, managerBuildings.managerMap, managerUnits);
 
                 builder.workState = WorkigState.NOTHING;
                 builder.position.Y += 32 * 2;

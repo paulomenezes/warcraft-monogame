@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/Cursor.png</SourceFile>
-  <SourceTime>2016-04-22T17:32:07.2888923-03:00</SourceTime>
+  <SourceTime>2016-05-01T13:21:17.681035-03:00</SourceTime>
   <DestFile>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/bin/Windows/Cursor.xnb</DestFile>
-  <DestTime>2016-04-23T00:04:08.7086997-03:00</DestTime>
+  <DestTime>2016-05-01T13:21:19.9118478-03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2016-03-30T03:36:08-03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

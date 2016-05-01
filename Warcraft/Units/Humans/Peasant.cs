@@ -11,7 +11,7 @@ namespace Warcraft.Units.Humans
     {
         public List<ICommand> commands = new List<ICommand>();
 
-        public Peasant(int tileX, int tileY, ManagerMouse managerMouse, ManagerMap managerMap, ManagerBuildings managerBuildings) 
+        public Peasant(int tileX, int tileY, ManagerMouse managerMouse, ManagerMap managerMap, ManagerBuildings managerBuildings, ManagerUnits managerUnits) 
             : base(tileX, tileY, 32, 32, 2, managerMouse, managerMap, managerBuildings)
         {
             List<Sprite> sprites = new List<Sprite>();
@@ -63,9 +63,9 @@ namespace Warcraft.Units.Humans
 
             information = new InformationUnit("Peasant", Race.HUMAN, Faction.ALLIANCE, 30, 0, 4, 10, 400, 1, Util.Buildings.TOWN_HALL, 45, 1, 5, 1);
 
-            commands.Add(new Builder(Util.Buildings.TOWN_HALL, this, managerMouse, managerBuildings));
-            commands.Add(new Builder(Util.Buildings.BARRACKS, this, managerMouse, managerBuildings));
-            commands.Add(new Builder(Util.Buildings.CHICKEN_FARM, this, managerMouse, managerBuildings));
+            commands.Add(new BuilderBuildings(Util.Buildings.TOWN_HALL, this, managerMouse, managerBuildings, managerUnits));
+            commands.Add(new BuilderBuildings(Util.Buildings.BARRACKS, this, managerMouse, managerBuildings, managerUnits));
+            commands.Add(new BuilderBuildings(Util.Buildings.CHICKEN_FARM, this, managerMouse, managerBuildings, managerUnits));
         }
 
         public override void LoadContent(ContentManager content)
@@ -73,7 +73,7 @@ namespace Warcraft.Units.Humans
             base.LoadContent(content);
 
             for (int i = 0; i < commands.Count; i++)
-                (commands[i] as Builder).LoadContent(content);
+                (commands[i] as BuilderBuildings).LoadContent(content);
         }
 
         public override void Update()
@@ -83,21 +83,21 @@ namespace Warcraft.Units.Humans
             for (int i = 0; i < commands.Count; i++)
             {
                 if (workState == WorkigState.WORKING && 
-                    (commands[i] as Builder).building.isBuilding && 
-                    (commands[i] as Builder).building.isPlaceSelected && 
-                    !(commands[i] as Builder).building.isStartBuilding)
+                    (commands[i] as BuilderBuildings).building.isBuilding && 
+                    (commands[i] as BuilderBuildings).building.isPlaceSelected && 
+                    !(commands[i] as BuilderBuildings).building.isStartBuilding)
 
-                    (commands[i] as Builder).building.StartBuilding();
+                    (commands[i] as BuilderBuildings).building.StartBuilding();
 
                 if (workState == WorkigState.WAITING_PLACE && 
-                    (commands[i] as Builder).building.isPlaceSelected)
+                    (commands[i] as BuilderBuildings).building.isPlaceSelected)
                 {
                     workState = WorkigState.GO_TO_WORK;
-                    Move((int)(commands[i] as Builder).building.position.X / 32, (int)(commands[i] as Builder).building.position.Y / 32);
+                    Move((int)(commands[i] as BuilderBuildings).building.position.X / 32, (int)(commands[i] as BuilderBuildings).building.position.Y / 32);
                     selected = false;
                 }
 
-                (commands[i] as Builder).Update();
+                (commands[i] as BuilderBuildings).Update();
             }
         }
 
@@ -106,7 +106,7 @@ namespace Warcraft.Units.Humans
             base.Draw(spriteBatch);
 
             for (int i = 0; i < commands.Count; i++)
-                (commands[i] as Builder).Draw(spriteBatch);
+                (commands[i] as BuilderBuildings).Draw(spriteBatch);
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Warcraft.Commands;
 using Warcraft.Managers;
 using BarracksBuilding = Warcraft.Buildings.Humans.Barracks;
 
@@ -14,10 +15,15 @@ namespace Warcraft.UI.Buildings
     class Barracks : UI
     {
         BarracksBuilding barracks;
+        List<Button> builder = new List<Button>();
+
+        List<int> commandsOrder = new List<int>();
 
         public Barracks(ManagerMouse managerMouse, BarracksBuilding barracks)
         {
             buttonPortrait = new Button(2, 4);
+            builder.Add(new Button(0, 260, 4, 0));
+            builder.Add(new Button(50, 260, 2, 0));
 
             this.barracks = barracks;
 
@@ -29,7 +35,20 @@ namespace Warcraft.UI.Buildings
         {
             if (barracks.selected && e.SelectRectangle.Width == 0 && e.SelectRectangle.Height == 0)
             {
+                for (int i = 0; i < builder.Count; i++)
+                {
+                    if (e.SelectRectangle.Intersects(builder[i].rectangle))
+                    {
+                        if (commandsOrder.Count < 9)
+                        {
+                            if (commandsOrder.Count == 0)
+                                barracks.commands[i].execute();
 
+                            commandsOrder.Add(i);
+                        }
+                        break;
+                    }
+                }
             }
         }
 
@@ -41,7 +60,15 @@ namespace Warcraft.UI.Buildings
 
         public override void Update()
         {
-
+            for (int i = commandsOrder.Count - 1; i >= 0; i--)
+            {
+                if ((barracks.commands[commandsOrder[i]] as BuilderUnits).remove)
+                {
+                    commandsOrder.RemoveAt(i);
+                    if (commandsOrder.Count > 0)
+                        barracks.commands[commandsOrder[0]].execute();
+                }
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -49,6 +76,17 @@ namespace Warcraft.UI.Buildings
             if (DrawIndividual)
             {
                 buttonPortrait.Draw(spriteBatch);
+
+                builder.ForEach((b) => b.Draw(spriteBatch));
+
+                int y = 0;
+                for (int i = 0; i < commandsOrder.Count; i++)
+                {
+                    if (i > 0 && i % 3 == 0)
+                        y++;
+
+                    builder[commandsOrder[i]].Draw(spriteBatch, new Vector2(minX + (50 * (i % 3)), 300 + (38 * y)));
+                }
 
                 spriteBatch.DrawString(font, barracks.information.Name, new Vector2(minX + 50, 100), Color.Black);
             }

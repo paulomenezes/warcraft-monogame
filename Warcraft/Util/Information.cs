@@ -10,7 +10,8 @@ namespace Warcraft.Util
     enum Race
     {
         HUMAN,
-        ORC
+        ORC,
+        HIGH_ELF
     }
 
     enum Faction

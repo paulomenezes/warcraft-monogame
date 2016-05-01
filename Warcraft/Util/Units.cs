@@ -8,6 +8,8 @@ namespace Warcraft.Util
 {
     enum Units
     {
-        PEASANT
+        PEASANT,
+        FOOTMAN,
+        ELVEN_ARCHER
     }
 }

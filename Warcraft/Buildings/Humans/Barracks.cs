@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Warcraft.Commands;
 using Warcraft.Managers;
 using Warcraft.Util;
 
@@ -10,8 +12,8 @@ namespace Warcraft.Buildings.Humans
 {
     class Barracks : Building
     {
-        public Barracks(int tileX, int tileY, ManagerMouse managerMouse, ManagerMap managerMap) : 
-            base(tileX, tileY, 128, 128, managerMouse, managerMap)
+        public Barracks(int tileX, int tileY, ManagerMouse managerMouse, ManagerMap managerMap, ManagerUnits managerUnits) : 
+            base(tileX, tileY, 128, 128, managerMouse, managerMap, managerUnits)
         {
             information = new InformationBuilding("Barracks", 800, 700, 450, Util.Units.PEASANT, 500, Util.Buildings.BARRACKS);
 
@@ -29,6 +31,28 @@ namespace Warcraft.Buildings.Humans
 
             ui = new UI.Buildings.Barracks(managerMouse, this);
             textureName = "Human Buildings (Summer)";
+
+            commands.Add(new BuilderUnits(Util.Units.ELVEN_ARCHER, information.BuildTime));
+            commands.Add(new BuilderUnits(Util.Units.FOOTMAN, information.BuildTime));
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            for (int i = 0; i < commands.Count; i++)
+            {
+                var c = (commands[i] as BuilderUnits);
+                c.Update();
+
+                if (c.completed)
+                {
+                    var p = new Point(((int)position.X / 32) + ((width / Warcraft.TILE_SIZE) / 2), ((int)position.Y / 32) + ((height / Warcraft.TILE_SIZE)));
+                    managerUnits.Factory(c.type, p.X, p.Y, target.X, target.Y);
+                    c.completed = false;
+                    c.remove = true;
+                }
+            }
         }
     }
 }

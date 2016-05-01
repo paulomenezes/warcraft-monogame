@@ -13,10 +13,8 @@ namespace Warcraft.Buildings.Humans
 {
     class TownHall : Building
     {
-        ManagerUnits managerUnits;
-
         public TownHall(int tileX, int tileY, ManagerMouse managerMouse, ManagerMap managerMap, ManagerUnits managerUnits) : 
-            base(tileX, tileY, 128, 128, managerMouse, managerMap)
+            base(tileX, tileY, 128, 128, managerMouse, managerMap, managerUnits)
         {
             information = new InformationBuilding("Town Hall", 1200, 1200, 800, Util.Units.PEASANT, 300, Util.Buildings.TOWN_HALL);
 
@@ -36,8 +34,6 @@ namespace Warcraft.Buildings.Humans
             textureName = "Human Buildings (Summer)";
 
             commands.Add(new BuilderUnits(Util.Units.PEASANT, information.BuildTime));
-
-            this.managerUnits = managerUnits;
         }
 
         public override void Update()

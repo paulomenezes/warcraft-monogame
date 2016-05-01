@@ -40,15 +40,17 @@ namespace Warcraft.Buildings
         public bool isWorking = false;
 
         ManagerMap managerMap;
+        protected ManagerUnits managerUnits;
 
         public List<ICommand> commands = new List<ICommand>();
 
-        public Building(int tileX, int tileY, int width, int height, ManagerMouse managerMouse, ManagerMap managerMap)
+        public Building(int tileX, int tileY, int width, int height, ManagerMouse managerMouse, ManagerMap managerMap, ManagerUnits managerUnits)
         {
             this.width = width;
             this.height = height;
 
             this.managerMap = managerMap;
+            this.managerUnits = managerUnits;
 
             position = new Vector2(tileX * Warcraft.TILE_SIZE, tileY * Warcraft.TILE_SIZE);
             target = new Point(tileX + ((width / Warcraft.TILE_SIZE) / 2), tileY + ((height / Warcraft.TILE_SIZE) / 2));
@@ -66,9 +68,9 @@ namespace Warcraft.Buildings
             if (type == Util.Buildings.TOWN_HALL)
                 building = new Humans.TownHall(0, 0, managerMouse, managerMap, managerUnits);
             else if (type == Util.Buildings.BARRACKS)
-                building = new Humans.Barracks(0, 0, managerMouse, managerMap);
+                building = new Humans.Barracks(0, 0, managerMouse, managerMap, managerUnits);
             else if (type == Util.Buildings.CHICKEN_FARM)
-                building = new Humans.ChickenFarm(0, 0, managerMouse, managerMap);
+                building = new Humans.ChickenFarm(0, 0, managerMouse, managerMap, managerUnits);
 
             return building;
         }

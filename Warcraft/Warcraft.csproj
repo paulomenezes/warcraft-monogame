@@ -57,7 +57,11 @@
     <Compile Include="UI\Button.cs" />
     <Compile Include="UI\Main.cs" />
     <Compile Include="UI\UI.cs" />
+    <Compile Include="UI\Units\ElvenArcher.cs" />
+    <Compile Include="UI\Units\Footman.cs" />
     <Compile Include="UI\Units\Peasant.cs" />
+    <Compile Include="Units\Humans\ElvenArcher.cs" />
+    <Compile Include="Units\Humans\Footman.cs" />
     <Compile Include="Units\InformationUnit.cs" />
     <Compile Include="Util\Camera.cs" />
     <Compile Include="Util\Information.cs" />

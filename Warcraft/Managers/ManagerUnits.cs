@@ -15,6 +15,8 @@ namespace Warcraft.Managers
         ManagerMap managerMap;
         ManagerBuildings managerBuildings;
 
+        ContentManager content;
+
         public ManagerUnits(ManagerMouse managerMouse, ManagerMap managerMap, ManagerBuildings managerBuildings)
         {
             this.managerMouse = managerMouse;
@@ -30,10 +32,15 @@ namespace Warcraft.Managers
         public void Factory(Util.Units type, int x, int y, int targetX, int targetY)
         {
             if (type == Util.Units.PEASANT)
-            {
                 units.Add(new Peasant(x, y, managerMouse, managerMap, managerBuildings, this));
-                units[units.Count - 1].Move(targetX, targetY);
-            }
+            else if (type == Util.Units.ELVEN_ARCHER)
+                units.Add(new ElvenArcher(x, y, managerMouse, managerMap, managerBuildings, this));
+            else if (type == Util.Units.FOOTMAN)
+                units.Add(new Footman(x, y, managerMouse, managerMap, managerBuildings, this));
+
+            units[units.Count - 1].Move(targetX, targetY);
+
+            LoadContent();
         }
 
         private void ManagerMouse_MouseClickEventHandler(object sender, Events.MouseClickEventArgs e)
@@ -54,8 +61,16 @@ namespace Warcraft.Managers
             }
         }
 
+        public void LoadContent()
+        {
+            units.ForEach((u) => u.LoadContent(content));
+        }
+
         public void LoadContent(ContentManager content)
         {
+            if (this.content == null)
+                this.content = content;
+
             units.ForEach((u) => u.LoadContent(content));
         }
 

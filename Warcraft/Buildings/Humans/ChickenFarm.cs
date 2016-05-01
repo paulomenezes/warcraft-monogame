@@ -10,8 +10,8 @@ namespace Warcraft.Buildings.Humans
 {
     class ChickenFarm : Building
     {
-        public ChickenFarm(int tileX, int tileY, ManagerMouse managerMouse, ManagerMap managerMap) : 
-            base(tileX, tileY, 64, 64, managerMouse, managerMap)
+        public ChickenFarm(int tileX, int tileY, ManagerMouse managerMouse, ManagerMap managerMap, ManagerUnits managerUnits) : 
+            base(tileX, tileY, 64, 64, managerMouse, managerMap, managerUnits)
         {
             information = new InformationBuilding("Chicken Farm", 800, 700, 450, Util.Units.PEASANT, 300, Util.Buildings.CHICKEN_FARM);
 

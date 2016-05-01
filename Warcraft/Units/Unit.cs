@@ -18,7 +18,7 @@ namespace Warcraft.Units
 
     abstract class Unit
     {
-        protected static Texture2D texture;
+        protected Texture2D texture;
         protected Animation animations;
 
         public Vector2 position;
@@ -70,9 +70,7 @@ namespace Warcraft.Units
 
         public virtual void LoadContent(ContentManager content)
         {
-            if (texture == null)
-                texture = content.Load<Texture2D>(textureName);
-
+            texture = content.Load<Texture2D>(textureName);
             ui.LoadContent(content);
         }
 

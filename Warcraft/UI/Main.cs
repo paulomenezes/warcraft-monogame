@@ -53,7 +53,7 @@ namespace Warcraft.UI
                         b++;
                     }
                     else
-                        buttons.Add(new Button(50 * (i % 3), 100 + (38 * y), 0, 0));
+                        buttons.Add(new Button(50 * (i % 3), 100 + (38 * y), unitsSelecteds[i].ui.buttonPortrait.TextureX, unitsSelecteds[i].ui.buttonPortrait.TextureY, true));
                 }
             }
             else

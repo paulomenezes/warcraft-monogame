@@ -15,15 +15,16 @@ namespace Warcraft.Util
 
         public static void Draw(SpriteBatch spriteBatch, Rectangle rectangle)
         {
-            Draw(spriteBatch, rectangle, Color.Black);
+            spriteBatch.Draw(texture, new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, 1), Color.Black);
+            spriteBatch.Draw(texture, new Rectangle(rectangle.X, rectangle.Y, 1, rectangle.Height), Color.Black);
+            spriteBatch.Draw(texture, new Rectangle(rectangle.X, rectangle.Y + rectangle.Height, rectangle.Width, 1), Color.Black);
+            spriteBatch.Draw(texture, new Rectangle(rectangle.X + rectangle.Width, rectangle.Y, 1, rectangle.Height), Color.Black);
         }
 
-        public static void Draw(SpriteBatch spriteBatch, Rectangle rectangle, Color color)
+        public static void DrawTarget(SpriteBatch spriteBatch, Rectangle rectangle)
         {
-            spriteBatch.Draw(texture, new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, 1), color);
-            spriteBatch.Draw(texture, new Rectangle(rectangle.X, rectangle.Y, 1, rectangle.Height), color);
-            spriteBatch.Draw(texture, new Rectangle(rectangle.X, rectangle.Y + rectangle.Height, rectangle.Width, 1), color);
-            spriteBatch.Draw(texture, new Rectangle(rectangle.X + rectangle.Width, rectangle.Y, 1, rectangle.Height), color);
+            spriteBatch.Draw(texture, new Rectangle(rectangle.X, rectangle.Y + rectangle.Height / 2, rectangle.Width, 1), Color.Blue);
+            spriteBatch.Draw(texture, new Rectangle(rectangle.X + rectangle.Width / 2, rectangle.Y, 1, rectangle.Height), Color.Blue);
         }
     }
 }

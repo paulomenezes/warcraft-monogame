@@ -24,6 +24,7 @@ namespace Warcraft.Buildings
         public Vector2 position;
 
         public bool selected;
+        public bool unselected = false;
         protected int width;
         protected int height;
 
@@ -154,7 +155,9 @@ namespace Warcraft.Buildings
             if (selected)
             {
                 SelectRectangle.Draw(spriteBatch, rectangle);
-                SelectRectangle.Draw(spriteBatch, new Rectangle(target.X * 32, target.Y * 32, 32, 32), Color.Blue);
+                if (!unselected)
+                    SelectRectangle.DrawTarget(spriteBatch, new Rectangle(target.X * 32, target.Y * 32, 32, 32));
+
                 ui.Draw(spriteBatch);
             }
         }

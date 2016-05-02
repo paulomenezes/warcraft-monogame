@@ -29,6 +29,8 @@ namespace Warcraft.Buildings.Humans
 
             ui = new UI.Buildings.ChickenFarm(managerMouse, this);
             textureName = "Human Buildings (Summer)";
+
+            unselected = true;
         }
     }
 }

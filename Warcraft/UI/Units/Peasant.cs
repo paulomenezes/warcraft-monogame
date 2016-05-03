@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -25,11 +21,12 @@ namespace Warcraft.UI.Units
         {
             buttonPortrait = new Button(0, 0);
             buttonBuilder = new Button(0, 260, 7, 8);
-            buttonCancel = new Button(0, 300, 1, 9);
+            buttonCancel = new Button(0, 380, 1, 9);
 
             builder.Add(new Button(0, 260, 0, 4));
             builder.Add(new Button(50, 260, 2, 4));
             builder.Add(new Button(100, 260, 8, 3));
+            builder.Add(new Button(0, 300, 4, 7));
 
             this.peasant = peasant;
 

@@ -43,9 +43,11 @@
     <Compile Include="Buildings\Humans\ChickenFarm.cs" />
     <Compile Include="Buildings\Humans\TownHall.cs" />
     <Compile Include="Buildings\InformationBuilding.cs" />
+    <Compile Include="Buildings\Neutral\GoldMine.cs" />
     <Compile Include="Commands\BuilderBuildings.cs" />
     <Compile Include="Commands\BuilderUnits.cs" />
     <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\Miner.cs" />
     <Compile Include="Events\MouseClickEventArgs.cs" />
     <Compile Include="Events\MouseEventArgs.cs" />
     <Compile Include="Managers\ManagerBuildings.cs" />
@@ -53,6 +55,7 @@
     <Compile Include="Managers\ManagerUnits.cs" />
     <Compile Include="UI\Buildings\Barracks.cs" />
     <Compile Include="UI\Buildings\ChickenFarm.cs" />
+    <Compile Include="UI\Buildings\GoldMine.cs" />
     <Compile Include="UI\Buildings\TownHall.cs" />
     <Compile Include="UI\Button.cs" />
     <Compile Include="UI\Main.cs" />
@@ -80,7 +83,7 @@
     <Compile Include="Units\Unit.cs" />
     <Compile Include="Util\Animation.cs" />
     <Compile Include="Util\Pathfinding.cs" />
-    <Compile Include="Util\SelectRectangle.cs" />
+    <Compile Include="UI\SelectRectangle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

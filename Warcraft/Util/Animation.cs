@@ -47,6 +47,11 @@ namespace Warcraft.Util
             play = true;
         }
 
+        public void Change(string name)
+        {
+            current = name;
+        }
+
         public void Stop()
         {
             play = false;
@@ -61,7 +66,7 @@ namespace Warcraft.Util
         {
             return animations[current].flipY;
         }
-
+       
         public void Update()
         {
             if (play)

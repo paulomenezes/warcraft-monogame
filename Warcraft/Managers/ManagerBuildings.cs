@@ -1,24 +1,21 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Warcraft.Buildings;
-using Warcraft.Buildings.Humans;
+using Warcraft.Buildings.Neutral;
 
 namespace Warcraft.Managers
 {
     class ManagerBuildings
     {
-        List<Building> buildings = new List<Building>();
-
+        public List<Building> buildings = new List<Building>();
         public ManagerMap managerMap;
 
         public ManagerBuildings(ManagerMouse managerMouse, ManagerMap managerMap)
         {
             this.managerMap = managerMap;
+
+            buildings.Add(new GoldMine(16, 3, managerMouse, managerMap, null));
         }
 
         public void AddBuilding(Building building)

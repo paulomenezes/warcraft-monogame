@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Warcraft.Managers;
+using Warcraft.UI;
 using Warcraft.Util;
 
 namespace Warcraft

@@ -66,6 +66,7 @@ namespace Warcraft.Units.Humans
             commands.Add(new BuilderBuildings(Util.Buildings.TOWN_HALL, this, managerMouse, managerBuildings, managerUnits));
             commands.Add(new BuilderBuildings(Util.Buildings.BARRACKS, this, managerMouse, managerBuildings, managerUnits));
             commands.Add(new BuilderBuildings(Util.Buildings.CHICKEN_FARM, this, managerMouse, managerBuildings, managerUnits));
+            commands.Add(new Miner(managerBuildings, this));
         }
 
         public override void LoadContent(ContentManager content)
@@ -73,7 +74,10 @@ namespace Warcraft.Units.Humans
             base.LoadContent(content);
 
             for (int i = 0; i < commands.Count; i++)
-                (commands[i] as BuilderBuildings).LoadContent(content);
+            {
+                if (commands[i] is BuilderBuildings)
+                    (commands[i] as BuilderBuildings).LoadContent(content);
+            }
         }
 
         public override void Update()
@@ -82,22 +86,32 @@ namespace Warcraft.Units.Humans
 
             for (int i = 0; i < commands.Count; i++)
             {
-                if (workState == WorkigState.WORKING && 
-                    (commands[i] as BuilderBuildings).building.isBuilding && 
-                    (commands[i] as BuilderBuildings).building.isPlaceSelected && 
-                    !(commands[i] as BuilderBuildings).building.isStartBuilding)
-
-                    (commands[i] as BuilderBuildings).building.StartBuilding();
-
-                if (workState == WorkigState.WAITING_PLACE && 
-                    (commands[i] as BuilderBuildings).building.isPlaceSelected)
+                if (commands[i] is BuilderBuildings)
                 {
-                    workState = WorkigState.GO_TO_WORK;
-                    Move((int)(commands[i] as BuilderBuildings).building.position.X / 32, (int)(commands[i] as BuilderBuildings).building.position.Y / 32);
-                    selected = false;
-                }
+                    var cmd = commands[i] as BuilderBuildings;
 
-                (commands[i] as BuilderBuildings).Update();
+                    if (workState == WorkigState.WORKING &&
+                        cmd.building.isBuilding &&
+                        cmd.building.isPlaceSelected &&
+                        !cmd.building.isStartBuilding)
+
+                        cmd.building.StartBuilding();
+
+                    if (workState == WorkigState.WAITING_PLACE && cmd.building.isPlaceSelected)
+                    {
+                        workState = WorkigState.GO_TO_WORK;
+                        Move((int)cmd.building.position.X / 32, (int)cmd.building.position.Y / 32);
+                        selected = false;
+                    }
+
+                    cmd.Update();
+                }
+                else if (commands[i] is Miner)
+                {
+                    var cmd = commands[i] as Miner;
+                    
+                    cmd.Update();
+                }
             }
         }
 
@@ -106,7 +120,10 @@ namespace Warcraft.Units.Humans
             base.Draw(spriteBatch);
 
             for (int i = 0; i < commands.Count; i++)
-                (commands[i] as BuilderBuildings).Draw(spriteBatch);
+            {
+                if (commands[i] is BuilderBuildings)
+                    (commands[i] as BuilderBuildings).Draw(spriteBatch);
+            }
         }
     }
 }

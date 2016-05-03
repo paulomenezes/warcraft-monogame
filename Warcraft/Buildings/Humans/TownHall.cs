@@ -1,12 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Warcraft.Commands;
 using Warcraft.Managers;
-using Warcraft.Units;
 using Warcraft.Util;
 
 namespace Warcraft.Buildings.Humans

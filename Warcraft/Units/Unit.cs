@@ -19,8 +19,8 @@ namespace Warcraft.Units
 
     abstract class Unit
     {
-        protected Texture2D texture;
-        protected Animation animations;
+        protected Dictionary<AnimationType, Texture2D> texture = new Dictionary<AnimationType, Texture2D>();
+        public Animation animations;
 
         public Vector2 position;
         private Vector2 goal;
@@ -36,7 +36,7 @@ namespace Warcraft.Units
         protected int speed;
 
         public UI.UI ui;
-        protected string textureName;
+        protected Dictionary<AnimationType, string> textureName = new Dictionary<AnimationType, string>();
 
         public InformationUnit information;
 
@@ -48,9 +48,8 @@ namespace Warcraft.Units
             this.width = width;
             this.height = height;
             this.speed = speed;
-
+            
             pathfinding = new Pathfinding(managerMap);
-
             position = new Vector2(tileX * Warcraft.TILE_SIZE, tileY * Warcraft.TILE_SIZE);
             
             managerMouse.MouseEventHandler += ManagerMouse_MouseEventHandler;
@@ -71,7 +70,8 @@ namespace Warcraft.Units
 
         public virtual void LoadContent(ContentManager content)
         {
-            texture = content.Load<Texture2D>(textureName);
+            texture[AnimationType.WALKING] = content.Load<Texture2D>(textureName[AnimationType.WALKING]);
+
             ui.LoadContent(content);
         }
 
@@ -91,16 +91,23 @@ namespace Warcraft.Units
             if (workState != WorkigState.WORKING)
             {
                 if (animations.FlipX())
-                    spriteBatch.Draw(texture, position, animations.rectangle, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
+                    spriteBatch.Draw(texture[animations.currentAnimation], position, animations.rectangle, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipHorizontally, 0);
                 else if (animations.FlipY())
-                    spriteBatch.Draw(texture, position, animations.rectangle, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipVertically, 0);
+                    spriteBatch.Draw(texture[animations.currentAnimation], position, animations.rectangle, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipVertically, 0);
                 else
-                    spriteBatch.Draw(texture, position, animations.rectangle, Color.White);
+                    spriteBatch.Draw(texture[animations.currentAnimation], position, animations.rectangle, Color.White);
             }
 
             if (selected)
             {
                 SelectRectangle.Draw(spriteBatch, rectangle);
+            }
+        }
+
+        public virtual void DrawUI(SpriteBatch spriteBatch)
+        {
+            if (selected)
+            {
                 ui.Draw(spriteBatch);
             }
         }

@@ -39,21 +39,21 @@ namespace Warcraft.Managers
 
             if (mouse.RightButton == ButtonState.Pressed)
             {
-                mouseClickEventHandler?.Invoke(this, new MouseClickEventArgs(new Vector2(mouse.Position.X, mouse.Position.Y)));
+                mouseClickEventHandler?.Invoke(this, new MouseClickEventArgs(new Vector2(mouse.Position.X, mouse.Position.Y) + Warcraft.camera.center));
             }
 
             if (mouse.LeftButton == ButtonState.Pressed && !mouseDown)
             {
                 mouseDown = true;
 
-                position = new Vector2(mouse.X, mouse.Y);
+                position = new Vector2(mouse.X, mouse.Y) + Warcraft.camera.center;
                 selectCorner = position;
 
                 selectRectangle = new Rectangle((int)position.X, (int)position.Y, 0, 0);
             }
             else if (mouse.LeftButton == ButtonState.Pressed)
             {
-                selectCorner = new Vector2(mouse.X, mouse.Y);
+                selectCorner = new Vector2(mouse.X, mouse.Y) + Warcraft.camera.center;
 
                 if (selectCorner.X > position.X)
                     selectRectangle.X = (int)position.X;
@@ -71,7 +71,15 @@ namespace Warcraft.Managers
             else
             {
                 if (oldState.LeftButton == ButtonState.Pressed)
-                    mouseEventHandler?.Invoke(this, new MouseEventArgs(mouse.X > Warcraft.WINDOWS_WIDTH ? true : false, selectRectangle));
+                {
+                    if (mouse.X > Warcraft.WINDOWS_WIDTH)
+                    {
+                        Rectangle rect = new Rectangle((int)mouse.X, (int)mouse.Y, 0, 0);
+                        mouseEventHandler?.Invoke(this, new MouseEventArgs(true, rect));
+                    }
+                    else
+                        mouseEventHandler?.Invoke(this, new MouseEventArgs(false, selectRectangle));
+                }
 
                 mouseDown = false;
             }

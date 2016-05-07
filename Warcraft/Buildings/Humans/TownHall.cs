@@ -13,12 +13,15 @@ namespace Warcraft.Buildings.Humans
         {
             information = new InformationBuilding("Town Hall", 1200, 1200, 800, Util.Units.PEASANT, 300, Util.Buildings.TOWN_HALL);
 
-            List<Sprite> sprites = new List<Sprite>();
+            Dictionary<AnimationType, List<Sprite>> sprites = new Dictionary<AnimationType, List<Sprite>>();
+            List<Sprite> spriteBuilding = new List<Sprite>();
             // BUILDING
-            sprites.Add(new Sprite(576, 708, 48, 39));
-            sprites.Add(new Sprite(572, 836, 61, 52));
-            sprites.Add(new Sprite(270, 154, 111, 95));
-            sprites.Add(new Sprite(270, 17, 119, 104));
+            spriteBuilding.Add(new Sprite(576, 708, 48, 39));
+            spriteBuilding.Add(new Sprite(572, 836, 61, 52));
+            spriteBuilding.Add(new Sprite(270, 154, 111, 95));
+            spriteBuilding.Add(new Sprite(270, 17, 119, 104));
+
+            sprites.Add(AnimationType.WALKING, spriteBuilding);
 
             Dictionary<string, Frame> animations = new Dictionary<string, Frame>();
             animations.Add("building", new Frame(0, 4));

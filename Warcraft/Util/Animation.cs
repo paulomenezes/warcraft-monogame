@@ -1,13 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using Warcraft.Units;
 
 namespace Warcraft.Util
 {
+    enum AnimationType
+    {
+        WALKING,
+        DYING,
+        GOLD,
+        WOOD,
+        WOOD_WORKER,
+        OTHER
+    }
+
     class Animation
     {
         public Dictionary<string, Frame> animations = new Dictionary<string, Frame>();
 
-        public List<Sprite> sprites = new List<Sprite>();
+        public Dictionary<AnimationType, List<Sprite>> sprites = new Dictionary<AnimationType, List<Sprite>>();
         private bool play = false;
 
         public Rectangle rectangle;
@@ -24,7 +35,9 @@ namespace Warcraft.Util
         private bool isLooping = true;
         public bool completed = false;
 
-        public Animation(List<Sprite> sprites, Dictionary<string, Frame> animations, string initial, int width, int height)
+        public AnimationType currentAnimation;
+
+        public Animation(Dictionary<AnimationType, List<Sprite>> sprites, Dictionary<string, Frame> animations, string initial, int width, int height)
         {
             this.sprites = sprites;
             this.animations = animations;
@@ -32,9 +45,11 @@ namespace Warcraft.Util
 
             this.width = width;
             this.height = height;
+
+            currentAnimation = AnimationType.WALKING;
         }
 
-        public Animation(List<Sprite> sprites, Dictionary<string, Frame> animations, string initial, int width, int height, bool repeat, int speed)
+        public Animation(Dictionary<AnimationType, List<Sprite>> sprites, Dictionary<string, Frame> animations, string initial, int width, int height, bool repeat, int speed)
             : this(sprites, animations, initial, width, height)
         {
             isLooping = repeat;
@@ -66,6 +81,11 @@ namespace Warcraft.Util
         {
             return animations[current].flipY;
         }
+
+        public Sprite Last()
+        {
+            return sprites[currentAnimation][sprites[currentAnimation].Count - 1];
+        }
        
         public void Update()
         {
@@ -96,8 +116,8 @@ namespace Warcraft.Util
                     index = 0;
             }
 
-            rectangle = new Rectangle(sprites[animations[current].sequence[index]].x - (width - sprites[animations[current].sequence[index]].width) / 2, 
-                                      sprites[animations[current].sequence[index]].y - (height - sprites[animations[current].sequence[index]].height) / 2, 
+            rectangle = new Rectangle(sprites[currentAnimation][animations[current].sequence[index]].x - (width - sprites[currentAnimation][animations[current].sequence[index]].width) / 2, 
+                                      sprites[currentAnimation][animations[current].sequence[index]].y - (height - sprites[currentAnimation][animations[current].sequence[index]].height) / 2, 
                                       width, height);
         }
     }

@@ -46,6 +46,7 @@
     <Compile Include="Buildings\Neutral\GoldMine.cs" />
     <Compile Include="Commands\BuilderBuildings.cs" />
     <Compile Include="Commands\BuilderUnits.cs" />
+    <Compile Include="Commands\BuilderWalls.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\Miner.cs" />
     <Compile Include="Events\MouseClickEventArgs.cs" />

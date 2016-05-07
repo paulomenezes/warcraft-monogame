@@ -34,3 +34,4 @@ C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\El
 C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\Footman.xnb
 C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\Knight.xnb
 C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\Mage.xnb
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\Peasant_gold.xnb

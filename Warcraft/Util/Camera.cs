@@ -5,11 +5,11 @@ using System;
 
 namespace Warcraft.Util
 {
-    class Camera
+    public class Camera
     {
         public Matrix transform;
+        public Vector2 center;
         Viewport view;
-        Vector2 center;
 
         float speed = 4;
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Warcraft.Managers;
 using Warcraft.Units;
 using BuildingsHumans = Warcraft.Buildings.Building;
+using Microsoft.Xna.Framework.Content;
 
 namespace Warcraft.UI
 {
@@ -18,6 +19,8 @@ namespace Warcraft.UI
 
         List<Button> buttons = new List<Button>();
 
+        Texture2D background;
+
         public Main(ManagerUnits managerUnits, ManagerBuildings managerBuildings, ManagerMouse managerMouse)
         {
             this.managerUnits = managerUnits;
@@ -25,6 +28,13 @@ namespace Warcraft.UI
             this.managerBuildings = managerBuildings;
 
             managerMouse.MouseEventHandler += ManagerMouse_MouseEventHandler;
+        }
+
+        public override void LoadContent(ContentManager content)
+        {
+            base.LoadContent(content);
+
+            background = content.Load<Texture2D>("Cursor");
         }
 
         private void ManagerMouse_MouseEventHandler(object sender, Events.MouseEventArgs e)
@@ -64,6 +74,11 @@ namespace Warcraft.UI
             
         }
 
+        public void DrawBack(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(background, new Rectangle(Warcraft.WINDOWS_WIDTH, 0, 200, Warcraft.WINDOWS_HEIGHT), Color.CornflowerBlue);
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(font, "Gold: 0", new Vector2(minX, 10), Color.Black);
@@ -72,9 +87,7 @@ namespace Warcraft.UI
             spriteBatch.DrawString(font, "Oil: 0", new Vector2(minX, 70), Color.Black);
 
             if (!DrawIndividual)
-            {
                 buttons.ForEach((b) => b.Draw(spriteBatch));
-            }
         }
     }
 }

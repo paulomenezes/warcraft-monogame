@@ -139,23 +139,30 @@ namespace Warcraft.Buildings
             if (isBuilding && !isPlaceSelected)
             {
                 MouseState mouse = Mouse.GetState();
-                position = new Vector2(mouse.X - width / 2, mouse.Y - height / 2);
+                position = new Vector2(mouse.X - width / 2, mouse.Y - height / 2) + Warcraft.camera.center;
             }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             if (isBuilding && !isPlaceSelected)
-                spriteBatch.Draw(texture, position, new Rectangle(animations.sprites.Last().x, animations.sprites.Last().y, animations.sprites.Last().width, animations.sprites.Last().height), Color.White);
+                spriteBatch.Draw(texture, position, new Rectangle(animations.Last().x, animations.Last().y, animations.Last().width, animations.Last().height), Color.White);
             else if ((isBuilding && isPlaceSelected && isStartBuilding) || isWorking)
                 spriteBatch.Draw(texture, position, animations.rectangle, Color.White);
 
             if (selected)
             {
                 SelectRectangle.Draw(spriteBatch, rectangle);
+
                 if (!unselected)
                     SelectRectangle.DrawTarget(spriteBatch, new Rectangle(target.X * 32, target.Y * 32, 32, 32));
+            }
+        }
 
+        public void DrawUI(SpriteBatch spriteBatch)
+        {
+            if (selected)
+            {
                 ui.Draw(spriteBatch);
             }
         }

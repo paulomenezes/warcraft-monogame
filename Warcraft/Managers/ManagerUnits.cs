@@ -12,7 +12,7 @@ namespace Warcraft.Managers
         List<Unit> units = new List<Unit>();
 
         ManagerMouse managerMouse;
-        ManagerMap managerMap;
+        public ManagerMap managerMap;
         ManagerBuildings managerBuildings;
 
         ContentManager content;
@@ -82,6 +82,11 @@ namespace Warcraft.Managers
         public void Draw(SpriteBatch spriteBatch)
         {
             units.ForEach((u) => u.Draw(spriteBatch));
+        }
+
+        public void DrawUI(SpriteBatch spriteBatch)
+        {
+            units.ForEach((u) => u.DrawUI(spriteBatch));
         }
 
         public List<Unit> GetSelected()

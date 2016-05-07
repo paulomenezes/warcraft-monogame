@@ -21,9 +21,11 @@ namespace Warcraft
 
         public static int WINDOWS_WIDTH = 960;
         public static int WINDOWS_HEIGHT = 608;
-        public static int TILE_SIZE = 32;
 
-        Camera camera;
+        public static int TILE_SIZE = 32;
+        public static int MAP_SIZE = 50;
+
+        public static Camera camera;
         
         public Warcraft()
         {
@@ -79,6 +81,13 @@ namespace Warcraft
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.transform);
             managerMap.Draw(spriteBatch);
+            spriteBatch.End();
+
+            spriteBatch.Begin();
+            managerUI.DrawBack(spriteBatch);
+            spriteBatch.End();
+
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.transform);
             managerMouse.Draw(spriteBatch);
             managerUnits.Draw(spriteBatch);
             managerBuildings.Draw(spriteBatch);
@@ -86,6 +95,8 @@ namespace Warcraft
 
             spriteBatch.Begin();
             managerUI.Draw(spriteBatch);
+            managerUnits.DrawUI(spriteBatch);
+            managerBuildings.DrawUI(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

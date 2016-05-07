@@ -23,6 +23,11 @@ namespace Warcraft.Managers
             ui.Update();
         }
 
+        public void DrawBack(SpriteBatch spriteBatch)
+        {
+            (ui as Main).DrawBack(spriteBatch);
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             ui.Draw(spriteBatch);

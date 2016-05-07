@@ -39,6 +39,11 @@ namespace Warcraft.Managers
             buildings.ForEach((u) => u.Draw(spriteBatch));
         }
 
+        public void DrawUI(SpriteBatch spriteBatch)
+        {
+            buildings.ForEach((u) => u.DrawUI(spriteBatch));
+        }
+
         public List<Building> GetSelected()
         {
             List<Building> selecteds = new List<Building>(); ;

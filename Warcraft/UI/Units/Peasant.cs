@@ -12,6 +12,8 @@ namespace Warcraft.UI.Units
         Button buttonBuilder;
         Button buttonCancel;
 
+        Button buttonMiner;
+
         PeasantUnit peasant;
 
         bool showBuilder = false;
@@ -26,7 +28,9 @@ namespace Warcraft.UI.Units
             builder.Add(new Button(0, 260, 0, 4));
             builder.Add(new Button(50, 260, 2, 4));
             builder.Add(new Button(100, 260, 8, 3));
-            builder.Add(new Button(0, 300, 4, 7));
+            builder.Add(new Button(0, 300, 2, 9));
+
+            buttonMiner = new Button(50, 260, 4, 7);
 
             this.peasant = peasant;
 
@@ -45,6 +49,9 @@ namespace Warcraft.UI.Units
                         break;
                     }
                 }
+
+                if (!showBuilder && e.SelectRectangle.Intersects(buttonMiner.rectangle))
+                    peasant.commands[peasant.commands.Count - 1].execute();
 
                 if (e.SelectRectangle.Intersects(buttonBuilder.rectangle))
                     showBuilder = true;
@@ -70,6 +77,8 @@ namespace Warcraft.UI.Units
             if (DrawIndividual)
             {
                 buttonPortrait.Draw(spriteBatch);
+                buttonMiner.Draw(spriteBatch);
+
                 if (!showBuilder)
                     buttonBuilder.Draw(spriteBatch);
                 else

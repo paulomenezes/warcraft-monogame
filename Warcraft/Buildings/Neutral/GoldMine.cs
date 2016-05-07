@@ -14,11 +14,14 @@ namespace Warcraft.Buildings.Neutral
         {
             information = new InformationBuilding("Gold Mine", 25500, 0, 0, Util.Units.NONE, 0, Util.Buildings.GOLD_MINE);
 
-            List<Sprite> sprites = new List<Sprite>();
+            Dictionary<AnimationType, List<Sprite>> sprites = new Dictionary<AnimationType, List<Sprite>>();
+            List<Sprite> spriteBuilding = new List<Sprite>();
             // NORMAL
-            sprites.Add(new Sprite(26, 661, 96, 89));
+            spriteBuilding.Add(new Sprite(26, 661, 96, 89));
             // WORKING
-            sprites.Add(new Sprite(26, 757, 96, 89));
+            spriteBuilding.Add(new Sprite(26, 757, 96, 89));
+
+            sprites.Add(AnimationType.WALKING, spriteBuilding);
 
             Dictionary<string, Frame> animations = new Dictionary<string, Frame>();
             animations.Add("normal", new Frame(0, 1));

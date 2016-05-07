@@ -133,8 +133,8 @@ namespace Warcraft.Util
         private bool CheckWalls(int pointX, int pointY)
         {
             if (pointX < 0 || pointY < 0 ||
-                pointX + 1 > Warcraft.WINDOWS_WIDTH / Warcraft.TILE_SIZE ||
-                pointY + 1 > Warcraft.WINDOWS_HEIGHT / Warcraft.TILE_SIZE)
+                pointX + 1 > Warcraft.MAP_SIZE ||
+                pointY + 1 > Warcraft.MAP_SIZE)
                 return true;
 
             return managerMap.walls.Any(i => i.TileX == pointX && i.TileY == pointY);

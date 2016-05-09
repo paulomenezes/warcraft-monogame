@@ -30,7 +30,7 @@ namespace Warcraft.UI.Units
             builder.Add(new Button(100, 260, 8, 3));
             builder.Add(new Button(0, 300, 2, 9));
 
-            buttonMiner = new Button(50, 260, 4, 7);
+            buttonMiner = new Button(50, 260, 9, 8);
 
             this.peasant = peasant;
 

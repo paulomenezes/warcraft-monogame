@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Warcraft.Commands;
 using Warcraft.Managers;
+using Warcraft.Units.Humans;
 using Warcraft.Util;
 
 namespace Warcraft.Buildings.Humans
@@ -31,8 +32,8 @@ namespace Warcraft.Buildings.Humans
             ui = new UI.Buildings.Barracks(managerMouse, this);
             textureName = "Human Buildings (Summer)";
 
-            commands.Add(new BuilderUnits(Util.Units.ELVEN_ARCHER, information.BuildTime));
-            commands.Add(new BuilderUnits(Util.Units.FOOTMAN, information.BuildTime));
+            commands.Add(new BuilderUnits(Util.Units.ELVEN_ARCHER, ElvenArcher.Information));
+            commands.Add(new BuilderUnits(Util.Units.FOOTMAN, Footman.Information));
         }
 
         public override void Update()

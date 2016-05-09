@@ -26,7 +26,12 @@ namespace Warcraft
         public static int MAP_SIZE = 50;
 
         public static Camera camera;
-        
+
+        public static int GOLD = 5000;
+        public static int WOOD = 99999;
+        public static int FOOD = 5;
+        public static int OIL = 99999;
+
         public Warcraft()
         {
             graphics = new GraphicsDeviceManager(this);

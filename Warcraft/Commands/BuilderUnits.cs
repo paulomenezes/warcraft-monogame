@@ -1,4 +1,6 @@
-﻿namespace Warcraft.Commands
+﻿using Warcraft.Units;
+
+namespace Warcraft.Commands
 {
     class BuilderUnits : ICommand
     {
@@ -7,21 +9,27 @@
         public bool remove;
 
         public int elapsed;
-        public int total;
+        public InformationUnit informationUnit;
 
         public Util.Units type;
 
-        public BuilderUnits(Util.Units type, int total)
+        public BuilderUnits(Util.Units type, InformationUnit informationUnit)
         {
-            this.total = total;
+            this.informationUnit = informationUnit;
             this.type = type;
         }
 
         public void execute()
         {
-            go = true;
-            completed = false;
-            remove = false;
+            if (Warcraft.GOLD - informationUnit.CostGold >= 0 && Warcraft.FOOD - informationUnit.CostFood >= 0)
+            {
+                Warcraft.GOLD -= informationUnit.CostGold;
+                Warcraft.FOOD -= informationUnit.CostFood;
+
+                go = true;
+                completed = false;
+                remove = false;
+            }
         }
 
         public void Update()
@@ -29,7 +37,7 @@
             if (go)
             {
                 elapsed++;
-                if (elapsed > total)
+                if (elapsed > informationUnit.BuildTime)
                 {
                     completed = true;
                     go = false;

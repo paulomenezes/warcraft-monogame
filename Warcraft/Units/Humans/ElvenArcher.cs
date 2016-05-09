@@ -60,6 +60,7 @@ namespace Warcraft.Units.Humans
             textureName.Add(AnimationType.WALKING, "Elven Archer");
 
             information = new InformationUnit("Elven Archer", Race.HIGH_ELF, Faction.ALLIANCE, 50, 2, 9, 10, 500, 1, Util.Buildings.BARRACKS, 70, 5, 11, 4);
+            Information = information;
         }
     }
 }

@@ -11,6 +11,8 @@ namespace Warcraft.Units.Humans
     {
         public List<ICommand> commands = new List<ICommand>();
 
+        //public static InformationUnit Information;
+
         public Peasant(int tileX, int tileY, ManagerMouse managerMouse, ManagerMap managerMap, ManagerBuildings managerBuildings, ManagerUnits managerUnits) 
             : base(tileX, tileY, 32, 32, 2, managerMouse, managerMap, managerBuildings)
         {
@@ -100,6 +102,7 @@ namespace Warcraft.Units.Humans
             textureName.Add(AnimationType.GOLD, "Peasant_gold");
 
             information = new InformationUnit("Peasant", Race.HUMAN, Faction.ALLIANCE, 30, 0, 4, 10, 400, 1, Util.Buildings.TOWN_HALL, 45, 1, 5, 1);
+            Information = information;
 
             commands.Add(new BuilderBuildings(Util.Buildings.TOWN_HALL, this, managerMouse, managerBuildings, managerUnits));
             commands.Add(new BuilderBuildings(Util.Buildings.BARRACKS, this, managerMouse, managerBuildings, managerUnits));

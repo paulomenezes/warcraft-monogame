@@ -11,8 +11,8 @@ namespace Warcraft.UI.Buildings
     class TownHall : UI
     {
         TownHallBuilding townHall;
-        List<Button> builder = new List<Button>();
 
+        List<Button> builder = new List<Button>();
         List<ICommand> commandsOrder = new List<ICommand>();
 
         public TownHall(ManagerMouse managerMouse, TownHallBuilding townHall)

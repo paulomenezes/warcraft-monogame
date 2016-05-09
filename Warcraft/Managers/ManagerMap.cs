@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using System;
+using System.Linq;
 
 namespace Warcraft.Managers
 {
@@ -53,62 +54,64 @@ namespace Warcraft.Managers
             int textureX = rectangle.X / 32;
             int textureY = rectangle.Y / 32;
 
-            var change = false;
-            var neighbourhoods = GetNeighbourhood(tileX, tileY);
-
-            if (neighbourhoods.ContainsKey("top"))
-            {
-                if (neighbourhoods.ContainsKey("topright") && !neighbourhoods.ContainsKey("topleft"))
-                    walls[neighbourhoods["top"]].ChangeTexture(0, 1);
-                if (neighbourhoods.ContainsKey("topleft") && !neighbourhoods.ContainsKey("topright"))
-                    walls[neighbourhoods["top"]].ChangeTexture(7, 1);
-                if (neighbourhoods.ContainsKey("topleft") && neighbourhoods.ContainsKey("topright"))
-                    walls[neighbourhoods["top"]].ChangeTexture(10, 1);
-                
-                change = true;
-            }
-            else if (neighbourhoods.ContainsKey("bottom"))
-            {
-                if (neighbourhoods.ContainsKey("bottomright") && !neighbourhoods.ContainsKey("bottomleft"))
-                    walls[neighbourhoods["bottom"]].ChangeTexture(4, 1);
-                if (neighbourhoods.ContainsKey("bottomleft") && !neighbourhoods.ContainsKey("bottomright"))
-                    walls[neighbourhoods["bottom"]].ChangeTexture(11, 1);
-                if (neighbourhoods.ContainsKey("bottomleft") && neighbourhoods.ContainsKey("bottomright"))
-                    walls[neighbourhoods["bottom"]].ChangeTexture(13, 1);
-
-                if (neighbourhoods.ContainsKey("bottomleft") || neighbourhoods.ContainsKey("bottomright"))
-                    change = true;
-            }
-
-            if (change)
-            {
-                textureX = 2;
-                textureY = 1;
-            }
-
-            walls.Add(new Tile(tileX, tileY, textureX, textureY));
+            if (!CheckWalls(tileX, tileY))
+                walls.Add(new Tile(tileX, tileY, textureX, textureY));
         }
 
-        private Dictionary<string, int> GetNeighbourhood(int tileX, int tileY)
+        private bool ArrayEquals(int[] arr1, int[] arr2)
         {
-            Dictionary<string, int> neighbourhoods = new Dictionary<string, int>();
+            if (arr1.Length != arr2.Length) return false;
 
+            for (int i = 0; i < arr1.Length; i++)
+                if (arr1[i] != arr2[i]) return false;
+
+            return true;
+        }
+
+        public void OrganizeWalls()
+        {
             for (int i = 0; i < walls.Count; i++)
             {
                 if (walls[i].isWall)
                 {
-                    if (walls[i].TileX == tileX && walls[i].TileY + 1 == tileY) neighbourhoods.Add("top", i);
-                    else if (walls[i].TileX == tileX && walls[i].TileY - 1 == tileY) neighbourhoods.Add("bottom", i);
-                    else if (walls[i].TileX + 1 == tileX && walls[i].TileY == tileY) neighbourhoods.Add("right", i);
-                    else if (walls[i].TileX - 1 == tileX && walls[i].TileY == tileY) neighbourhoods.Add("left", i);
-                    else if (walls[i].TileX == tileX + 1 && walls[i].TileY + 1 == tileY) neighbourhoods.Add("topright", i);
-                    else if (walls[i].TileX == tileX - 1 && walls[i].TileY + 1 == tileY) neighbourhoods.Add("topleft", i);
-                    else if (walls[i].TileX == tileX + 1 && walls[i].TileY - 1 == tileY) neighbourhoods.Add("bottomright", i);
-                    else if (walls[i].TileX == tileX - 1 && walls[i].TileY - 1 == tileY) neighbourhoods.Add("bottomleft", i);
+                    int[] n = GetNeighbourhood(i, walls[i].TileX, walls[i].TileY);
+
+                    if (ArrayEquals(n, new int[] { 0, 1, 1, 0 })) walls[i].ChangeTexture(0, 1);
+                    else if (ArrayEquals(n, new int[] { 0, 0, 0, 1 })) walls[i].ChangeTexture(1, 1);
+                    else if (ArrayEquals(n, new int[] { 0, 1, 0, 1 })) walls[i].ChangeTexture(2, 1);
+                    else if (ArrayEquals(n, new int[] { 0, 0, 1, 1 })) walls[i].ChangeTexture(4, 1);
+                    else if (ArrayEquals(n, new int[] { 0, 1, 1, 1 })) walls[i].ChangeTexture(5, 1);
+                    else if (ArrayEquals(n, new int[] { 1, 0, 0, 0 })) walls[i].ChangeTexture(6, 1);
+                    else if (ArrayEquals(n, new int[] { 1, 1, 0, 0 })) walls[i].ChangeTexture(7, 1);
+                    else if (ArrayEquals(n, new int[] { 1, 0, 1, 0 })) walls[i].ChangeTexture(8, 1);
+                    else if (ArrayEquals(n, new int[] { 1, 1, 1, 0 })) walls[i].ChangeTexture(10, 1);
+                    else if (ArrayEquals(n, new int[] { 1, 0, 0, 1 })) walls[i].ChangeTexture(11, 1);
+                    else if (ArrayEquals(n, new int[] { 1, 1, 0, 1 })) walls[i].ChangeTexture(12, 1);
+                    else if (ArrayEquals(n, new int[] { 1, 0, 1, 1 })) walls[i].ChangeTexture(13, 1);
+                    else if (ArrayEquals(n, new int[] { 1, 1, 1, 1 })) walls[i].ChangeTexture(14, 1);
+                    else if (ArrayEquals(n, new int[] { 0, 0, 0, 0 })) walls[i].ChangeTexture(16, 0);
+                    else if (ArrayEquals(n, new int[] { 0, 1, 0, 0 })) walls[i].ChangeTexture(17, 0);
+                    else if (ArrayEquals(n, new int[] { 0, 0, 1, 0 })) walls[i].ChangeTexture(18, 0);
+                }
+            }
+        }
+
+        private int[] GetNeighbourhood(int index, int tileX, int tileY)
+        {
+            int[] neighbourhood = new int[4];
+            
+            for (int i = 0; i < walls.Count; i++)
+            {
+                if (walls[i].isWall)
+                {
+                    if (walls[i].TileX == tileX && walls[i].TileY + 1 == tileY) neighbourhood[3] = 1;
+                    if (walls[i].TileX == tileX && walls[i].TileY - 1 == tileY) neighbourhood[1] = 1;
+                    if (walls[i].TileX - 1 == tileX && walls[i].TileY == tileY) neighbourhood[2] = 1;
+                    if (walls[i].TileX + 1 == tileX && walls[i].TileY == tileY) neighbourhood[0] = 1;
                 }
             }
 
-            return neighbourhoods;
+            return neighbourhood;
         }
 
         public bool CheckWalls(Vector2 position, int xQuantity, int yQuantity)
@@ -127,6 +130,22 @@ namespace Warcraft.Managers
                     for (int j = 1; j < yQuantity; j++)
                         if (walls[k].TileX == pointX + i && walls[k].TileY == pointY + j)
                             return true;
+            }
+
+            return false;
+        }
+
+        public bool CheckWalls(int pointX, int pointY)
+        {
+            if (pointX < 0 || pointY < 0 ||
+                pointX + 1 > Warcraft.MAP_SIZE ||
+                pointY + 1 > Warcraft.MAP_SIZE)
+                return true;
+
+            for (int k = 0; k < walls.Count; k++)
+            {
+                if (walls[k].TileX == pointX && walls[k].TileY == pointY)
+                    return true;
             }
 
             return false;

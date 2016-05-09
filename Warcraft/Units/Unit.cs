@@ -29,7 +29,7 @@ namespace Warcraft.Units
         public bool selected;
         private bool transition;
 
-        private Rectangle rectangle;
+        public Rectangle rectangle;
 
         protected int width;
         protected int height;
@@ -39,6 +39,7 @@ namespace Warcraft.Units
         protected Dictionary<AnimationType, string> textureName = new Dictionary<AnimationType, string>();
 
         public InformationUnit information;
+        public static InformationUnit Information;
 
         Pathfinding pathfinding;
         List<Util.PathNode> path;
@@ -52,20 +53,9 @@ namespace Warcraft.Units
             pathfinding = new Pathfinding(managerMap);
             position = new Vector2(tileX * Warcraft.TILE_SIZE, tileY * Warcraft.TILE_SIZE);
             
-            managerMouse.MouseEventHandler += ManagerMouse_MouseEventHandler;
+            //managerMouse.MouseEventHandler += ManagerMouse_MouseEventHandler;
 
             rectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
-        }
-
-        private void ManagerMouse_MouseEventHandler(object sender, Events.MouseEventArgs e)
-        {
-            if (!e.UI && workState == WorkigState.NOTHING)
-            {
-                if (rectangle.Intersects(e.SelectRectangle))
-                    selected = true;
-                else
-                    selected = false;
-            }
         }
 
         public virtual void LoadContent(ContentManager content)
@@ -88,6 +78,9 @@ namespace Warcraft.Units
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
+            if (selected)
+                SelectRectangle.Draw(spriteBatch, new Rectangle(rectangle.X + (rectangle.Width - 32) / 2, rectangle.Y + (rectangle.Height - 32) / 2, 32, 32));
+
             if (workState != WorkigState.WORKING)
             {
                 if (animations.FlipX())
@@ -96,11 +89,6 @@ namespace Warcraft.Units
                     spriteBatch.Draw(texture[animations.currentAnimation], position, animations.rectangle, Color.White, 0, Vector2.Zero, 1, SpriteEffects.FlipVertically, 0);
                 else
                     spriteBatch.Draw(texture[animations.currentAnimation], position, animations.rectangle, Color.White);
-            }
-
-            if (selected)
-            {
-                SelectRectangle.Draw(spriteBatch, rectangle);
             }
         }
 
@@ -117,15 +105,20 @@ namespace Warcraft.Units
             if (pathfinding.SetGoal((int)position.X, (int)position.Y, xTile, yTile))
             {
                 path = pathfinding.DiscoverPath();
-                if (path.Count > 0)
+                if (path.Last().x == 49 && path.Last().y == 49)
                 {
-                    transition = true;
-                    goal = new Vector2(path.First().x * 32, path.First().y * 32);
-                    path.RemoveAt(0);
-                } 
+                    // 
+                }
                 else
                 {
-                    position = new Vector2(xTile * 32, yTile * 32);
+                    if (path.Count > 0)
+                    {
+                        transition = true;
+                        goal = new Vector2(path.First().x * 32, path.First().y * 32);
+                        path.RemoveAt(0);
+                    }
+                    else
+                        position = new Vector2(xTile * 32, yTile * 32);
                 }
             }
         }

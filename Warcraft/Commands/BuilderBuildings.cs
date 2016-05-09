@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Warcraft.Buildings;
 using Warcraft.Managers;
 using Warcraft.Units;
 
@@ -28,8 +29,19 @@ namespace Warcraft.Commands
 
         public void execute()
         {
-            builder.workState = WorkigState.WAITING_PLACE;
-            building.builder();
+            if (Warcraft.GOLD  - building.information.CostGold >= 0 && Warcraft.WOOD - building.information.CostWood >= 0)
+            {
+                Warcraft.GOLD -= building.information.CostGold;
+                Warcraft.WOOD -= building.information.CostWood;
+
+                if ((building.information as InformationBuilding).Type == Util.Buildings.CHICKEN_FARM)
+                {
+                    Warcraft.FOOD += 5;
+                }
+
+                builder.workState = WorkigState.WAITING_PLACE;
+                building.builder();
+            }
         }
 
         public void LoadContent(ContentManager content)
@@ -45,7 +57,7 @@ namespace Warcraft.Commands
             if (!building.isBuilding && building.isWorking)
             {
                 managerBuildings.AddBuilding(building);
-                building = Buildings.Building.Factory((building.information as Buildings.InformationBuilding).Type, managerMouse, managerBuildings.managerMap, managerUnits);
+                building = Building.Factory((building.information as InformationBuilding).Type, managerMouse, managerBuildings.managerMap, managerUnits);
 
                 builder.workState = WorkigState.NOTHING;
                 builder.position.Y += 32 * 2;

@@ -1,5 +1,4 @@
-﻿using System;
-using Warcraft.Buildings;
+﻿using Warcraft.Buildings;
 using Warcraft.Buildings.Humans;
 using Warcraft.Buildings.Neutral;
 using Warcraft.Managers;
@@ -78,6 +77,8 @@ namespace Warcraft.Commands
                     {
                         worker.Move((int)goldMine.position.X / 32, (int)goldMine.position.Y / 32);
                         worker.animations.currentAnimation = Util.AnimationType.WALKING;
+
+                        Warcraft.GOLD += 300;
 
                         goldMine.animations.Change("working");
                         currentState = State.MINER;

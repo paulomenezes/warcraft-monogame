@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Warcraft.Commands;
 using Warcraft.Managers;
+using Warcraft.Units.Humans;
 using Warcraft.Util;
 
 namespace Warcraft.Buildings.Humans
@@ -31,7 +32,7 @@ namespace Warcraft.Buildings.Humans
             ui = new UI.Buildings.TownHall(managerMouse, this);
             textureName = "Human Buildings (Summer)";
 
-            commands.Add(new BuilderUnits(Util.Units.PEASANT, information.BuildTime));
+            commands.Add(new BuilderUnits(Util.Units.PEASANT, Peasant.Information));
         }
 
         public override void Update()

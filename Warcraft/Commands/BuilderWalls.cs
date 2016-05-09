@@ -52,32 +52,43 @@ namespace Warcraft.Commands
                     started = false;
 
                     if (Normalize(startPoint.X) == Normalize(endPoint.X) && Normalize(startPoint.Y) == Normalize(endPoint.Y))
-                        managerUnits.managerMap.AddWalls(new Vector2(Normalize(startPoint.X), Normalize(startPoint.Y)), new Rectangle(528, 0, 32, 32));
+                        AddWall(new Vector2(Normalize(startPoint.X), Normalize(startPoint.Y)), new Rectangle(528, 0, 32, 32));
                     else
                     {
                         if (Math.Abs(endPoint.X - startPoint.X) > Math.Abs(endPoint.Y - startPoint.Y))
                         {
                             if (startPoint.X < endPoint.X)
                                 for (int x = Normalize(startPoint.X); x <= Normalize(endPoint.X); x += 32)
-                                    managerUnits.managerMap.AddWalls(new Vector2(x, startPoint.Y), GetTextureOffsetX(x, startPoint.X, endPoint.X));
+                                    AddWall(new Vector2(x, startPoint.Y), GetTextureOffsetX(x, startPoint.X, endPoint.X));
                             else
                                 for (int x = Normalize(startPoint.X); x >= Normalize(endPoint.X); x -= 32)
-                                    managerUnits.managerMap.AddWalls(new Vector2(x, startPoint.Y), GetTextureOffsetX(x, endPoint.X, startPoint.X));
+                                    AddWall(new Vector2(x, startPoint.Y), GetTextureOffsetX(x, endPoint.X, startPoint.X));
                         }
                         else
                         {
                             if (startPoint.Y < endPoint.Y)
                                 for (int y = Normalize(startPoint.Y); y <= Normalize(endPoint.Y); y += 32)
-                                    managerUnits.managerMap.AddWalls(new Vector2(startPoint.X, y), GetTextureOffsetY(y, startPoint.Y, endPoint.Y));
+                                    AddWall(new Vector2(startPoint.X, y), GetTextureOffsetY(y, startPoint.Y, endPoint.Y));
                             else
                                 for (int y = Normalize(startPoint.Y); y >= Normalize(endPoint.Y); y -= 32)
-                                    managerUnits.managerMap.AddWalls(new Vector2(startPoint.X, y), GetTextureOffsetY(y, endPoint.Y, startPoint.Y));
+                                    AddWall(new Vector2(startPoint.X, y), GetTextureOffsetY(y, endPoint.Y, startPoint.Y));
                         }
                     }
+
+                    managerUnits.managerMap.OrganizeWalls();
 
                     startPoint.X = -1;
                     endPoint.X = -1;
                 }
+            }
+        }
+
+        public void AddWall(Vector2 position, Rectangle textureOffset)
+        {
+            if (Warcraft.GOLD - 100 >= 0)
+            {
+                Warcraft.GOLD -= 100;
+                managerUnits.managerMap.AddWalls(position, textureOffset);
             }
         }
 
@@ -95,7 +106,7 @@ namespace Warcraft.Commands
         {
             MouseState mouse = Mouse.GetState();
 
-            current = new Vector2(mouse.X, mouse.Y);
+            current = new Vector2(mouse.X, mouse.Y) + Warcraft.camera.center;
         }
 
         public void Draw(SpriteBatch spriteBatch)

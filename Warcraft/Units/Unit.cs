@@ -53,9 +53,20 @@ namespace Warcraft.Units
             pathfinding = new Pathfinding(managerMap);
             position = new Vector2(tileX * Warcraft.TILE_SIZE, tileY * Warcraft.TILE_SIZE);
             
-            //managerMouse.MouseEventHandler += ManagerMouse_MouseEventHandler;
+            managerMouse.MouseEventHandler += ManagerMouse_MouseEventHandler;
 
             rectangle = new Rectangle((int)position.X, (int)position.Y, width, height);
+        }
+
+        private void ManagerMouse_MouseEventHandler(object sender, Events.MouseEventArgs e)
+        {
+            if (!e.UI && workState == WorkigState.NOTHING)
+            {
+                if (rectangle.Intersects(e.SelectRectangle))
+                    selected = true;
+                else
+                    selected = false;
+            }
         }
 
         public virtual void LoadContent(ContentManager content)

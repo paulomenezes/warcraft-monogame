@@ -22,8 +22,7 @@ namespace Warcraft.Managers
             this.managerMouse = managerMouse;
             this.managerMap = managerMap;
             this.managerBuildings = managerBuildings;
-
-            managerMouse.MouseEventHandler += ManagerMouse_MouseEventHandler;
+            
             managerMouse.MouseClickEventHandler += ManagerMouse_MouseClickEventHandler;
 
             for (int i = 3; i < 6; i++)
@@ -42,40 +41,6 @@ namespace Warcraft.Managers
             units[units.Count - 1].Move(targetX, targetY);
 
             LoadContent();
-        }
-        
-        private void ManagerMouse_MouseEventHandler(object sender, Events.MouseEventArgs e)
-        {
-            if (!e.UI)
-            {
-                bool someone = false;
-                for (int i = 0; i < units.Count; i++)
-                {
-                    if (units[i].workState == WorkigState.NOTHING)
-                    {
-                        if (units[i].rectangle.Intersects(e.SelectRectangle))
-                        {
-                            someone = true;
-                            if (!units[i].selected)
-                            {
-                                units[i].selected = true;
-                            }
-                            else
-                            {
-                                for (int j = 0; j < units.Count; j++)
-                                    if (units[j].workState == WorkigState.NOTHING)
-                                        units[j].selected = true;
-
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                if (!someone)
-                    for (int j = 0; j < units.Count; j++)
-                        units[j].selected = false;
-            }
         }
 
         private void ManagerMouse_MouseClickEventHandler(object sender, Events.MouseClickEventArgs e)

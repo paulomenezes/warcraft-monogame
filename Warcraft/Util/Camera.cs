@@ -28,10 +28,10 @@ namespace Warcraft.Util
             if (keyboard.IsKeyDown(Keys.Up)) center.Y -= speed;
             if (keyboard.IsKeyDown(Keys.Down)) center.Y += speed;
 
-            if (mouse.X > Warcraft.WINDOWS_WIDTH + 100) center.X += speed;
-            if (mouse.Y > Warcraft.WINDOWS_HEIGHT - 100) center.Y += speed;
-            if (mouse.X < 100) center.X -= speed;
-            if (mouse.Y < 100) center.Y -= speed;
+            if (mouse.X > Warcraft.WINDOWS_WIDTH + 100 && mouse.X < Warcraft.WINDOWS_WIDTH + 200) center.X += speed;
+            if (mouse.Y > Warcraft.WINDOWS_HEIGHT - 100 && mouse.Y < Warcraft.WINDOWS_HEIGHT) center.Y += speed;
+            if (mouse.X > 0 && mouse.X < 100) center.X -= speed;
+            if (mouse.Y > 0 && mouse.Y < 100) center.Y -= speed;
 
             center.X = Math.Max(center.X, 0);
             center.Y = Math.Max(center.Y, 0);

@@ -40,7 +40,8 @@ namespace Warcraft.UI.Buildings
                             if (commandsOrder.Count == 0)
                                 barracks.commands[i].execute();
 
-                            commandsOrder.Add(i);
+                            if ((barracks.commands[i] as BuilderUnits).go)
+                                commandsOrder.Add(i);
                         }
                         break;
                     }

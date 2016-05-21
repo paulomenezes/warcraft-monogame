@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Warcraft.Managers;
 using Warcraft.Util;
 
@@ -44,6 +46,10 @@ namespace Warcraft.Units.Humans
 
             sprites.Add(AnimationType.WALKING, spriteWalking);
 
+            List<Sprite> spriteDie = new List<Sprite>();
+            spriteDie.Add(new Sprite(181, 530, 44, 43));
+            sprites.Add(AnimationType.DYING, spriteDie);
+
             Dictionary<string, Frame> animations = new Dictionary<string, Frame>();
             animations.Add("up", new Frame(0, 5));
             animations.Add("down", new Frame(5, 5));
@@ -53,6 +59,7 @@ namespace Warcraft.Units.Humans
             animations.Add("downRight", new Frame(20, 5));
             animations.Add("upLeft", new Frame(15, 5, true));
             animations.Add("downLeft", new Frame(20, 5, true));
+            animations.Add("dying", new Frame(0, 1));
 
             this.animations = new Animation(sprites, animations, "down", width, height);
 
@@ -61,6 +68,14 @@ namespace Warcraft.Units.Humans
 
             information = new InformationUnit("Elven Archer", Race.HIGH_ELF, Faction.ALLIANCE, 50, 2, 9, 10, 500, 1, Util.Buildings.BARRACKS, 70, 5, 11, 4, 0, Util.Units.ELVEN_ARCHER);
             Information = information;
+        }
+
+        public override void LoadContent(ContentManager content)
+        {
+            base.LoadContent(content);
+            
+            if (!texture.ContainsKey(AnimationType.DYING))
+                texture.Add(AnimationType.DYING, texture[AnimationType.WALKING]);
         }
     }
 }

@@ -86,7 +86,8 @@ namespace Warcraft
 
             managerCombat.Update();
 
-            camera.Update(gameTime);
+            if (IsActive)
+                camera.Update(gameTime);
 
             base.Update(gameTime);
         }

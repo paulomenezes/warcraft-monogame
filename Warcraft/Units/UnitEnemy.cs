@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Warcraft.Managers;
 using Warcraft.Util;
@@ -59,9 +55,6 @@ namespace Warcraft.Units
             {
                 int adjustX = ((int)target.position.X - (int)position.X) / 32;
                 int adjustY = ((int)target.position.Y - (int)position.Y) / 32;
-
-                int adjustXX = ((int)target.position.X - (int)lastPosition.X) / 32;
-                int adjustYY = ((int)target.position.Y - (int)lastPosition.Y) / 32;
 
                 if (Math.Abs(adjustX) > 1 || Math.Abs(adjustY) > 1)
                 {

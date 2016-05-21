@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Warcraft.Managers
+﻿namespace Warcraft.Managers
 {
     class ManagerCombat
     {
@@ -27,7 +21,8 @@ namespace Warcraft.Managers
                 {
                     if (managerEnemies.enemies[e].target == null && 
                         managerEnemies.enemies[e].enemyDetect.Intersects(managerUnits.units[u].rectangle) &&
-                        managerUnits.units[u].information.HitPoints > 0)
+                        managerUnits.units[u].information.HitPoints > 0 &&
+                        managerUnits.units[u].workState == Units.WorkigState.NOTHING)
                     {
                         managerEnemies.enemies[e].target = managerUnits.units[u];
                     }

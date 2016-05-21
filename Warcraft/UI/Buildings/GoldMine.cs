@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using Warcraft.Buildings.Neutral;
 using Warcraft.Events;
 using Warcraft.Managers;
 using Warcraft.Units;

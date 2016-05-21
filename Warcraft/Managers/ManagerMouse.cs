@@ -1,5 +1,4 @@
 ﻿using Warcraft.Events;
-using Warcraft.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;

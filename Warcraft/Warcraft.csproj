@@ -52,6 +52,8 @@
     <Compile Include="Events\MouseClickEventArgs.cs" />
     <Compile Include="Events\MouseEventArgs.cs" />
     <Compile Include="Managers\ManagerBuildings.cs" />
+    <Compile Include="Managers\ManagerCombat.cs" />
+    <Compile Include="Managers\ManagerEnemies.cs" />
     <Compile Include="Managers\ManagerUI.cs" />
     <Compile Include="Managers\ManagerUnits.cs" />
     <Compile Include="UI\Buildings\Barracks.cs" />
@@ -63,10 +65,14 @@
     <Compile Include="UI\UI.cs" />
     <Compile Include="UI\Units\ElvenArcher.cs" />
     <Compile Include="UI\Units\Footman.cs" />
+    <Compile Include="UI\Units\Grunt.cs" />
     <Compile Include="UI\Units\Peasant.cs" />
     <Compile Include="Units\Humans\ElvenArcher.cs" />
     <Compile Include="Units\Humans\Footman.cs" />
     <Compile Include="Units\InformationUnit.cs" />
+    <Compile Include="Units\Orcs\Grunt.cs" />
+    <Compile Include="Units\Orcs\TrollAxethrower.cs" />
+    <Compile Include="Units\UnitEnemy.cs" />
     <Compile Include="Util\Camera.cs" />
     <Compile Include="Util\Information.cs" />
     <Compile Include="Util\Buildings.cs" />

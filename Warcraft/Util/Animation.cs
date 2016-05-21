@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using Warcraft.Units;
+using System.Linq;
 
 namespace Warcraft.Util
 {
@@ -11,6 +11,7 @@ namespace Warcraft.Util
         GOLD,
         WOOD,
         WOOD_WORKER,
+        ATTACKING,
         OTHER
     }
 
@@ -30,15 +31,27 @@ namespace Warcraft.Util
         private int width;
         private int height;
 
-        private string current;
+        public string current;
 
-        private bool isLooping = true;
+        public bool isLooping = true;
         public bool completed = false;
 
         public AnimationType currentAnimation;
 
+        Dictionary<string, int> animationIndex = new Dictionary<string, int>();
+
         public Animation(Dictionary<AnimationType, List<Sprite>> sprites, Dictionary<string, Frame> animations, string initial, int width, int height)
         {
+            animationIndex.Add("up", 0);
+            animationIndex.Add("down", 1);
+            animationIndex.Add("right", 2);
+            animationIndex.Add("left", 2);
+            animationIndex.Add("upRight", 3);
+            animationIndex.Add("downRight", 4);
+            animationIndex.Add("upLeft", 3);
+            animationIndex.Add("downLeft", 4);
+            //= new string[8] { "up", "down", "right", "left", "upRight", "downRight", "upLeft", "downLeft" }.Select((value, index) => new { value, index }).ToDictionary(pair => pair.value, pair => pair.index);
+
             this.sprites = sprites;
             this.animations = animations;
             this.current = initial;
@@ -97,7 +110,7 @@ namespace Warcraft.Util
                     index++;
                     elapsed = 0;
 
-                    if (index >= animations[current].sequence.Length)
+                    if (index >= (animations[current].sequence != null ? animations[current].sequence.Length : animations[current].startIndex[currentAnimation]))
                     {
                         if (isLooping)
                             index = 0;
@@ -116,9 +129,20 @@ namespace Warcraft.Util
                     index = 0;
             }
 
-            rectangle = new Rectangle(sprites[currentAnimation][animations[current].sequence[index]].x - (width - sprites[currentAnimation][animations[current].sequence[index]].width) / 2, 
-                                      sprites[currentAnimation][animations[current].sequence[index]].y - (height - sprites[currentAnimation][animations[current].sequence[index]].height) / 2, 
-                                      width, height);
+            if (animations[current].sequence != null)
+            {
+                rectangle = new Rectangle(sprites[currentAnimation][animations[current].sequence[index]].x - (width - sprites[currentAnimation][animations[current].sequence[index]].width) / 2,
+                                          sprites[currentAnimation][animations[current].sequence[index]].y - (height - sprites[currentAnimation][animations[current].sequence[index]].height) / 2,
+                                          width, height);
+            }
+            else
+            {
+                var i = animationIndex[current] * animations[current].startIndex[currentAnimation] + index;
+
+                rectangle = new Rectangle(sprites[currentAnimation][i].x - (width - sprites[currentAnimation][i].width) / 2,
+                                          sprites[currentAnimation][i].y - (height - sprites[currentAnimation][i].height) / 2,
+                                          width, height);
+            }
         }
     }
 }

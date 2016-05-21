@@ -59,7 +59,7 @@ namespace Warcraft.Units.Humans
             ui = new UI.Units.Footman(managerMouse, this);
             textureName.Add(AnimationType.WALKING, "Footman");
 
-            information = new InformationUnit("Footman", Race.HUMAN, Faction.ALLIANCE, 60, 6, 4, 10, 600, 1, Util.Buildings.BARRACKS, 60, 6, 13, 1);
+            information = new InformationUnit("Footman", Race.HUMAN, Faction.ALLIANCE, 60, 6, 4, 10, 600, 1, Util.Buildings.BARRACKS, 60, 6, 13, 1, 0, Util.Units.FOOTMAN);
             Information = information;
         }
     }

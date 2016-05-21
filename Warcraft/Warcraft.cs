@@ -17,7 +17,10 @@ namespace Warcraft
 
         ManagerUI managerUI;
         ManagerUnits managerUnits;
+        ManagerEnemies managerEnemies;
         ManagerBuildings managerBuildings;
+
+        ManagerCombat managerCombat;
 
         public static int WINDOWS_WIDTH = 960;
         public static int WINDOWS_HEIGHT = 608;
@@ -47,7 +50,10 @@ namespace Warcraft
         {
             managerBuildings = new ManagerBuildings(managerMouse, managerMap);
             managerUnits = new ManagerUnits(managerMouse, managerMap, managerBuildings);
+            managerEnemies = new ManagerEnemies(managerMouse, managerMap, managerBuildings);
             managerUI = new ManagerUI(managerMouse, managerBuildings , managerUnits);
+
+            managerCombat = new ManagerCombat(managerUnits, managerEnemies, managerBuildings);
 
             camera = new Camera(GraphicsDevice.Viewport);
 
@@ -60,8 +66,10 @@ namespace Warcraft
             
             managerMap.LoadContent(Content);
             managerUnits.LoadContent(Content);
+            managerEnemies.LoadContent(Content);
             managerBuildings.LoadContent(Content);
             managerUI.LoadContent(Content);
+            
             SelectRectangle.LoadContent(Content);
         }
 
@@ -72,8 +80,11 @@ namespace Warcraft
             
             managerMouse.Update();
             managerUnits.Update();
+            managerEnemies.Update();
             managerBuildings.Update();
             managerUI.Update();
+
+            managerCombat.Update();
 
             camera.Update(gameTime);
 
@@ -95,6 +106,7 @@ namespace Warcraft
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.transform);
             managerMouse.Draw(spriteBatch);
             managerUnits.Draw(spriteBatch);
+            managerEnemies.Draw(spriteBatch);
             managerBuildings.Draw(spriteBatch);
             spriteBatch.End();
 

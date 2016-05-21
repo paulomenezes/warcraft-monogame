@@ -35,3 +35,7 @@ C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\Fo
 C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\Knight.xnb
 C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\Mage.xnb
 C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\Peasant_gold.xnb
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\Grunt.xnb
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\Orc Buildings (Summer) .xnb
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\Peasant_dying.xnb
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\Troll Axethrower.xnb

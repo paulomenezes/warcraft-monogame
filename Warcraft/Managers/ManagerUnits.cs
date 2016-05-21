@@ -9,7 +9,7 @@ namespace Warcraft.Managers
 {
     class ManagerUnits
     {
-        List<Unit> units = new List<Unit>();
+        public List<Unit> units = new List<Unit>();
 
         ManagerMouse managerMouse;
         public ManagerMap managerMap;

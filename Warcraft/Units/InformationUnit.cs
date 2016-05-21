@@ -9,16 +9,20 @@ namespace Warcraft.Units
         public Race Race;
         public Faction Faction;
 
-        public int DamageMin;
-        public int DamageMax;
+        public int Damage;
+        public int Precision;
 
         public int Range;
         public int Armor;
         public int Sight;
         public int MovementSpeed;
 
+        private int v;
+        private Util.Units Type;
+
         public InformationUnit(string name, Race race, Faction faction, int hitPoints, int armor, int sight, int movementSpeed,
-                            int costGold, int costFood, Util.Buildings produceAt, int buildTime, int damageMin, int damageMax, int range)
+                            int costGold, int costFood, Util.Buildings produceAt, int buildTime, int damage, int precision, int range, 
+                            int v, Util.Units type)
         {
             Name = name;
 
@@ -35,10 +39,12 @@ namespace Warcraft.Units
             ProduceAt = produceAt;
             BuildTime = buildTime;
 
-            DamageMin = damageMin;
-            DamageMax = damageMax;
+            Damage = damage;
+            Precision = precision;
 
             Range = range;
+
+            Type = type;
         }
     }
 }

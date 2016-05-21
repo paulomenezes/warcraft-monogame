@@ -27,7 +27,7 @@ namespace Warcraft.Units
 
         public WorkigState workState = WorkigState.NOTHING;
         public bool selected;
-        private bool transition;
+        public bool transition;
 
         public Rectangle rectangle;
 
@@ -62,7 +62,7 @@ namespace Warcraft.Units
         {
             if (!e.UI && workState == WorkigState.NOTHING)
             {
-                if (rectangle.Intersects(e.SelectRectangle))
+                if (rectangle.Intersects(e.SelectRectangle) && information.HitPoints > 0)
                     selected = true;
                 else
                     selected = false;
@@ -83,8 +83,17 @@ namespace Warcraft.Units
 
             if (transition)
                 UpdateTransition();
-            else
+            else if (animations.currentAnimation != AnimationType.DYING)
                 animations.Stop();
+
+            if (animations.currentAnimation != AnimationType.DYING && information.HitPoints <= 0)
+            {
+                selected = false;
+
+                animations.currentAnimation = AnimationType.DYING;
+                animations.isLooping = false;
+                animations.Play("dying");
+            }
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

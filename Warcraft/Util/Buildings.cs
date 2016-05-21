@@ -5,6 +5,7 @@
         TOWN_HALL,
         BARRACKS,
         CHICKEN_FARM,
-        GOLD_MINE
+        GOLD_MINE,
+        NONE
     }
 }

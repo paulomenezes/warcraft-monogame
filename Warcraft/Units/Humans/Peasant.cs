@@ -82,8 +82,11 @@ namespace Warcraft.Units.Humans
             spriteGold.Add(new Sprite(129, 87, 21, 37));
             spriteGold.Add(new Sprite(128, 130, 22, 37));
             spriteGold.Add(new Sprite(129, 173, 21, 37));
-
             sprites.Add(AnimationType.GOLD, spriteGold);
+
+            List<Sprite> spriteDie = new List<Sprite>();
+            spriteDie.Add(new Sprite(10, 50, 33, 33));
+            sprites.Add(AnimationType.DYING, spriteDie);
 
             Dictionary<string, Frame> animations = new Dictionary<string, Frame>();
             animations.Add("up", new Frame(0, 5));
@@ -94,14 +97,16 @@ namespace Warcraft.Units.Humans
             animations.Add("downRight", new Frame(20, 5));
             animations.Add("upLeft", new Frame(15, 5, true));
             animations.Add("downLeft", new Frame(20, 5, true));
+            animations.Add("dying", new Frame(0, 1));
 
             this.animations = new Animation(sprites, animations, "down", width, height);
 
             ui = new UI.Units.Peasant(managerMouse, this);
             textureName.Add(AnimationType.WALKING, "Peasant_walking");
             textureName.Add(AnimationType.GOLD, "Peasant_gold");
+            textureName.Add(AnimationType.DYING, "Peasant_dying");
 
-            information = new InformationUnit("Peasant", Race.HUMAN, Faction.ALLIANCE, 30, 0, 4, 10, 400, 1, Util.Buildings.TOWN_HALL, 45, 1, 5, 1);
+            information = new InformationUnit("Peasant", Race.HUMAN, Faction.ALLIANCE, 30, 0, 4, 10, 400, 1, Util.Buildings.TOWN_HALL, 45, 1, 5, 1, 0, Util.Units.PEASANT);
             Information = information;
 
             commands.Add(new BuilderBuildings(Util.Buildings.TOWN_HALL, this, managerMouse, managerBuildings, managerUnits));
@@ -117,6 +122,8 @@ namespace Warcraft.Units.Humans
 
             if (!texture.ContainsKey(AnimationType.GOLD))
                 texture.Add(AnimationType.GOLD, content.Load<Texture2D>(textureName[AnimationType.GOLD]));
+            if (!texture.ContainsKey(AnimationType.DYING))
+                texture.Add(AnimationType.DYING, content.Load<Texture2D>(textureName[AnimationType.DYING]));
 
             for (int i = 0; i < commands.Count; i++)
             {

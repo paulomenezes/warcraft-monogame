@@ -5,6 +5,7 @@
         PEASANT,
         FOOTMAN,
         ELVEN_ARCHER,
-        NONE
+        NONE,
+        GRUNT
     }
 }

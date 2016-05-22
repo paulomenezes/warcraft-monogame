@@ -8,7 +8,7 @@ namespace Warcraft.Util
     public class Camera
     {
         public Matrix transform;
-        public Vector2 center;
+        public Vector2 center = new Vector2(32 * 25 - Warcraft.WINDOWS_HEIGHT / 2, 32 * 32 - Warcraft.WINDOWS_HEIGHT / 2);
         Viewport view;
 
         float speed = 4;

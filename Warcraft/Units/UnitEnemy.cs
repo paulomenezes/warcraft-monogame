@@ -12,7 +12,7 @@ namespace Warcraft.Units
     class UnitEnemy : Unit
     {
         int currentPatrol = 0;
-        int[,] patrol = new int[4, 2] { { 20, 5 }, { 15, 15 }, { 5, 15 }, { 5, 5 } };
+        int[,] patrol;
         
         public Unit target;
 
@@ -38,6 +38,52 @@ namespace Warcraft.Units
             base.LoadContent(content);
 
             missile = content.Load<Texture2D>("axe");
+            
+            Random rng = new Random();
+            if (information.Spawn == 0)
+            {
+                position = new Vector2(0, 25 * 32);
+
+                patrol = new int[4, 2] { 
+                    { rng.Next(0, 25), rng.Next(0, 25) }, 
+                    { rng.Next(25, 50), rng.Next(0, 25) }, 
+                    { rng.Next(25, 50), rng.Next(25, 50) }, 
+                    { rng.Next(0, 25), rng.Next(25, 50) }
+                };
+            }
+            else if (information.Spawn == 1)
+            {
+                position = new Vector2(25 * 32, 0);
+
+                patrol = new int[4, 2] {
+                    { rng.Next(25, 50), rng.Next(0, 25) },
+                    { rng.Next(25, 50), rng.Next(25, 50) },
+                    { rng.Next(0, 25), rng.Next(25, 50) },
+                    { rng.Next(0, 25), rng.Next(0, 25) }
+                };
+            }
+            else if (information.Spawn == 2)
+            {
+                position = new Vector2(50 * 32, 25 * 32);
+
+                patrol = new int[4, 2] {
+                    { rng.Next(25, 50), rng.Next(25, 50) },
+                    { rng.Next(0, 25), rng.Next(25, 50) },
+                    { rng.Next(0, 25), rng.Next(0, 25) },
+                    { rng.Next(25, 50), rng.Next(0, 25) }
+                };
+            }
+            else if (information.Spawn == 3)
+            {
+                position = new Vector2(25 * 32, 50 * 32);
+
+                patrol = new int[4, 2] {
+                    { rng.Next(0, 25), rng.Next(25, 50) },
+                    { rng.Next(0, 25), rng.Next(0, 25) },
+                    { rng.Next(25, 50), rng.Next(0, 25) },
+                    { rng.Next(25, 50), rng.Next(25, 50) }
+                };
+            }
         }
 
         public override void Update()
@@ -77,6 +123,9 @@ namespace Warcraft.Units
                     adjustX = 4;
                     adjustY = 4;
                 }
+
+                if (!shoot)
+                    missilePosition = position;
                 
                 if ((Math.Abs(adjustX) > information.Range || Math.Abs(adjustY) > information.Range) && lastPosition != position)
                 {
@@ -146,6 +195,7 @@ namespace Warcraft.Units
                 if (Math.Abs(adjustX) > 4 + information.Range || Math.Abs(adjustY) > 4 + information.Range || target.information.HitPoints <= 0 || target.workState != WorkigState.NOTHING)
                 {
                     target = null;
+                    shoot = false;
 
                     animations.currentAnimation = AnimationType.WALKING;
                     animations.Play(animations.current);

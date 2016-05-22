@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using Warcraft.Units;
 using Warcraft.Units.Orcs;
@@ -14,8 +15,14 @@ namespace Warcraft.Managers
         
         public ManagerEnemies(ManagerMouse managerMouse, ManagerMap managerMap, ManagerBuildings managerBuildings)
         {
-            enemies.Add(new Grunt(0, 2, managerMouse, managerMap, managerBuildings));
-            enemies.Add(new TrollAxethrower(0, 0, managerMouse, managerMap, managerBuildings));
+            Random rng = new Random();
+            for (int i = 0; i < 5; i++)
+            {
+                if (rng.Next(0, 100) > 50)
+                    enemies.Add(new Grunt(managerMouse, managerMap, managerBuildings));
+                else
+                    enemies.Add(new TrollAxethrower(managerMouse, managerMap, managerBuildings));
+            }
         }
 
         public void LoadContent()

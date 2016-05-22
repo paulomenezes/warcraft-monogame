@@ -106,7 +106,7 @@ namespace Warcraft.Units.Humans
             textureName.Add(AnimationType.GOLD, "Peasant_gold");
             textureName.Add(AnimationType.DYING, "Peasant_dying");
 
-            information = new InformationUnit("Peasant", Race.HUMAN, Faction.ALLIANCE, 30, 0, 4, 10, 400, 1, Util.Buildings.TOWN_HALL, 45, 1, 5, 1, 0, Util.Units.PEASANT);
+            information = new InformationUnit("Peasant", Race.HUMAN, Faction.ALLIANCE, 30, 2, 4, 10, 400, 1, Util.Buildings.TOWN_HALL, 45, 1, 5, 1, 0, Util.Units.PEASANT);
             Information = information;
 
             commands.Add(new BuilderBuildings(Util.Buildings.TOWN_HALL, this, managerMouse, managerBuildings, managerUnits));

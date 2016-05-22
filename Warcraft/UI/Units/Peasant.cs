@@ -22,15 +22,15 @@ namespace Warcraft.UI.Units
         public Peasant(ManagerMouse managerMouse, PeasantUnit peasant)
         {
             buttonPortrait = new Button(0, 0);
-            buttonBuilder = new Button(0, 260, 7, 8);
-            buttonCancel = new Button(0, 380, 1, 9);
+            buttonBuilder = new Button(0, 280, 7, 8);
+            buttonCancel = new Button(0, 400, 1, 9);
 
-            builder.Add(new Button(0, 260, 0, 4));
-            builder.Add(new Button(50, 260, 2, 4));
-            builder.Add(new Button(100, 260, 8, 3));
-            builder.Add(new Button(0, 300, 2, 9));
+            builder.Add(new Button(0, 280, 0, 4));
+            builder.Add(new Button(50, 280, 2, 4));
+            builder.Add(new Button(100, 280, 8, 3));
+            builder.Add(new Button(0, 320, 2, 9));
 
-            buttonMiner = new Button(50, 260, 9, 8);
+            buttonMiner = new Button(50, 280, 9, 8);
 
             this.peasant = peasant;
 
@@ -89,10 +89,11 @@ namespace Warcraft.UI.Units
 
                 spriteBatch.DrawString(font, peasant.information.Name, new Vector2(minX + 50, 100), Color.Black);
                 spriteBatch.DrawString(font, "Armor: " + peasant.information.Armor, new Vector2(minX, 150), Color.Black);
-                spriteBatch.DrawString(font, "Damage: " + peasant.information.Damage + " - " + peasant.information.Precision, new Vector2(minX, 170), Color.Black);
-                spriteBatch.DrawString(font, "Range: " + peasant.information.Range, new Vector2(minX, 190), Color.Black);
-                spriteBatch.DrawString(font, "Sight: " + peasant.information.Sight, new Vector2(minX, 210), Color.Black);
+                spriteBatch.DrawString(font, "Damage: " + peasant.information.Damage + " (" + peasant.information.Precision + "%)", new Vector2(minX, 170), Color.Black);
+                spriteBatch.DrawString(font, "Range: " + peasant.information.Range + "sq", new Vector2(minX, 190), Color.Black);
+                spriteBatch.DrawString(font, "Sight: " + peasant.information.Sight + "º", new Vector2(minX, 210), Color.Black);
                 spriteBatch.DrawString(font, "Speed: " + peasant.information.MovementSpeed, new Vector2(minX, 230), Color.Black);
+                spriteBatch.DrawString(font, "Hit points: " + peasant.information.HitPoints, new Vector2(minX, 250), Color.Black);
             }
         }
     }

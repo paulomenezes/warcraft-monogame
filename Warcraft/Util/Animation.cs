@@ -23,7 +23,7 @@ namespace Warcraft.Util
 
         public Rectangle rectangle;
 
-        private int speed = 5;
+        public int speed = 5;
         private int elapsed;
         private int index;
 
@@ -130,6 +130,8 @@ namespace Warcraft.Util
 
             if (animations[current].sequence != null)
             {
+                if (currentAnimation == AnimationType.DYING) current = "dying";
+
                 rectangle = new Rectangle(sprites[currentAnimation][animations[current].sequence[index]].x - (width - sprites[currentAnimation][animations[current].sequence[index]].width) / 2,
                                           sprites[currentAnimation][animations[current].sequence[index]].y - (height - sprites[currentAnimation][animations[current].sequence[index]].height) / 2,
                                           width, height);
@@ -137,6 +139,7 @@ namespace Warcraft.Util
             else
             {
                 var i = animationIndex[current] * animations[current].startIndex[currentAnimation] + index;
+                if (i == sprites[currentAnimation].Count) i--;
 
                 rectangle = new Rectangle(sprites[currentAnimation][i].x - (width - sprites[currentAnimation][i].width) / 2,
                                           sprites[currentAnimation][i].y - (height - sprites[currentAnimation][i].height) / 2,

@@ -14,7 +14,8 @@ namespace Warcraft.Managers
         
         public ManagerEnemies(ManagerMouse managerMouse, ManagerMap managerMap, ManagerBuildings managerBuildings)
         {
-            enemies.Add(new Grunt(0, 0, managerMouse, managerMap, managerBuildings));
+            enemies.Add(new Grunt(0, 2, managerMouse, managerMap, managerBuildings));
+            enemies.Add(new TrollAxethrower(0, 0, managerMouse, managerMap, managerBuildings));
         }
 
         public void LoadContent()

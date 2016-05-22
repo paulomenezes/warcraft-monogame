@@ -6,6 +6,7 @@
         FOOTMAN,
         ELVEN_ARCHER,
         NONE,
-        GRUNT
+        GRUNT,
+        TROLL_AXETHROWER
     }
 }

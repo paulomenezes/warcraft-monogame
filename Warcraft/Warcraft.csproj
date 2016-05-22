@@ -67,6 +67,7 @@
     <Compile Include="UI\Units\Footman.cs" />
     <Compile Include="UI\Units\Grunt.cs" />
     <Compile Include="UI\Units\Peasant.cs" />
+    <Compile Include="UI\Units\TrollAxethrower.cs" />
     <Compile Include="Units\Humans\ElvenArcher.cs" />
     <Compile Include="Units\Humans\Footman.cs" />
     <Compile Include="Units\InformationUnit.cs" />

@@ -99,7 +99,7 @@ namespace Warcraft.Units
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             if (selected)
-                SelectRectangle.Draw(spriteBatch, new Rectangle(rectangle.X + (rectangle.Width - 32) / 2, rectangle.Y + (rectangle.Height - 32) / 2, 32, 32));
+                SelectRectangle.Draw(spriteBatch, new Rectangle(rectangle.X, rectangle.Y, 32, 32));
 
             if (workState != WorkigState.WORKING)
             {

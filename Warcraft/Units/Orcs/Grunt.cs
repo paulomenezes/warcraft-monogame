@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Warcraft.Managers;
 using Warcraft.Util;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace Warcraft.Units.Orcs
 {
@@ -74,11 +75,6 @@ namespace Warcraft.Units.Orcs
             sprites.Add(AnimationType.ATTACKING, spriteAttacking);
 
             List<Sprite> spriteDiying = new List<Sprite>();
-            spriteDiying.Add(new Sprite(16, 512, 43, 44));
-            spriteDiying.Add(new Sprite(91, 509, 47, 44));
-            spriteDiying.Add(new Sprite(171, 508, 41, 55));
-            spriteDiying.Add(new Sprite(237, 517, 55, 47));
-            spriteDiying.Add(new Sprite(306, 518, 44, 45));
             spriteDiying.Add(new Sprite(17, 569, 45, 51));
             sprites.Add(AnimationType.DYING, spriteDiying);
 
@@ -103,7 +99,7 @@ namespace Warcraft.Units.Orcs
             ui = new UI.Units.Grunt(managerMouse, this);
             textureName.Add(AnimationType.WALKING, "Grunt");
 
-            information = new InformationUnit("Grunt", Race.ORC, Faction.HORDE, 60, 6, 4, 10, 600, 1, Util.Buildings.NONE, 60, 6, 13, 1, 0, Util.Units.GRUNT);
+            information = new InformationUnit("Grunt", Race.ORC, Faction.HORDE, 60, 6, 90, 10, 600, 1, Util.Buildings.NONE, 60, 6, 13, 1, 1, Util.Units.GRUNT);
             Information = information;
         }
 

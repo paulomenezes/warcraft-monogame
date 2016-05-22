@@ -25,8 +25,8 @@ namespace Warcraft.Managers
             
             managerMouse.MouseClickEventHandler += ManagerMouse_MouseClickEventHandler;
 
-            for (int i = 3; i < 6; i++)
-                units.Add(new Peasant(3, i, managerMouse, managerMap, managerBuildings, this));
+            for (int i = 5; i < 8; i++)
+                units.Add(new Peasant(5, i, managerMouse, managerMap, managerBuildings, this));
         }
 
         public void Factory(Util.Units type, int x, int y, int targetX, int targetY)

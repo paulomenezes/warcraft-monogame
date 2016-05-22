@@ -12,17 +12,17 @@ namespace Warcraft.Units
         public int Damage;
         public int Precision;
 
-        public int Range;
         public int Armor;
         public int Sight;
         public int MovementSpeed;
 
-        private int v;
-        private Util.Units Type;
+        public int Range;
+        public int Spawn;
+        public Util.Units Type;
 
         public InformationUnit(string name, Race race, Faction faction, int hitPoints, int armor, int sight, int movementSpeed,
                             int costGold, int costFood, Util.Buildings produceAt, int buildTime, int damage, int precision, int range, 
-                            int v, Util.Units type)
+                            int spawn, Util.Units type)
         {
             Name = name;
 
@@ -33,6 +33,7 @@ namespace Warcraft.Units
             Armor = armor;
             Sight = sight;
             MovementSpeed = movementSpeed;
+            Range = range;
 
             CostGold = costGold;
             CostFood = costFood;
@@ -42,7 +43,7 @@ namespace Warcraft.Units
             Damage = damage;
             Precision = precision;
 
-            Range = range;
+            Spawn = spawn;
 
             Type = type;
         }

@@ -1,4 +1,7 @@
-﻿namespace Warcraft.Managers
+﻿using Microsoft.Xna.Framework;
+using System;
+
+namespace Warcraft.Managers
 {
     class ManagerCombat
     {
@@ -19,8 +22,14 @@
             {
                 for (int e = 0; e < managerEnemies.enemies.Count; e++)
                 {
-                    if (managerEnemies.enemies[e].target == null && 
-                        managerEnemies.enemies[e].enemyDetect.Intersects(managerUnits.units[u].rectangle) &&
+                    float angle = MathHelper.ToDegrees((float)(Math.Atan2(managerUnits.units[u].position.Y - managerEnemies.enemies[e].position.Y,
+                                                                          managerUnits.units[u].position.X - managerEnemies.enemies[e].position.X)));
+
+                    float distance = Vector2.Distance(managerUnits.units[u].position, managerEnemies.enemies[e].position);
+
+                    if (managerEnemies.enemies[e].target == null &&
+                        distance < 32 * (managerEnemies.enemies[e].information.Range + 1) &&
+                        angle >= 0 && angle <= managerEnemies.enemies[e].information.Sight &&
                         managerUnits.units[u].information.HitPoints > 0 &&
                         managerUnits.units[u].workState == Units.WorkigState.NOTHING)
                     {

@@ -94,6 +94,7 @@ namespace Warcraft.Units.Orcs
             animations.Add("downRight", new Frame(framesCount));
             animations.Add("upLeft", new Frame(framesCount, true));
             animations.Add("downLeft", new Frame(framesCount, true));
+            animations.Add("dying", new Frame(0, 1));
 
             this.animations = new Animation(sprites, animations, "down", width, height);
 
@@ -111,6 +112,8 @@ namespace Warcraft.Units.Orcs
         {
             base.LoadContent(content);
 
+            if (!texture.ContainsKey(AnimationType.DYING))
+                texture.Add(AnimationType.DYING, texture[AnimationType.WALKING]);
             if (!texture.ContainsKey(AnimationType.ATTACKING))
                 texture.Add(AnimationType.ATTACKING, content.Load<Texture2D>(textureName[AnimationType.WALKING]));
         }

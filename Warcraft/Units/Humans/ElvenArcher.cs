@@ -43,22 +43,45 @@ namespace Warcraft.Units.Humans
             spriteWalking.Add(new Sprite(184, 165, 40, 38));
             spriteWalking.Add(new Sprite(187, 237, 43, 36));
             spriteWalking.Add(new Sprite(187, 312, 42, 37));
-
             sprites.Add(AnimationType.WALKING, spriteWalking);
+
+            List<Sprite> spriteAttacking = new List<Sprite>();
+            // UP
+            spriteAttacking.Add(new Sprite(10, 373, 45, 52));
+            spriteAttacking.Add(new Sprite(10, 452, 44, 48));
+            // DOWN
+            spriteAttacking.Add(new Sprite(238, 388, 45, 36));
+            spriteAttacking.Add(new Sprite(237, 460, 45, 39));
+            // LEFT
+            spriteAttacking.Add(new Sprite(128, 380, 46, 42));
+            spriteAttacking.Add(new Sprite(130, 455, 39, 40));
+            // UP-RIGHT
+            spriteAttacking.Add(new Sprite(67, 382, 43, 47));
+            spriteAttacking.Add(new Sprite(71, 457, 38, 46));
+            // DOWN-RIGHT
+            spriteAttacking.Add(new Sprite(189, 389, 36, 36));
+            spriteAttacking.Add(new Sprite(184, 463, 41, 37));
+            sprites.Add(AnimationType.ATTACKING, spriteAttacking);
 
             List<Sprite> spriteDie = new List<Sprite>();
             spriteDie.Add(new Sprite(181, 530, 44, 43));
             sprites.Add(AnimationType.DYING, spriteDie);
 
             Dictionary<string, Frame> animations = new Dictionary<string, Frame>();
-            animations.Add("up", new Frame(0, 5));
-            animations.Add("down", new Frame(5, 5));
-            animations.Add("right", new Frame(10, 5));
-            animations.Add("left", new Frame(10, 5, true));
-            animations.Add("upRight", new Frame(15, 5));
-            animations.Add("downRight", new Frame(20, 5));
-            animations.Add("upLeft", new Frame(15, 5, true));
-            animations.Add("downLeft", new Frame(20, 5, true));
+
+            Dictionary<AnimationType, int> framesCount = new Dictionary<AnimationType, int>();
+            framesCount.Add(AnimationType.WALKING, 5);
+            framesCount.Add(AnimationType.ATTACKING, 2);
+            framesCount.Add(AnimationType.DYING, 1);
+
+            animations.Add("up", new Frame(framesCount));
+            animations.Add("down", new Frame(framesCount));
+            animations.Add("right", new Frame(framesCount));
+            animations.Add("left", new Frame(framesCount, true));
+            animations.Add("upRight", new Frame(framesCount));
+            animations.Add("downRight", new Frame(framesCount));
+            animations.Add("upLeft", new Frame(framesCount, true));
+            animations.Add("downLeft", new Frame(framesCount, true));
             animations.Add("dying", new Frame(0, 1));
 
             this.animations = new Animation(sprites, animations, "down", width, height);
@@ -73,9 +96,12 @@ namespace Warcraft.Units.Humans
         public override void LoadContent(ContentManager content)
         {
             base.LoadContent(content);
-            
+
             if (!texture.ContainsKey(AnimationType.DYING))
                 texture.Add(AnimationType.DYING, texture[AnimationType.WALKING]);
+
+            if (!texture.ContainsKey(AnimationType.ATTACKING))
+                texture.Add(AnimationType.ATTACKING, texture[AnimationType.WALKING]);
         }
     }
 }

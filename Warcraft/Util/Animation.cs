@@ -49,6 +49,7 @@ namespace Warcraft.Util
             animationIndex.Add("downRight", 4);
             animationIndex.Add("upLeft", 3);
             animationIndex.Add("downLeft", 4);
+            animationIndex.Add("dying", 5);
             //= new string[8] { "up", "down", "right", "left", "upRight", "downRight", "upLeft", "downLeft" }.Select((value, index) => new { value, index }).ToDictionary(pair => pair.value, pair => pair.index);
 
             this.sprites = sprites;
@@ -131,6 +132,9 @@ namespace Warcraft.Util
             if (animations[current].sequence != null)
             {
                 if (currentAnimation == AnimationType.DYING) current = "dying";
+                if (current == "dying") currentAnimation = AnimationType.DYING;
+
+                if (currentAnimation == AnimationType.DYING) index = 0;
 
                 rectangle = new Rectangle(sprites[currentAnimation][animations[current].sequence[index]].x - (width - sprites[currentAnimation][animations[current].sequence[index]].width) / 2,
                                           sprites[currentAnimation][animations[current].sequence[index]].y - (height - sprites[currentAnimation][animations[current].sequence[index]].height) / 2,
@@ -141,9 +145,12 @@ namespace Warcraft.Util
                 var i = animationIndex[current] * animations[current].startIndex[currentAnimation] + index;
                 if (i == sprites[currentAnimation].Count) i--;
 
-                rectangle = new Rectangle(sprites[currentAnimation][i].x - (width - sprites[currentAnimation][i].width) / 2,
-                                          sprites[currentAnimation][i].y - (height - sprites[currentAnimation][i].height) / 2,
-                                          width, height);
+                if (currentAnimation == AnimationType.DYING) i = 0;
+
+                if (i < sprites[currentAnimation].Count)
+                    rectangle = new Rectangle(sprites[currentAnimation][i].x - (width - sprites[currentAnimation][i].width) / 2,
+                                              sprites[currentAnimation][i].y - (height - sprites[currentAnimation][i].height) / 2,
+                                              width, height);
             }
         }
     }

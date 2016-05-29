@@ -40,3 +40,4 @@ C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\Or
 C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\Peasant_dying.xnb
 C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\Troll Axethrower.xnb
 C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\axe.xnb
+C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\arrow.xnb

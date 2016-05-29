@@ -78,7 +78,7 @@ namespace Warcraft.Commands
                         worker.Move((int)goldMine.position.X / 32, (int)goldMine.position.Y / 32);
                         worker.animations.currentAnimation = Util.AnimationType.WALKING;
 
-                        Warcraft.GOLD += 300;
+                        Warcraft.GOLD += 100;
 
                         goldMine.animations.Change("working");
                         currentState = State.MINER;

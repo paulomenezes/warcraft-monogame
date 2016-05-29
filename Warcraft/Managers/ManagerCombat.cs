@@ -27,13 +27,18 @@ namespace Warcraft.Managers
 
                     float distance = Vector2.Distance(managerUnits.units[u].position, managerEnemies.enemies[e].position);
 
-                    if (managerEnemies.enemies[e].target == null &&
-                        distance < 32 * (managerEnemies.enemies[e].information.Range + 1) &&
+                    if (distance < 32 * (managerEnemies.enemies[e].information.Range + 1) &&
                         angle >= 0 && angle <= managerEnemies.enemies[e].information.Sight &&
+                        managerEnemies.enemies[e].information.HitPoints > 0 &&
                         managerUnits.units[u].information.HitPoints > 0 &&
                         managerUnits.units[u].workState == Units.WorkigState.NOTHING)
                     {
-                        managerEnemies.enemies[e].target = managerUnits.units[u];
+                        if (managerEnemies.enemies[e].target == null)
+                            managerEnemies.enemies[e].target = managerUnits.units[u];
+
+                        if (managerUnits.units[u].information.Type != Util.Units.PEASANT)
+                            if (managerUnits.units[u].target == null)
+                                managerUnits.units[u].target = managerEnemies.enemies[e];
                     }
                 }
             }

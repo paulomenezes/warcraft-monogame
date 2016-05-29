@@ -49,8 +49,8 @@ namespace Warcraft
         protected override void Initialize()
         {
             managerBuildings = new ManagerBuildings(managerMouse, managerMap);
-            managerUnits = new ManagerUnits(managerMouse, managerMap, managerBuildings);
             managerEnemies = new ManagerEnemies(managerMouse, managerMap, managerBuildings);
+            managerUnits = new ManagerUnits(managerMouse, managerMap, managerBuildings, managerEnemies);
             managerUI = new ManagerUI(managerMouse, managerBuildings , managerUnits);
 
             managerCombat = new ManagerCombat(managerUnits, managerEnemies, managerBuildings);

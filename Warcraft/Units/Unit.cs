@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 using Warcraft.UI;
+using System;
 
 namespace Warcraft.Units
 {
@@ -44,6 +45,20 @@ namespace Warcraft.Units
         Pathfinding pathfinding;
         List<Util.PathNode> path;
 
+        public Unit target;
+
+        Vector2 lastPosition;
+
+        Point oldAdjust;
+
+        Vector2 targetPosition;
+        Vector2 missilePosition;
+        Texture2D missileTroll;
+        Texture2D missileElven;
+
+        bool shoot = false;
+        float angle = 0;
+
         public Unit(int tileX, int tileY, int width, int height, int speed, ManagerMouse managerMouse, ManagerMap managerMap, ManagerBuildings managerBuildings)
         {
             this.width = width;
@@ -73,6 +88,9 @@ namespace Warcraft.Units
         {
             texture[AnimationType.WALKING] = content.Load<Texture2D>(textureName[AnimationType.WALKING]);
 
+            missileTroll = content.Load<Texture2D>("axe");
+            missileElven = content.Load<Texture2D>("arrow");
+
             ui.LoadContent(content);
         }
 
@@ -82,7 +100,20 @@ namespace Warcraft.Units
             ui.Update();
 
             if (transition)
+            {
                 UpdateTransition();
+
+                if (target != null)
+                {
+                    int adjustX = ((int)target.position.X - (int)position.X) / 32;
+                    int adjustY = ((int)target.position.Y - (int)position.Y) / 32;
+
+                    if (Math.Abs(adjustX) > information.Range || Math.Abs(adjustY) > information.Range)
+                    {
+                        transition = false;
+                    }
+                }
+            }
             else if (animations.currentAnimation != AnimationType.DYING)
                 animations.Stop();
 
@@ -94,12 +125,132 @@ namespace Warcraft.Units
                 animations.isLooping = false;
                 animations.Play("dying");
             }
+
+            Combat();
+        }
+
+        public void Combat()
+        {
+            if (target != null)
+            {
+                int x = 0, y = 0;
+                if (animations.current.ToLower().Contains("down"))
+                    y = -1;
+                if (animations.current.ToLower().Contains("up"))
+                    y = 1;
+                if (animations.current.ToLower().Contains("left"))
+                    x = 1;
+                if (animations.current.ToLower().Contains("right"))
+                    x = -1;
+
+                int adjustX = ((int)target.position.X - (int)position.X) / 32;
+                int adjustY = ((int)target.position.Y - (int)position.Y) / 32;
+
+                float distance = Vector2.Distance(target.position, position);
+
+                if (adjustX == 5 && oldAdjust.X == 6 && adjustY == 6 && oldAdjust.Y == 5)
+                {
+                    adjustX = 4;
+                    adjustY = 4;
+                }
+
+                if (!shoot)
+                    missilePosition = position;
+
+                if ((Math.Abs(adjustX) > information.Range || Math.Abs(adjustY) > information.Range) && lastPosition != position)
+                {
+                    Move((int)Math.Max(0, target.position.X / 32 + information.Range * x),
+                         (int)Math.Max(0, target.position.Y / 32 + information.Range * y));
+                    lastPosition = position;
+
+                    animations.currentAnimation = AnimationType.WALKING;
+                    animations.Play(animations.current);
+
+                    if (information.Type == Util.Units.TROLL_AXETHROWER)
+                    {
+                        missilePosition = position;
+                        targetPosition = target.position;
+                        shoot = false;
+                    }
+                }
+                else
+                {
+                    if (information.Type == Util.Units.TROLL_AXETHROWER || information.Type == Util.Units.ELVEN_ARCHER)
+                    {
+                        if (targetPosition == Vector2.Zero)
+                            targetPosition = target.position;
+
+                        transition = false;
+                        shoot = true;
+
+                        if (information.Type == Util.Units.TROLL_AXETHROWER)
+                            angle += 0.1f;
+                        else
+                            angle = (float)(Math.Atan2(position.X, -position.Y));
+
+                        Vector2 difference = targetPosition - missilePosition;
+                        difference.Normalize();
+
+                        missilePosition += difference * 5f;
+
+                        if ((int)Vector2.Distance(missilePosition, targetPosition) <= 2)
+                        {
+                            angle = 0;
+
+                            missilePosition = position;
+                            targetPosition = target.position;
+
+                            float reduce = ((information.Damage * ((float)information.Precision / 100)) - target.information.Armor) / 30;
+                            target.information.HitPoints -= reduce < 0 ? 0.01f : reduce;
+                        }
+                    }
+                    else
+                    {
+                        float reduce = ((information.Damage * ((float)information.Precision / 100)) - target.information.Armor) / 30;
+                        target.information.HitPoints -= reduce < 0 ? 0.01f : reduce;
+                    }
+
+                    if (adjustX > 0 && adjustY == 0) animations.Change("right");
+                    else if (adjustX > 0 && adjustY > 0) animations.Change("downRight");
+                    else if (adjustX == 0 && adjustY > 0) animations.Change("down");
+                    else if (adjustX < 0 && adjustY > 0) animations.Change("downLeft");
+                    else if (adjustX < 0 && adjustY == 0) animations.Change("left");
+                    else if (adjustX < 0 && adjustY < 0) animations.Change("upLeft");
+                    else if (adjustX == 0 && adjustY < 0) animations.Change("up");
+                    else if (adjustX > 0 && adjustY < 0) animations.Change("upRight");
+
+                    animations.currentAnimation = AnimationType.ATTACKING;
+                    animations.Play(animations.current);
+                }
+
+                oldAdjust = new Point(adjustX, adjustY);
+
+                if (Math.Abs(adjustX) > 4 + information.Range || Math.Abs(adjustY) > 4 + information.Range || 
+                    target.information.HitPoints <= 0 || information.HitPoints <= 0 ||
+                    target.workState != WorkigState.NOTHING)
+                {
+                    target = null;
+                    shoot = false;
+
+                    animations.currentAnimation = AnimationType.WALKING;
+                    animations.Play(animations.current);
+                }
+            }
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             if (selected)
                 SelectRectangle.Draw(spriteBatch, new Rectangle(rectangle.X, rectangle.Y, 32, 32));
+
+            if (shoot && animations.currentAnimation == AnimationType.ATTACKING)
+            {
+                if (information.Type == Util.Units.TROLL_AXETHROWER)
+                    spriteBatch.Draw(missileTroll, missilePosition + new Vector2(15, 15), new Rectangle(5, 5, 19, 20), Color.White, angle, new Vector2(9.5f, 10), 1f, SpriteEffects.None, 0);
+                else if (information.Type == Util.Units.ELVEN_ARCHER)
+                    spriteBatch.Draw(missileElven, missilePosition + new Vector2(15, 15), new Rectangle(19, 4, 3, 30), Color.White, angle, new Vector2(1.5f, 15), 1f, SpriteEffects.None, 0);
+            }
+            
 
             if (workState != WorkigState.WORKING)
             {

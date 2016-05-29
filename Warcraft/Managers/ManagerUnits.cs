@@ -14,15 +14,17 @@ namespace Warcraft.Managers
         ManagerMouse managerMouse;
         public ManagerMap managerMap;
         ManagerBuildings managerBuildings;
+        ManagerEnemies managerEnemies;
 
         ContentManager content;
 
-        public ManagerUnits(ManagerMouse managerMouse, ManagerMap managerMap, ManagerBuildings managerBuildings)
+        public ManagerUnits(ManagerMouse managerMouse, ManagerMap managerMap, ManagerBuildings managerBuildings, ManagerEnemies managerEnemies)
         {
             this.managerMouse = managerMouse;
             this.managerMap = managerMap;
             this.managerBuildings = managerBuildings;
-            
+            this.managerEnemies = managerEnemies;
+
             managerMouse.MouseClickEventHandler += ManagerMouse_MouseClickEventHandler;
 
             units.Add(new Peasant(23, 23, managerMouse, managerMap, managerBuildings, this));
@@ -45,6 +47,17 @@ namespace Warcraft.Managers
         private void ManagerMouse_MouseClickEventHandler(object sender, Events.MouseClickEventArgs e)
         {
             List<Unit> selecteds = GetSelected();
+
+            UnitEnemy enemy = null;
+            for (int j = 0; j < managerEnemies.enemies.Count; j++)
+            {
+                if (managerEnemies.enemies[j].position.X / 32 == e.XTile &&
+                    managerEnemies.enemies[j].position.Y / 32 == e.YTile)
+                {
+                    enemy = managerEnemies.enemies[j];
+                    break;
+                }
+            }
 
             int threshold = (int)Math.Sqrt(selecteds.Count) / 2;
             int x = -threshold, y = x;

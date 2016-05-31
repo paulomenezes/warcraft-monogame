@@ -14,8 +14,8 @@ namespace Warcraft.Units
         int currentPatrol = 0;
         int[,] patrol;
 
-        public UnitEnemy(int tileX, int tileY, int width, int height, int speed, ManagerMouse managerMouse, ManagerMap managerMap, ManagerBuildings managerBuildings) 
-            : base(tileX, tileY, width, height, speed, managerMouse, managerMap, managerBuildings)
+        public UnitEnemy(int width, int height, int speed, ManagerMouse managerMouse, ManagerMap managerMap, ManagerBuildings managerBuildings) 
+            : base(0, 0, width, height, speed, managerMouse, managerMap, managerBuildings)
         {
 
         }
@@ -86,11 +86,6 @@ namespace Warcraft.Units
                         currentPatrol = 0;
                 }
             }
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            base.Draw(spriteBatch);
         }
     }
 }

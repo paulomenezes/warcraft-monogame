@@ -10,8 +10,8 @@ namespace Warcraft.Units.Orcs
 {
     class Grunt : UnitEnemy
     {
-        public Grunt(ManagerMouse managerMouse, ManagerMap managerMap, ManagerBuildings managerBuildings) 
-            : base(0, 0, 52, 52, 1, managerMouse, managerMap, managerBuildings)
+        public Grunt(InformationUnit information, ManagerMouse managerMouse, ManagerMap managerMap, ManagerBuildings managerBuildings) 
+            : base(52, 52, 1, managerMouse, managerMap, managerBuildings)
         {
             Dictionary<AnimationType, List<Sprite>> sprites = new Dictionary<AnimationType, List<Sprite>>();
             List<Sprite> spriteWalking = new List<Sprite>();
@@ -100,11 +100,8 @@ namespace Warcraft.Units.Orcs
 
             ui = new UI.Units.Grunt(managerMouse, this);
             textureName.Add(AnimationType.WALKING, "Grunt");
-
-            Random rnd = new Random(Guid.NewGuid().GetHashCode());
-            int spawn = rnd.Next(0, 4);
-
-            information = new InformationUnit("Grunt", Race.ORC, Faction.HORDE, 60, 6, 90, 10, 600, 1, Util.Buildings.NONE, 60, rnd.Next(1, 20), rnd.Next(1, 100), 1, spawn, Util.Units.GRUNT);
+            
+            this.information = information;
             Information = information;
         }
 

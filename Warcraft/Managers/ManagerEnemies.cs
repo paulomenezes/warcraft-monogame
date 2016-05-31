@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using Warcraft.Units;
 using Warcraft.Units.Orcs;
+using Warcraft.Util;
 
 namespace Warcraft.Managers
 {
@@ -12,16 +13,37 @@ namespace Warcraft.Managers
         public List<UnitEnemy> enemies = new List<UnitEnemy>();
 
         ContentManager content;
-        
+
+        Random random = new Random(Guid.NewGuid().GetHashCode());
+        int wavesEnemies = 5;
+
+        ManagerMouse managerMouse;
+        ManagerMap managerMap;
+        ManagerBuildings managerBuildings;
+
         public ManagerEnemies(ManagerMouse managerMouse, ManagerMap managerMap, ManagerBuildings managerBuildings)
         {
-            Random rng = new Random();
-            for (int i = 0; i < 5; i++)
+            this.managerMap = managerMap;
+            this.managerMouse = managerMouse;
+            this.managerBuildings = managerBuildings;
+
+            for (int i = 0; i < wavesEnemies; i++)
             {
-                if (rng.Next(0, 100) > 50)
-                    enemies.Add(new Grunt(managerMouse, managerMap, managerBuildings));
+                int spawn = random.Next(0, 4);
+                int sight = random.Next(0, 180);
+                int damage = random.Next(1, 5);
+                int precision = random.Next(1, 50);
+
+                if (random.Next(0, 100) >= 50)
+                {
+                    InformationUnit info = new InformationUnit("Grunt", Race.ORC, Faction.HORDE, 60, 6, sight, 10, 600, 1, Util.Buildings.NONE, 60, damage, precision, 1, spawn, Util.Units.GRUNT);
+                    enemies.Add(new Grunt(info, managerMouse, managerMap, managerBuildings));
+                }
                 else
-                    enemies.Add(new TrollAxethrower(managerMouse, managerMap, managerBuildings));
+                {
+                    InformationUnit info = new InformationUnit("Troll Axethrower", Race.ORC, Faction.HORDE, 60, 6, sight, 10, 600, 1, Util.Buildings.NONE, 60, damage, precision, 5, spawn, Util.Units.TROLL_AXETHROWER);
+                    enemies.Add(new TrollAxethrower(info, managerMouse, managerMap, managerBuildings));
+                }
             }
         }
 
@@ -40,7 +62,41 @@ namespace Warcraft.Managers
 
         public void Update()
         {
-            enemies.ForEach((u) => u.Update());
+            int alives = 0;
+
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                enemies[i].Update();
+
+                if (enemies[i].information.HitPoints > 0)
+                    alives++;
+            }
+
+            if (alives == 0)
+            {
+                wavesEnemies++;
+
+                for (int i = 0; i < wavesEnemies; i++)
+                {
+                    int spawn = random.Next(0, 4);
+                    int sight = random.Next(0, 360);
+                    int damage = random.Next(1, 20);
+                    int precision = random.Next(1, 100);
+
+                    if (random.Next(0, 100) >= 50)
+                    {
+                        InformationUnit info = new InformationUnit("Grunt", Race.ORC, Faction.HORDE, 60, 6, sight, 10, 600, 1, Util.Buildings.NONE, 60, damage, precision, 1, spawn, Util.Units.GRUNT);
+                        enemies.Add(new Grunt(info, managerMouse, managerMap, managerBuildings));
+                    }
+                    else
+                    {
+                        InformationUnit info = new InformationUnit("Troll Axethrower", Race.ORC, Faction.HORDE, 60, 6, sight, 10, 600, 1, Util.Buildings.NONE, 60, damage, precision, 5, spawn, Util.Units.TROLL_AXETHROWER);
+                        enemies.Add(new TrollAxethrower(info, managerMouse, managerMap, managerBuildings));
+                    }
+                }
+
+                LoadContent();
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)

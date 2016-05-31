@@ -89,7 +89,7 @@ namespace Warcraft.Units.Humans
             ui = new UI.Units.ElvenArcher(managerMouse, this);
             textureName.Add(AnimationType.WALKING, "Elven Archer");
 
-            information = new InformationUnit("Elven Archer", Race.HIGH_ELF, Faction.ALLIANCE, 50, 2, 9, 10, 500, 1, Util.Buildings.BARRACKS, 70, 5, 11, 4, 0, Util.Units.ELVEN_ARCHER);
+            information = new InformationUnit("Elven Archer", Race.HIGH_ELF, Faction.ALLIANCE, 50, 6, 360, 10, 500, 1, Util.Buildings.BARRACKS, 400, 15, 70, 4, 0, Util.Units.ELVEN_ARCHER);
             Information = information;
         }
 

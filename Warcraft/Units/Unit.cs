@@ -99,23 +99,26 @@ namespace Warcraft.Units
             animations.Update();
             ui.Update();
 
-            if (transition)
+            if (information.HitPoints > 0)
             {
-                UpdateTransition();
-
-                if (target != null)
+                if (transition)
                 {
-                    int adjustX = ((int)target.position.X - (int)position.X) / 32;
-                    int adjustY = ((int)target.position.Y - (int)position.Y) / 32;
+                    UpdateTransition();
 
-                    if (Math.Abs(adjustX) > information.Range || Math.Abs(adjustY) > information.Range)
+                    if (target != null)
                     {
-                        transition = false;
+                        int adjustX = ((int)target.position.X - (int)position.X) / 32;
+                        int adjustY = ((int)target.position.Y - (int)position.Y) / 32;
+
+                        if (Math.Abs(adjustX) > information.Range || Math.Abs(adjustY) > information.Range)
+                        {
+                            transition = false;
+                        }
                     }
                 }
+                else if (animations.currentAnimation != AnimationType.DYING)
+                    animations.Stop();
             }
-            else if (animations.currentAnimation != AnimationType.DYING)
-                animations.Stop();
 
             if (animations.currentAnimation != AnimationType.DYING && information.HitPoints <= 0)
             {
@@ -126,7 +129,8 @@ namespace Warcraft.Units
                 animations.Play("dying");
             }
 
-            Combat();
+            if (information.HitPoints > 0)
+                Combat();
         }
 
         public void Combat()
@@ -186,7 +190,12 @@ namespace Warcraft.Units
                         if (information.Type == Util.Units.TROLL_AXETHROWER)
                             angle += 0.1f;
                         else
-                            angle = (float)(Math.Atan2(position.X, -position.Y));
+                        {
+                            double opposite = Math.Abs(position.Y - target.position.Y);
+                            double adjacent = Math.Abs(position.X - target.position.X);
+
+                            angle = (float)Math.Atan(opposite / adjacent);// (float)(Math.Atan2(position.X, -position.Y));
+                        }
 
                         Vector2 difference = targetPosition - missilePosition;
                         difference.Normalize();
@@ -240,15 +249,18 @@ namespace Warcraft.Units
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            if (selected)
-                SelectRectangle.Draw(spriteBatch, new Rectangle(rectangle.X, rectangle.Y, 32, 32));
+            if (information.HitPoints > 0)
+            { 
+                if (selected)
+                    SelectRectangle.Draw(spriteBatch, new Rectangle(rectangle.X, rectangle.Y, 32, 32));
 
-            if (shoot && animations.currentAnimation == AnimationType.ATTACKING)
-            {
-                if (information.Type == Util.Units.TROLL_AXETHROWER)
-                    spriteBatch.Draw(missileTroll, missilePosition + new Vector2(15, 15), new Rectangle(5, 5, 19, 20), Color.White, angle, new Vector2(9.5f, 10), 1f, SpriteEffects.None, 0);
-                else if (information.Type == Util.Units.ELVEN_ARCHER)
-                    spriteBatch.Draw(missileElven, missilePosition + new Vector2(15, 15), new Rectangle(19, 4, 3, 30), Color.White, angle, new Vector2(1.5f, 15), 1f, SpriteEffects.None, 0);
+                if (shoot && animations.currentAnimation == AnimationType.ATTACKING)
+                {
+                    if (information.Type == Util.Units.TROLL_AXETHROWER)
+                        spriteBatch.Draw(missileTroll, missilePosition + new Vector2(15, 15), new Rectangle(5, 5, 19, 20), Color.White, angle, new Vector2(9.5f, 10), 1f, SpriteEffects.None, 0);
+                    else if (information.Type == Util.Units.ELVEN_ARCHER)
+                        spriteBatch.Draw(missileElven, missilePosition + new Vector2(15, 15), new Rectangle(19, 4, 3, 30), Color.White, angle, new Vector2(1.5f, 15), 1f, SpriteEffects.None, 0);
+                }
             }
             
 
@@ -273,37 +285,43 @@ namespace Warcraft.Units
 
         public void Move(int xTile, int yTile)
         {
-            if (pathfinding.SetGoal((int)position.X, (int)position.Y, xTile, yTile))
+            if (information.HitPoints > 0)
             {
-                path = pathfinding.DiscoverPath();
-                if (path.Last().x == 49 && path.Last().y == 49)
+                if (pathfinding.SetGoal((int)position.X, (int)position.Y, xTile, yTile))
                 {
-                    // 
-                }
-                else
-                {
-                    if (path.Count > 0)
+                    path = pathfinding.DiscoverPath();
+                    if (path.Last().x == 49 && path.Last().y == 49)
                     {
-                        transition = true;
-                        goal = new Vector2(path.First().x * 32, path.First().y * 32);
-                        path.RemoveAt(0);
+                        // 
                     }
                     else
-                        position = new Vector2(xTile * 32, yTile * 32);
+                    {
+                        if (path.Count > 0)
+                        {
+                            transition = true;
+                            goal = new Vector2(path.First().x * 32, path.First().y * 32);
+                            path.RemoveAt(0);
+                        }
+                        else
+                            position = new Vector2(xTile * 32, yTile * 32);
+                    }
                 }
             }
         }
 
         public void MoveTo(int xTile, int yTile)
         {
-            if (pathfinding.SetGoal((int)position.X, (int)position.Y, (int)position.X / 32 + xTile, (int)position.Y / 32 + yTile))
+            if (information.HitPoints > 0)
             {
-                transition = true;
+                if (pathfinding.SetGoal((int)position.X, (int)position.Y, (int)position.X / 32 + xTile, (int)position.Y / 32 + yTile))
+                {
+                    transition = true;
 
-                path = pathfinding.DiscoverPath();
+                    path = pathfinding.DiscoverPath();
 
-                goal = new Vector2(path.First().x * 32, path.First().y * 32);
-                path.RemoveAt(0);
+                    goal = new Vector2(path.First().x * 32, path.First().y * 32);
+                    path.RemoveAt(0);
+                }
             }
         }
 

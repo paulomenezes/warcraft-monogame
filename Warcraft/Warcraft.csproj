@@ -75,6 +75,7 @@
     <Compile Include="Units\Orcs\TrollAxethrower.cs" />
     <Compile Include="Units\UnitEnemy.cs" />
     <Compile Include="Util\Camera.cs" />
+    <Compile Include="Util\GeneticUtil.cs" />
     <Compile Include="Util\Information.cs" />
     <Compile Include="Util\Buildings.cs" />
     <Compile Include="Util\Frame.cs" />

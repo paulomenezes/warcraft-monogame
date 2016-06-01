@@ -92,6 +92,8 @@ namespace Warcraft.Units
             missileElven = content.Load<Texture2D>("arrow");
 
             ui.LoadContent(content);
+
+            GeneticUtil.Encode(this);
         }
 
         public virtual void Update()
@@ -211,12 +213,14 @@ namespace Warcraft.Units
 
                             float reduce = ((information.Damage * ((float)information.Precision / 100)) - target.information.Armor) / 30;
                             target.information.HitPoints -= reduce < 0 ? 0.01f : reduce;
+                            information.Fitness += reduce < 0 ? 0.01f : reduce;
                         }
                     }
                     else
                     {
                         float reduce = ((information.Damage * ((float)information.Precision / 100)) - target.information.Armor) / 30;
                         target.information.HitPoints -= reduce < 0 ? 0.01f : reduce;
+                        information.Fitness += reduce < 0 ? 0.01f : reduce;
                     }
 
                     if (adjustX > 0 && adjustY == 0) animations.Change("right");

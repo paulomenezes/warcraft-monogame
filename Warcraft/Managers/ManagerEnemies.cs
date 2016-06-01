@@ -74,14 +74,40 @@ namespace Warcraft.Managers
 
             if (alives == 0)
             {
+                int[] indexes = GeneticUtil.RouletteWheelSelection(enemies);
+                string parent01 = GeneticUtil.Encode(enemies[indexes[0]]);
+                string parent02 = GeneticUtil.Encode(enemies[indexes[1]]);
+
+                int cut = random.Next(0, parent01.Length);
+
+                string child01 = parent01.Substring(0, cut) + parent02.Substring(cut, parent02.Length);
+                string child02 = parent02.Substring(0, cut) + parent01.Substring(cut, parent01.Length);
+
+                InformationUnit info01 = GeneticUtil.Decode(child01);
+                InformationUnit info02 = GeneticUtil.Decode(child02);
+
                 wavesEnemies++;
 
                 for (int i = 0; i < wavesEnemies; i++)
                 {
-                    int spawn = random.Next(0, 4);
-                    int sight = random.Next(0, 360);
-                    int damage = random.Next(1, 20);
-                    int precision = random.Next(1, 100);
+                    if (i == indexes[0])
+                    {
+                        if (info01.Type == Util.Units.GRUNT)
+                            enemies.Add(new Grunt(info01, managerMouse, managerMap, managerBuildings));
+                        else
+                            enemies.Add(new TrollAxethrower(info01, managerMouse, managerMap, managerBuildings));
+                    }
+                    else if (i == indexes[1])
+                    {
+                        if (info02.Type == Util.Units.GRUNT)
+                            enemies.Add(new Grunt(info02, managerMouse, managerMap, managerBuildings));
+                        else
+                            enemies.Add(new TrollAxethrower(info02, managerMouse, managerMap, managerBuildings));
+                    }
+                    else
+                    {
+                        
+                    }
 
                     if (random.Next(0, 100) >= 50)
                     {

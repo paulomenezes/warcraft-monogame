@@ -129,6 +129,9 @@ namespace Warcraft.Units
                 animations.currentAnimation = AnimationType.DYING;
                 animations.isLooping = false;
                 animations.Play("dying");
+
+                if (information.Faction == Faction.ALLIANCE)
+                    Warcraft.FOOD++;
             }
 
             if (information.HitPoints > 0)
@@ -331,71 +334,74 @@ namespace Warcraft.Units
 
         public void UpdateTransition()
         {
-            if (position.X < goal.X && position.Y < goal.Y)
+            if (information.HitPoints > 0)
             {
-                position.X += speed;
-                position.Y += speed;
-                animations.Play("downRight");
-            }
-            else if (position.X < goal.X && position.Y > goal.Y)
-            {
-                position.X += speed;
-                position.Y -= speed;
-                animations.Play("upRight");
-            }
-            else if (position.X > goal.X && position.Y < goal.Y)
-            {
-                position.X -= speed;
-                position.Y += speed;
-                animations.Play("downLeft");
-            }
-            else if (position.X > goal.X && position.Y > goal.Y)
-            {
-                position.X -= speed;
-                position.Y -= speed;
-                animations.Play("upLeft");
-            }
-            else if (position.X < goal.X)
-            {
-                position.X += speed;
-                animations.Play("right");
-            }
-            else if (position.X > goal.X)
-            {
-                position.X -= speed;
-                animations.Play("left");
-            }
-            else if (position.Y < goal.Y)
-            {
-                position.Y += speed;
-                animations.Play("down");
-            }
-            else if (position.Y > goal.Y)
-            {
-                position.Y -= speed;
-                animations.Play("up");
-            }
-
-            if (position.X == goal.X && position.Y == goal.Y)
-            {
-                if (path.Count > 0)
+                if (position.X < goal.X && position.Y < goal.Y)
                 {
-                    goal = new Vector2(path.First().x * 32, path.First().y * 32);
-                    path.RemoveAt(0);
+                    position.X += speed;
+                    position.Y += speed;
+                    animations.Play("downRight");
                 }
-                else
+                else if (position.X < goal.X && position.Y > goal.Y)
                 {
-                    transition = false;
-                    if (workState == WorkigState.GO_TO_WORK)
+                    position.X += speed;
+                    position.Y -= speed;
+                    animations.Play("upRight");
+                }
+                else if (position.X > goal.X && position.Y < goal.Y)
+                {
+                    position.X -= speed;
+                    position.Y += speed;
+                    animations.Play("downLeft");
+                }
+                else if (position.X > goal.X && position.Y > goal.Y)
+                {
+                    position.X -= speed;
+                    position.Y -= speed;
+                    animations.Play("upLeft");
+                }
+                else if (position.X < goal.X)
+                {
+                    position.X += speed;
+                    animations.Play("right");
+                }
+                else if (position.X > goal.X)
+                {
+                    position.X -= speed;
+                    animations.Play("left");
+                }
+                else if (position.Y < goal.Y)
+                {
+                    position.Y += speed;
+                    animations.Play("down");
+                }
+                else if (position.Y > goal.Y)
+                {
+                    position.Y -= speed;
+                    animations.Play("up");
+                }
+
+                if (position.X == goal.X && position.Y == goal.Y)
+                {
+                    if (path.Count > 0)
                     {
-                        workState = WorkigState.WORKING;
-                        selected = false;
+                        goal = new Vector2(path.First().x * 32, path.First().y * 32);
+                        path.RemoveAt(0);
+                    }
+                    else
+                    {
+                        transition = false;
+                        if (workState == WorkigState.GO_TO_WORK)
+                        {
+                            workState = WorkigState.WORKING;
+                            selected = false;
+                        }
                     }
                 }
-            }
 
-            rectangle.X = (int)position.X;
-            rectangle.Y = (int)position.Y;
+                rectangle.X = (int)position.X;
+                rectangle.Y = (int)position.Y;
+            }
         }
     }
 }

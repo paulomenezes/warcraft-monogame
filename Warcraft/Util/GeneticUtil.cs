@@ -9,28 +9,30 @@ namespace Warcraft.Util
 {
     class GeneticUtil
     {
-        public static string Encode(Unit enemy)
+        static Random random = new Random();
+
+        public static string[] Encode(Unit enemy)
         {
             string damage = FloatToBinary(enemy.information.Damage);
             string armor = FloatToBinary(enemy.information.Armor);
-            string hitPoints = FloatToBinary(enemy.information.HitPoints);
+            string hitPoints = FloatToBinary(enemy.information.HitPointsTotal);
             string sight = FloatToBinary(enemy.information.Sight);
             string spawn = FloatToBinary(enemy.information.Spawn);
             string precision = FloatToBinary(enemy.information.Precision);
             string type = FloatToBinary((int)enemy.information.Type);
             
-            return damage + armor + hitPoints + sight + spawn + precision + type;
+            return new string[7] { damage, armor, hitPoints, sight, spawn, precision, type };
         }
 
-        public static InformationUnit Decode(string data)
+        public static InformationUnit Decode(string[] data)
         {
-            string damage = data.Substring(0, 32);
-            string armor = data.Substring(32, 64);
-            string hitPoints = data.Substring(64, 96);
-            string sight = data.Substring(96, 128);
-            string spawn = data.Substring(128, 160);
-            string precision = data.Substring(160, 192);
-            string type = data.Substring(192, 224);
+            string damage = data[0];
+            string armor = data[1];
+            string hitPoints = data[2];
+            string sight = data[3];
+            string spawn = data[4];
+            string precision = data[5];
+            string type = data[6];
 
             float _damage = BinaryToFloat(damage);
             float _armor = BinaryToFloat(armor);
@@ -42,9 +44,9 @@ namespace Warcraft.Util
             int _type = (int)BinaryToFloat(type);
 
             InformationUnit info = null;
-            if (_type == 0)
+            if (_type < 3)
                 info = new InformationUnit("Grunt", Race.ORC, Faction.HORDE, _hitPoints, _armor, _sight, 10, 600, 1, Buildings.NONE, 60, _damage, _precision, 1, _spawn, Units.GRUNT);
-            else if (_type == 1)
+            else if (_type >= 3)
                 info = new InformationUnit("Troll Axethrower", Race.ORC, Faction.HORDE, _hitPoints, _armor, _sight, 10, 600, 1, Buildings.NONE, 60, _damage, _precision, 1, _spawn, Units.TROLL_AXETHROWER);
 
             return info;
@@ -52,9 +54,26 @@ namespace Warcraft.Util
 
         public static float BinaryToFloat(string value)
         {
+            char[] valueChar = value.ToCharArray();
+
+            for (int j = 0; j < valueChar.Length; j++)
+            {
+                if (random.Next(0, 100) < 5)
+                {
+                    valueChar[j] = valueChar[j] == '1' ? '0' : '1';
+                }
+            }
+
+            value = new string(valueChar);
+
             int i = Convert.ToInt32(value, 2);
             byte[] b = BitConverter.GetBytes(i);
             return BitConverter.ToSingle(b, 0);
+        }
+
+        public static string IntToBinary(int value)
+        {
+            return Convert.ToString(value, 2);
         }
 
         public static string FloatToBinary(float value)

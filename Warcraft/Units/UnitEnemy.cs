@@ -24,7 +24,10 @@ namespace Warcraft.Units
         {
             base.LoadContent(content);
 
-            Random rng = new Random();
+            Console.WriteLine(information.ToString());
+
+            Random rng = ManagerEnemies.random;
+
             if (information.Spawn == 0)
             {
                 position = new Vector2(0, 25 * 32);

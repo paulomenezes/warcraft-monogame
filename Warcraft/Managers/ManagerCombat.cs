@@ -24,7 +24,7 @@ namespace Warcraft.Managers
                 {
                     float angle = MathHelper.ToDegrees((float)(Math.Atan2(managerUnits.units[u].position.Y - managerEnemies.enemies[e].position.Y,
                                                                           managerUnits.units[u].position.X - managerEnemies.enemies[e].position.X)));
-
+                    
                     float distance = Vector2.Distance(managerUnits.units[u].position, managerEnemies.enemies[e].position);
 
                     if (distance < 32 * (managerEnemies.enemies[e].information.Range + 1) &&

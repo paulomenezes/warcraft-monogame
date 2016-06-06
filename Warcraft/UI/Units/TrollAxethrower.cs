@@ -50,6 +50,7 @@ namespace Warcraft.UI.Units
                 spriteBatch.DrawString(font, "Range: " + trollAxethrower.information.Range, new Vector2(minX, 190), Color.Black);
                 spriteBatch.DrawString(font, "Sight: " + trollAxethrower.information.Sight, new Vector2(minX, 210), Color.Black);
                 spriteBatch.DrawString(font, "Speed: " + trollAxethrower.information.MovementSpeed, new Vector2(minX, 230), Color.Black);
+                spriteBatch.DrawString(font, "Hitpoints: " + trollAxethrower.information.HitPoints + "/" + trollAxethrower.information.HitPointsTotal, new Vector2(minX, 250), Color.Black);
             }
         }
     }

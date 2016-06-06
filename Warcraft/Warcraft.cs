@@ -30,9 +30,9 @@ namespace Warcraft
 
         public static Camera camera;
 
-        public static int GOLD = 5000;
+        public static int GOLD = 50000;
         public static int WOOD = 99999;
-        public static int FOOD = 5;
+        public static int FOOD = 50;
         public static int OIL = 99999;
 
         public Warcraft()
@@ -114,6 +114,7 @@ namespace Warcraft
             spriteBatch.Begin();
             managerUI.Draw(spriteBatch);
             managerUnits.DrawUI(spriteBatch);
+            managerEnemies.DrawUI(spriteBatch);
             managerBuildings.DrawUI(spriteBatch);
             spriteBatch.End();
 

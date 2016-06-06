@@ -18,6 +18,7 @@
         public string Name;
 
         public float HitPoints;
+        public float HitPointsTotal;
 
         public int CostGold;
         public int CostFood;

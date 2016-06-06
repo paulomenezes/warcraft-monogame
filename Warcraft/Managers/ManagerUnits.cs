@@ -47,18 +47,7 @@ namespace Warcraft.Managers
         private void ManagerMouse_MouseClickEventHandler(object sender, Events.MouseClickEventArgs e)
         {
             List<Unit> selecteds = GetSelected();
-
-            UnitEnemy enemy = null;
-            for (int j = 0; j < managerEnemies.enemies.Count; j++)
-            {
-                if (managerEnemies.enemies[j].position.X / 32 == e.XTile &&
-                    managerEnemies.enemies[j].position.Y / 32 == e.YTile)
-                {
-                    enemy = managerEnemies.enemies[j];
-                    break;
-                }
-            }
-
+            
             int threshold = (int)Math.Sqrt(selecteds.Count) / 2;
             int x = -threshold, y = x;
             for (int i = 0; i < selecteds.Count; i++)

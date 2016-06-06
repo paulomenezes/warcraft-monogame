@@ -1,4 +1,5 @@
-﻿using Warcraft.Util;
+﻿using System;
+using Warcraft.Util;
 
 namespace Warcraft.Units
 {
@@ -31,9 +32,10 @@ namespace Warcraft.Units
             Race = race;
             Faction = faction;
 
-            HitPoints = hitPoints;
-            Armor = armor;
-            Sight = sight;
+            HitPoints = Math.Min(200, Math.Max(hitPoints, 1));
+            HitPointsTotal = HitPoints;
+            Armor = Math.Min(20, Math.Max(armor, 0));
+            Sight = Math.Min(360, Math.Max(sight, 1));
             MovementSpeed = movementSpeed;
             Range = range;
 
@@ -42,12 +44,23 @@ namespace Warcraft.Units
             ProduceAt = produceAt;
             BuildTime = buildTime;
 
-            Damage = damage;
-            Precision = precision;
+            Damage = Math.Min(20, Math.Max(damage, 0));
+            Precision = Math.Min(100, Math.Max(precision, 1));
 
-            Spawn = spawn;
+            Spawn = (int)Math.Min(0, Math.Max(spawn, 4));
 
             Type = type;
+        }
+
+        public override string ToString()
+        {
+            return "Type: " + Type + 
+                 "\nHitpoints: " + HitPointsTotal + 
+                 "\nArmor: " + Armor + 
+                 "\nSight: " + Sight +
+                 "\nDamage: " + Damage + 
+                 "\nPrecision: " + Precision +
+                 "\n\n";
         }
     }
 }

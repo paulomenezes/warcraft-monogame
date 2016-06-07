@@ -56,6 +56,7 @@
     <Compile Include="Managers\ManagerEnemies.cs" />
     <Compile Include="Managers\ManagerUI.cs" />
     <Compile Include="Managers\ManagerUnits.cs" />
+    <Compile Include="Map\Noise2D.cs" />
     <Compile Include="UI\Buildings\Barracks.cs" />
     <Compile Include="UI\Buildings\ChickenFarm.cs" />
     <Compile Include="UI\Buildings\GoldMine.cs" />

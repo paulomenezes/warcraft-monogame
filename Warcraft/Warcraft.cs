@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Warcraft.Managers;
+using Warcraft.Map;
 using Warcraft.UI;
 using Warcraft.Util;
 
@@ -34,7 +35,7 @@ namespace Warcraft
         public static int WOOD = 99999;
         public static int FOOD = 50;
         public static int OIL = 99999;
-
+        
         public Warcraft()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -69,7 +70,7 @@ namespace Warcraft
             managerEnemies.LoadContent(Content);
             managerBuildings.LoadContent(Content);
             managerUI.LoadContent(Content);
-            
+                        
             SelectRectangle.LoadContent(Content);
         }
 

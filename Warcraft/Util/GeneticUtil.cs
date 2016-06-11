@@ -13,13 +13,13 @@ namespace Warcraft.Util
 
         public static string[] Encode(Unit enemy)
         {
-            string damage = FloatToBinary(enemy.information.Damage);
-            string armor = FloatToBinary(enemy.information.Armor);
+            string damage = IntToBinary(enemy.information.Damage);
+            string armor = IntToBinary(enemy.information.Armor);
             string hitPoints = FloatToBinary(enemy.information.HitPointsTotal);
-            string sight = FloatToBinary(enemy.information.Sight);
-            string spawn = FloatToBinary(enemy.information.Spawn);
-            string precision = FloatToBinary(enemy.information.Precision);
-            string type = FloatToBinary((int)enemy.information.Type);
+            string sight = IntToBinary(enemy.information.Sight);
+            string spawn = IntToBinary(enemy.information.Spawn);
+            string precision = IntToBinary(enemy.information.Precision);
+            string type = IntToBinary((int)enemy.information.Type);
             
             return new string[7] { damage, armor, hitPoints, sight, spawn, precision, type };
         }
@@ -34,14 +34,15 @@ namespace Warcraft.Util
             string precision = data[5];
             string type = data[6];
 
-            float _damage = BinaryToFloat(damage);
-            float _armor = BinaryToFloat(armor);
-            float _hitPoints = BinaryToFloat(hitPoints);
-            float _sight = BinaryToFloat(sight);
-            float _precision = BinaryToFloat(precision);
+            int _damage = BinaryToInt(damage);
+            int _armor = BinaryToInt(armor);
+            int _sight = BinaryToInt(sight);
+            int _precision = BinaryToInt(precision);
 
-            int _spawn = (int)BinaryToFloat(spawn);
-            int _type = (int)BinaryToFloat(type);
+            int _spawn = BinaryToInt(spawn);
+            int _type = BinaryToInt(type);
+
+            float _hitPoints = BinaryToFloat(hitPoints);
 
             InformationUnit info = null;
             if (_type < 3)
@@ -71,35 +72,33 @@ namespace Warcraft.Util
             return BitConverter.ToSingle(b, 0);
         }
 
-        public static string IntToBinary(int value)
-        {
-            return Convert.ToString(value, 2);
-        }
-
         public static string FloatToBinary(float value)
         {
             byte[] b = BitConverter.GetBytes(value);
             int i = BitConverter.ToInt32(b, 0);
             return Convert.ToString(i, 2);
+        }
 
-            //int bitCount = sizeof(float) * 8; // never rely on your knowledge of the size
-            //char[] result = new char[bitCount]; // better not use string, to avoid ineffective string concatenation repeated in a loop
+        public static string IntToBinary(int value)
+        {
+            return Convert.ToString(value, 2);
+        }
 
-            //// now, most important thing: (int)value would be "semantic" cast of the same
-            //// mathematical value (with possible rounding), something we don't want; so:
-            //int intValue = BitConverter.ToInt32(BitConverter.GetBytes(value), 0);
+        public static int BinaryToInt(string value)
+        {
+            char[] valueChar = value.ToCharArray();
 
-            //for (int bit = 0; bit < bitCount; ++bit)
-            //{
-            //    int maskedValue = intValue & (1 << bit); // this is how shift and mask is done.
-            //    if (maskedValue > 0)
-            //        maskedValue = 1;
+            for (int j = 0; j < valueChar.Length; j++)
+            {
+                if (random.Next(0, 100) < 5)
+                {
+                    valueChar[j] = valueChar[j] == '1' ? '0' : '1';
+                }
+            }
 
-            //    // at this point, masked value is either int 0 or 1
-            //    result[bitCount - bit - 1] = maskedValue.ToString()[0]; // bits go right-to-left in usual Western Arabic-based notation
-            //}
+            value = new string(valueChar);
 
-            //return new string(result); // string from character array
+            return Convert.ToInt32(value, 2);
         }
 
         public static int[] RouletteWheelSelection(List<UnitEnemy> enemies)

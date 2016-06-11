@@ -31,9 +31,9 @@ namespace Warcraft
 
         public static Camera camera;
 
-        public static int GOLD = 50000;
+        public static int GOLD = 5000;
         public static int WOOD = 99999;
-        public static int FOOD = 50;
+        public static int FOOD = 5;
         public static int OIL = 99999;
         
         public Warcraft()
@@ -99,20 +99,15 @@ namespace Warcraft
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.transform);
             managerMap.Draw(spriteBatch);
+
+            managerEnemies.Draw(spriteBatch);
+            managerUnits.Draw(spriteBatch);
+            managerBuildings.Draw(spriteBatch);
+            managerMouse.Draw(spriteBatch);
             spriteBatch.End();
 
             spriteBatch.Begin();
             managerUI.DrawBack(spriteBatch);
-            spriteBatch.End();
-
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.transform);
-            managerMouse.Draw(spriteBatch);
-            managerUnits.Draw(spriteBatch);
-            managerEnemies.Draw(spriteBatch);
-            managerBuildings.Draw(spriteBatch);
-            spriteBatch.End();
-
-            spriteBatch.Begin();
             managerUI.Draw(spriteBatch);
             managerUnits.DrawUI(spriteBatch);
             managerEnemies.DrawUI(spriteBatch);

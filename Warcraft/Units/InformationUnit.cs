@@ -10,11 +10,11 @@ namespace Warcraft.Units
         public Race Race;
         public Faction Faction;
 
-        public float Damage;
-        public float Precision;
+        public int Damage;
+        public int Precision;
 
-        public float Armor;
-        public float Sight;
+        public int Armor;
+        public int Sight;
         public int MovementSpeed;
 
         public int Range;
@@ -23,8 +23,8 @@ namespace Warcraft.Units
 
         public float Fitness;
 
-        public InformationUnit(string name, Race race, Faction faction, float hitPoints, float armor, float sight, int movementSpeed,
-                            int costGold, int costFood, Util.Buildings produceAt, int buildTime, float damage, float precision, int range, 
+        public InformationUnit(string name, Race race, Faction faction, float hitPoints, int armor, int sight, int movementSpeed,
+                            int costGold, int costFood, Util.Buildings produceAt, int buildTime, int damage, int precision, int range, 
                             int spawn, Util.Units type)
         {
             Name = name;

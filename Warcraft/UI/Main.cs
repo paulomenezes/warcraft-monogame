@@ -82,9 +82,9 @@ namespace Warcraft.UI
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(font, "Gold: " + Warcraft.GOLD, new Vector2(minX, 10), Color.Black);
-            spriteBatch.DrawString(font, "Wood: " + Warcraft.WOOD, new Vector2(minX, 30), Color.Black);
-            spriteBatch.DrawString(font, "Food: " + Warcraft.FOOD, new Vector2(minX, 50), Color.Black);
-            spriteBatch.DrawString(font, "Oil: " + Warcraft.OIL, new Vector2(minX, 70), Color.Black);
+            spriteBatch.DrawString(font, "Food: " + Warcraft.FOOD, new Vector2(minX, 30), Color.Black);
+            //spriteBatch.DrawString(font, "Wood: " + Warcraft.WOOD, new Vector2(minX, 50), Color.Black);
+            //spriteBatch.DrawString(font, "Oil: " + Warcraft.OIL, new Vector2(minX, 70), Color.Black);
 
             if (!DrawIndividual)
                 buttons.ForEach((b) => b.Draw(spriteBatch));

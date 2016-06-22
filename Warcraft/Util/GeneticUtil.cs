@@ -15,7 +15,7 @@ namespace Warcraft.Util
         {
             string damage = IntToBinary(enemy.information.Damage);
             string armor = IntToBinary(enemy.information.Armor);
-            string hitPoints = FloatToBinary(enemy.information.HitPointsTotal);
+            string hitPoints = IntToBinary(Convert.ToInt32(enemy.information.HitPointsTotal));
             string sight = IntToBinary(enemy.information.Sight);
             string spawn = IntToBinary(enemy.information.Spawn);
             string precision = IntToBinary(enemy.information.Precision);
@@ -42,7 +42,7 @@ namespace Warcraft.Util
             int _spawn = BinaryToInt(spawn);
             int _type = BinaryToInt(type);
 
-            float _hitPoints = BinaryToFloat(hitPoints);
+            float _hitPoints = BinaryToInt(hitPoints);
 
             InformationUnit info = null;
             if (_type < 3)
@@ -55,13 +55,20 @@ namespace Warcraft.Util
 
         public static float BinaryToFloat(string value)
         {
+            int ii = Convert.ToInt32(value, 2);
+            byte[] bb = BitConverter.GetBytes(ii);
+            float cc = BitConverter.ToSingle(bb, 0);
+
             char[] valueChar = value.ToCharArray();
 
             for (int j = 0; j < valueChar.Length; j++)
             {
                 if (random.Next(0, 100) < 5)
                 {
-                    valueChar[j] = valueChar[j] == '1' ? '0' : '1';
+                    if (valueChar[j] == '1')
+                        valueChar[j] = '0';
+                    else
+                        valueChar[j] = '1';
                 }
             }
 
@@ -69,7 +76,9 @@ namespace Warcraft.Util
 
             int i = Convert.ToInt32(value, 2);
             byte[] b = BitConverter.GetBytes(i);
-            return BitConverter.ToSingle(b, 0);
+            float c = BitConverter.ToSingle(b, 0);
+
+            return c;
         }
 
         public static string FloatToBinary(float value)
@@ -92,7 +101,10 @@ namespace Warcraft.Util
             {
                 if (random.Next(0, 100) < 5)
                 {
-                    valueChar[j] = valueChar[j] == '1' ? '0' : '1';
+                    if (valueChar[j] == '1')
+                        valueChar[j] = '0';
+                    else
+                        valueChar[j] = '1';
                 }
             }
 
@@ -101,9 +113,10 @@ namespace Warcraft.Util
             return Convert.ToInt32(value, 2);
         }
 
-        public static int[] RouletteWheelSelection(List<UnitEnemy> enemies)
+        public static UnitEnemy[] RouletteWheelSelection(List<UnitEnemy> enemies)
         {
             enemies = enemies.OrderBy(e => e.information.Fitness).ToList();
+            enemies.Reverse();
 
             float[] fitness = new float[enemies.Count];
             for (int i = 0; i < fitness.Length; i++)
@@ -134,7 +147,33 @@ namespace Warcraft.Util
                     break;
             }
 
-            return index;
+            if (index[0] == index[1])
+                index = noRepeat(index, fitness);
+
+            return new UnitEnemy[2] { enemies[index[0]], enemies[index[1]] };
+        }
+
+        private static int[] noRepeat(int[] indexes, float[] fitness)
+        {
+            Random random = new Random();
+
+            while (indexes[0] == indexes[1])
+            {
+                indexes[1] = -1;
+
+                double value01 = random.NextDouble() * fitness[fitness.Length - 1];
+
+                for (int i = 0; i < fitness.Length; i++)
+                {
+                    if (indexes[1] == -1 && fitness[i] > value01)
+                        indexes[1] = i;
+
+                    if (indexes[1] != -1)
+                        break;
+                }
+            }
+
+            return indexes;
         }
     }
 }

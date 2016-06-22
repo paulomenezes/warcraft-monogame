@@ -47,20 +47,14 @@ namespace Warcraft.Units
             Damage = Math.Min(20, Math.Max(damage, 0));
             Precision = Math.Min(100, Math.Max(precision, 1));
 
-            Spawn = (int)Math.Min(0, Math.Max(spawn, 4));
+            Spawn = Math.Min(4, Math.Max(spawn, 0));
 
             Type = type;
         }
 
         public override string ToString()
         {
-            return "Type: " + Type + 
-                 "\nHitpoints: " + HitPointsTotal + 
-                 "\nArmor: " + Armor + 
-                 "\nSight: " + Sight +
-                 "\nDamage: " + Damage + 
-                 "\nPrecision: " + Precision +
-                 "\n\n";
+            return Type + "," + HitPointsTotal + "," + Armor + "," + Sight + "," + Damage + "," + Precision + "," + Spawn + "\n";
         }
     }
 }

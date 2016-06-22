@@ -52,7 +52,13 @@ namespace Warcraft.Managers
 
         public void LoadContent()
         {
-            enemies.ForEach((u) => u.LoadContent(content));
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                if (enemies[i].information.HitPoints > 0)
+                    enemies[i].LoadContent(content);
+            }
+
+            Console.WriteLine("#--------------#");
         }
 
         public void LoadContent(ContentManager content)
@@ -77,17 +83,20 @@ namespace Warcraft.Managers
 
             if (alives == 0)
             {
+                string s = "";
                 List<UnitEnemy> waveDead = new List<UnitEnemy>();
                 for (int i = wavesEnemies * generation; i < (wavesEnemies * generation) + (wavesEnemies); i++)
                 {
                     waveDead.Add(enemies[i]);
+
+                    s += (enemies[i].information.Fitness + ", ");
                 }
 
                 for (int i = 0; i < waveDead.Count / 2; i++)
                 {
-                    int[] indexes = GeneticUtil.RouletteWheelSelection(waveDead);
-                    string[] parent01 = GeneticUtil.Encode(waveDead[indexes[0]]);
-                    string[] parent02 = GeneticUtil.Encode(waveDead[indexes[1]]);
+                    UnitEnemy[] indexes = GeneticUtil.RouletteWheelSelection(waveDead);
+                    string[] parent01 = GeneticUtil.Encode(indexes[0]);
+                    string[] parent02 = GeneticUtil.Encode(indexes[1]);
 
                     int cut = random.Next(0, parent01.Length);
 
@@ -130,10 +139,21 @@ namespace Warcraft.Managers
                         enemies.Add(new TrollAxethrower(info02, managerMouse, managerMap, managerBuildings));
                 }
 
+                Console.WriteLine(s);
+
                 generation++;
 
                 LoadContent();
             }
+
+            //for (int i = 0; i < enemies.Count; i++)
+            //{
+            //    if (enemies[i].information.HitPoints > 0)
+            //    {
+            //        enemies[i].information.HitPoints = 0;
+            //        enemies[i].information.Fitness = random.Next(0, 500);
+            //    }
+            //}
         }
 
         public void Draw(SpriteBatch spriteBatch)

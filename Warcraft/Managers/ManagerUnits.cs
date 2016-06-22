@@ -29,10 +29,10 @@ namespace Warcraft.Managers
 
             units.Add(new Peasant(23, 23, managerMouse, managerMap, managerBuildings, this));
 
-            for (int i = 0; i < 40; i++)
-            {
-                units.Add(new ElvenArcher(24, 23, managerMouse, managerMap, managerBuildings, this));
-            }
+            //for (int i = 0; i < 40; i++)
+            //{
+            //    units.Add(new ElvenArcher(24, 23, managerMouse, managerMap, managerBuildings, this));
+            //}
         }
 
         public void Factory(Util.Units type, int x, int y, int targetX, int targetY)

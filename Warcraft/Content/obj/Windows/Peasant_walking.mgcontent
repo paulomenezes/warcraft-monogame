@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/Peasant_walking.png</SourceFile>
-  <SourceTime>2016-04-23T00:34:54.2904186-03:00</SourceTime>
-  <DestFile>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/bin/Windows/Peasant_walking.xnb</DestFile>
-  <DestTime>2016-05-20T23:30:28.0744928-03:00</DestTime>
+  <SourceFile>E:/repositories/warcraft-monogame/Warcraft/Content/Peasant_walking.png</SourceFile>
+  <SourceTime>2016-07-02T11:31:19.9389479-03:00</SourceTime>
+  <DestFile>E:/repositories/warcraft-monogame/Warcraft/Content/bin/Windows/Peasant_walking.xnb</DestFile>
+  <DestTime>2016-07-02T14:08:04.0249006-03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2016-03-30T03:36:08-03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

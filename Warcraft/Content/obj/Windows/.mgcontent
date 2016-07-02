@@ -4,21 +4,22 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/Cursor.png</File>
-    <File>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/Peasant_walking.png</File>
-    <File>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/Summer Tiles.png</File>
-    <File>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/Font.spritefont</File>
-    <File>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/Icons.png</File>
-    <File>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/Human Buildings (Summer).png</File>
-    <File>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/Dwarven.png</File>
-    <File>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/Elven Archer.png</File>
-    <File>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/Footman.png</File>
-    <File>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/Knight.png</File>
-    <File>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/Mage.png</File>
-    <File>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/Peasant_gold.png</File>
-    <File>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/Peasant_dying.png</File>
-    <File>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/Troll Axethrower.png</File>
-    <File>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/axe.png</File>
-    <File>C:/Users/phgm/Documents/UFRPE/Warcraft/Warcraft/Content/arrow.png</File>
+    <File>E:/repositories/warcraft-monogame/Warcraft/Content/Cursor.png</File>
+    <File>E:/repositories/warcraft-monogame/Warcraft/Content/Peasant_walking.png</File>
+    <File>E:/repositories/warcraft-monogame/Warcraft/Content/Summer Tiles.png</File>
+    <File>E:/repositories/warcraft-monogame/Warcraft/Content/Font.spritefont</File>
+    <File>E:/repositories/warcraft-monogame/Warcraft/Content/Icons.png</File>
+    <File>E:/repositories/warcraft-monogame/Warcraft/Content/Human Buildings (Summer).png</File>
+    <File>E:/repositories/warcraft-monogame/Warcraft/Content/Dwarven.png</File>
+    <File>E:/repositories/warcraft-monogame/Warcraft/Content/Elven Archer.png</File>
+    <File>E:/repositories/warcraft-monogame/Warcraft/Content/Footman.png</File>
+    <File>E:/repositories/warcraft-monogame/Warcraft/Content/Knight.png</File>
+    <File>E:/repositories/warcraft-monogame/Warcraft/Content/Mage.png</File>
+    <File>E:/repositories/warcraft-monogame/Warcraft/Content/Peasant_gold.png</File>
+    <File>E:/repositories/warcraft-monogame/Warcraft/Content/Peasant_dying.png</File>
+    <File>E:/repositories/warcraft-monogame/Warcraft/Content/Troll Axethrower.png</File>
+    <File>E:/repositories/warcraft-monogame/Warcraft/Content/axe.png</File>
+    <File>E:/repositories/warcraft-monogame/Warcraft/Content/arrow.png</File>
+    <File>E:/repositories/warcraft-monogame/Warcraft/Content/Grunt.png</File>
   </SourceFiles>
 </SourceFileCollection>

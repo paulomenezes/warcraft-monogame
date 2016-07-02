@@ -41,3 +41,45 @@ C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\Pe
 C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\Troll Axethrower.xnb
 C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\axe.xnb
 C:\Users\phgm\Documents\UFRPE\Warcraft\Warcraft\bin\Windows\x86\Debug\Content\arrow.xnb
+E:\repositories\warcraft-monogame\Warcraft\obj\x86\Debug\Warcraft.exe
+E:\repositories\warcraft-monogame\Warcraft\obj\x86\Debug\Warcraft.pdb
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\Content\arrow.xnb
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\Content\axe.xnb
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\Content\Cursor.xnb
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\Content\Dwarven.xnb
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\Content\Elven Archer.xnb
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\Content\Font.xnb
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\Content\Footman.xnb
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\Content\Human Buildings (Summer).xnb
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\Content\Icons.xnb
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\Content\Knight.xnb
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\Content\Mage.xnb
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\Content\Peasant_dying.xnb
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\Content\Peasant_gold.xnb
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\Content\Peasant_walking.xnb
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\Content\Summer Tiles.xnb
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\Content\Troll Axethrower.xnb
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\Warcraft.exe
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\Warcraft.pdb
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\MonoGame.Framework.dll
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\SharpDX.MediaFoundation.dll
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\SharpDX.dll
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\SharpDX.XAudio2.dll
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\SharpDX.DXGI.dll
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\SharpDX.Direct3D11.dll
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\SharpDX.Direct2D1.dll
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\SharpDX.XInput.dll
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\SharpDX.RawInput.dll
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\SharpDX.Direct3D9.dll
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\MonoGame.Framework.xml
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\SharpDX.MediaFoundation.xml
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\SharpDX.xml
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\SharpDX.XAudio2.xml
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\SharpDX.DXGI.xml
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\SharpDX.Direct3D11.xml
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\SharpDX.XInput.xml
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\SharpDX.RawInput.xml
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
+E:\repositories\warcraft-monogame\Warcraft\obj\x86\Debug\Warcraft.csprojResolveAssemblyReference.cache
+E:\repositories\warcraft-monogame\Warcraft\bin\Windows\x86\Debug\Content\Grunt.xnb
